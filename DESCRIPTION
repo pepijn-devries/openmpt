@@ -1,13 +1,16 @@
 Package: openmpt
 Title: Open ModPlug Tracker port for R
-Version: 0.0.0.9000
-Authors@R:
+Version: 0.0.0.9001
+Authors@R: c(
     person("Pepijn", "de Vries", role = c("aut", "cre"),
-    email = "pepijn.devries@outlook.com",
-    comment = c(ORCID = "0000-0002-7961-6646"))
-Author:
-    Pepijn de Vries [aut, cre] (0000-0002-7961-6646)
-Description: What the package does (one paragraph).
+      email = "pepijn.devries@outlook.com",
+      comment = c(ORCID = "0000-0002-7961-6646")),
+    person("Jeroen", "Ooms", role = "ctb",
+      email = "jeroenooms@gmail.com",
+      comment = c(ORCID = "0000-0002-4035-0289")),
+    person("OpenMPT Project Developers and Contributors", role = "cph")
+    )
+Description: TODO.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
