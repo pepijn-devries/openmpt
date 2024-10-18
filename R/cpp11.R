@@ -3,3 +3,35 @@
 lompt_version <- function() {
   .Call(`_openmpt_lompt_version`)
 }
+
+ctl_get_text_ <- function(mod, ctl) {
+  .Call(`_openmpt_ctl_get_text_`, mod, ctl)
+}
+
+format_pattern_row_channel_ <- function(mod, pattern, row, channel, width, pad) {
+  .Call(`_openmpt_format_pattern_row_channel_`, mod, pattern, row, channel, width, pad)
+}
+
+lompt_get_string_ <- function(key) {
+  .Call(`_openmpt_lompt_get_string_`, key)
+}
+
+get_metadata_keys_ <- function(mod) {
+  .Call(`_openmpt_get_metadata_keys_`, mod)
+}
+
+get_duration_seconds_ <- function(mod) {
+  .Call(`_openmpt_get_duration_seconds_`, mod)
+}
+
+get_metadata_ <- function(mod, key) {
+  .Call(`_openmpt_get_metadata_`, mod, key)
+}
+
+read_from_raw_ <- function(data) {
+  .Call(`_openmpt_read_from_raw_`, data)
+}
+
+render_ <- function(mod, n_samples, sample_rate) {
+  .Call(`_openmpt_render_`, mod, n_samples, sample_rate)
+}

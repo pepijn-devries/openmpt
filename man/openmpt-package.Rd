@@ -6,10 +6,16 @@
 \alias{openmpt-package}
 \title{openmpt: Open ModPlug Tracker port for R}
 \description{
-What the package does (one paragraph).
+TODO.
 }
 \author{
 \strong{Maintainer}: Pepijn de Vries \email{pepijn.devries@outlook.com} (\href{https://orcid.org/0000-0002-7961-6646}{ORCID})
+
+Other contributors:
+\itemize{
+  \item Jeroen Ooms \email{jeroenooms@gmail.com} (\href{https://orcid.org/0000-0002-4035-0289}{ORCID}) [contributor]
+  \item OpenMPT Project Developers and Contributors [copyright holder]
+}
 
 }
 \keyword{internal}
