@@ -8,7 +8,7 @@
 PKG_CONFIG_NAME="libopenmpt"
 PKG_DEB_NAME="libopenmpt-dev"
 PKG_RPM_NAME="libopenmpt-devel"
-PKG_TEST_HEADER="<libopenmpt.h>"
+PKG_TEST_HEADER="<libopenmpt/libopenmpt.h>"
 PKG_LIBS="-llibopenmpt"
 
 # Use pkg-config if available
@@ -56,14 +56,6 @@ if [ $? -ne 0 ]; then
   echo "--------------------------------------------------------------------"
   exit 1
 fi
-
-# On Linux we need to initiate SDL manually
-case "$PKG_CFLAGS" in
-  *SDL2*)
-    PKG_CFLAGS="$PKG_CFLAGS -DHAS_LIBSDL2"
-    PKG_LIBS="$PKG_LIBS -lSDL2"
-  ;;
-esac
 
 # Write to Makevars
 sed -e "s|@cflags@|$PKG_CFLAGS|" -e "s|@libs@|$PKG_LIBS|" src/Makevars.in > src/Makevars

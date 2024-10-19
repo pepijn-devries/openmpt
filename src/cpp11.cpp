@@ -5,11 +5,11 @@
 #include "cpp11/declarations.hpp"
 #include <R_ext/Visibility.h>
 
-// code.cpp
-int lompt_version();
-extern "C" SEXP _openmpt_lompt_version() {
+// audio.cpp
+SEXP play_(SEXP mod, int samplerate);
+extern "C" SEXP _openmpt_play_(SEXP mod, SEXP samplerate) {
   BEGIN_CPP11
-    return cpp11::as_sexp(lompt_version());
+    return cpp11::as_sexp(play_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<int>>(samplerate)));
   END_CPP11
 }
 // ctl.cpp
@@ -24,6 +24,13 @@ strings format_pattern_row_channel_(SEXP mod, int pattern, int row, int channel,
 extern "C" SEXP _openmpt_format_pattern_row_channel_(SEXP mod, SEXP pattern, SEXP row, SEXP channel, SEXP width, SEXP pad) {
   BEGIN_CPP11
     return cpp11::as_sexp(format_pattern_row_channel_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<int>>(pattern), cpp11::as_cpp<cpp11::decay_t<int>>(row), cpp11::as_cpp<cpp11::decay_t<int>>(channel), cpp11::as_cpp<cpp11::decay_t<int>>(width), cpp11::as_cpp<cpp11::decay_t<bool>>(pad)));
+  END_CPP11
+}
+// format.cpp
+strings_matrix<> format_pattern_(SEXP mod, int pattern, int width, bool pad);
+extern "C" SEXP _openmpt_format_pattern_(SEXP mod, SEXP pattern, SEXP width, SEXP pad) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(format_pattern_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<int>>(pattern), cpp11::as_cpp<cpp11::decay_t<int>>(width), cpp11::as_cpp<cpp11::decay_t<bool>>(pad)));
   END_CPP11
 }
 // info.cpp
@@ -72,12 +79,13 @@ extern "C" SEXP _openmpt_render_(SEXP mod, SEXP n_samples, SEXP sample_rate) {
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
     {"_openmpt_ctl_get_text_",               (DL_FUNC) &_openmpt_ctl_get_text_,               2},
+    {"_openmpt_format_pattern_",             (DL_FUNC) &_openmpt_format_pattern_,             4},
     {"_openmpt_format_pattern_row_channel_", (DL_FUNC) &_openmpt_format_pattern_row_channel_, 6},
     {"_openmpt_get_duration_seconds_",       (DL_FUNC) &_openmpt_get_duration_seconds_,       1},
     {"_openmpt_get_metadata_",               (DL_FUNC) &_openmpt_get_metadata_,               2},
     {"_openmpt_get_metadata_keys_",          (DL_FUNC) &_openmpt_get_metadata_keys_,          1},
     {"_openmpt_lompt_get_string_",           (DL_FUNC) &_openmpt_lompt_get_string_,           1},
-    {"_openmpt_lompt_version",               (DL_FUNC) &_openmpt_lompt_version,               0},
+    {"_openmpt_play_",                       (DL_FUNC) &_openmpt_play_,                       2},
     {"_openmpt_read_from_raw_",              (DL_FUNC) &_openmpt_read_from_raw_,              1},
     {"_openmpt_render_",                     (DL_FUNC) &_openmpt_render_,                     3},
     {NULL, NULL, 0}
