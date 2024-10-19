@@ -9,6 +9,8 @@ pattern(mod, pattern = 0L, width = 0L, pad = TRUE, ...)
 \arguments{
 \item{mod}{A tracker module object of class \code{openmpt}.}
 
+\item{pattern}{TODO}
+
 \item{width}{TODO}
 
 \item{pad}{TODO}

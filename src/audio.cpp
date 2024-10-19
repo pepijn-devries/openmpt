@@ -1,3 +1,4 @@
+#include <R_ext/Error.h>
 #include <cpp11.hpp>
 #include <libopenmpt/libopenmpt.hpp>
 #include <portaudiocpp/PortAudioCpp.hxx>
@@ -44,6 +45,7 @@ SEXP play_(SEXP mod, int samplerate) {
 #endif
     stream.start();
     while ( true ) {
+      R_CheckUserInterrupt();
       std::size_t count = is_interleaved ? my_mod->read_interleaved_stereo( samplerate, buffersize, interleaved_buffer.data() ) : my_mod->read( samplerate, buffersize, left.data(), right.data() );
       if ( count == 0 ) {
         break;
@@ -63,11 +65,9 @@ SEXP play_(SEXP mod, int samplerate) {
     }
     stream.stop();
   } catch ( const std::bad_alloc & ) {
-    std::cerr << "Error: " << std::string( "out of memory" ) << std::endl;
-    return R_NilValue;
+    Rf_error("Out of memory");
   } catch ( const std::exception & e ) {
-    std::cerr << "Error: " << std::string( e.what() ? e.what() : "unknown error" ) << std::endl;
-    return R_NilValue;
+    Rf_error("Error %s", std::string( e.what() ? e.what() : "unknown error" ).c_str());
   }
   return R_NilValue;
 }

@@ -2,6 +2,7 @@
 #' 
 #' TODO
 #' @param mod A tracker module object of class `openmpt`.
+#' @param pattern TODO
 #' @param width TODO
 #' @param pad TODO
 #' @param ... Ignored
