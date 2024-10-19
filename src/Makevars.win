@@ -1,6 +1,7 @@
 RWINLIB = ../windows/libopenmpt
-PKG_CPPFLAGS = -I$(RWINLIB)/include/libopenmpt -DLIBOPENMPT_NOT_A_DLL
-PKG_LIBS = -L$(RWINLIB)/lib -lopenmpt -lvorbisfile -lvorbis -logg -lmpg123 -lshlwapi -lsndfile -lz 
+PKG_CPPFLAGS = -I$(RWINLIB)/include -DLIBOPENMPT_NOT_A_DLL
+PKG_LIBS = -L$(RWINLIB)/lib -lopenmpt -lsndfile -lvorbisfile -lvorbis -logg -lopus \
+  -lmpg123 -lshlwapi -lportaudiocpp -lportaudio -lz -lwinmm -limm32 -lole32 -lsetupapi
 
 all: winlibs
 

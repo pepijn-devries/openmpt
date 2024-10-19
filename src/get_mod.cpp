@@ -1,5 +1,5 @@
 #include <cpp11.hpp>
-#include <libopenmpt.hpp>
+#include <libopenmpt/libopenmpt.hpp>
 using namespace cpp11;
 using namespace openmpt;
 
