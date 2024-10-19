@@ -5,11 +5,11 @@
 # R CMD INSTALL --configure-vars='INCLUDE_DIR=/.../include LIB_DIR=/.../lib'
 
 # Library settings
-PKG_CONFIG_NAME="libopenmpt"
-PKG_DEB_NAME="libopenmpt-dev"
-PKG_RPM_NAME="libopenmpt-devel"
+PKG_CONFIG_NAME="libopenmpt portaudio-2.0 portaudiocpp"
+PKG_DEB_NAME="libopenmpt-dev portaudio-dev"
+PKG_RPM_NAME="libopenmpt-devel portaudio-devel"
 PKG_TEST_HEADER="<libopenmpt/libopenmpt.h>"
-PKG_LIBS="-llibopenmpt"
+PKG_LIBS="-llibportaudio -llibportaudiocpp -llibopenmpt"
 
 # Use pkg-config if available
 if [ `command -v pkg-config` ]; then
