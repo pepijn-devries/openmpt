@@ -12,11 +12,13 @@
 #' @param ... Ignored
 #' @returns Returns `NULL` invisibly
 #' @examples
+#' \donttest{
 #' mod <- demo_mod()
 #' 
 #' destination <- tempfile(fileext = ".mp3")
 #' 
 #' convert_mod(mod, destination)
+#' }
 #' @export
 convert_mod <- function(mod, file, start_order = 0L, start_row = 0L,
                         sample_rate = 44100L, verbose = FALSE, ...) {
