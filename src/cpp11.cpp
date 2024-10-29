@@ -75,20 +75,6 @@ extern "C" SEXP _openmpt_read_from_raw_(SEXP data) {
     return cpp11::as_sexp(read_from_raw_(cpp11::as_cpp<cpp11::decay_t<raws>>(data)));
   END_CPP11
 }
-// module_ext.cpp
-SEXP set_channel_mute_status_(SEXP mod, int channel, bool status);
-extern "C" SEXP _openmpt_set_channel_mute_status_(SEXP mod, SEXP channel, SEXP status) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(set_channel_mute_status_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<int>>(channel), cpp11::as_cpp<cpp11::decay_t<bool>>(status)));
-  END_CPP11
-}
-// module_ext.cpp
-SEXP test_(SEXP mod, double position_seconds);
-extern "C" SEXP _openmpt_test_(SEXP mod, SEXP position_seconds) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(test_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<double>>(position_seconds)));
-  END_CPP11
-}
 // render.cpp
 SEXP render_(SEXP mod, std::string filename, int samplerate);
 extern "C" SEXP _openmpt_render_(SEXP mod, SEXP filename, SEXP samplerate) {
@@ -124,10 +110,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_openmpt_play_",                       (DL_FUNC) &_openmpt_play_,                       3},
     {"_openmpt_read_from_raw_",              (DL_FUNC) &_openmpt_read_from_raw_,              1},
     {"_openmpt_render_",                     (DL_FUNC) &_openmpt_render_,                     3},
-    {"_openmpt_set_channel_mute_status_",    (DL_FUNC) &_openmpt_set_channel_mute_status_,    3},
     {"_openmpt_set_position_order_row_",     (DL_FUNC) &_openmpt_set_position_order_row_,     3},
     {"_openmpt_set_position_seconds_",       (DL_FUNC) &_openmpt_set_position_seconds_,       2},
-    {"_openmpt_test_",                       (DL_FUNC) &_openmpt_test_,                       2},
     {NULL, NULL, 0}
 };
 }

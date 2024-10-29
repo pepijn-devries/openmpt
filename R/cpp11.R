@@ -40,14 +40,6 @@ read_from_raw_ <- function(data) {
   .Call(`_openmpt_read_from_raw_`, data)
 }
 
-set_channel_mute_status_ <- function(mod, channel, status) {
-  .Call(`_openmpt_set_channel_mute_status_`, mod, channel, status)
-}
-
-test_ <- function(mod, position_seconds) {
-  .Call(`_openmpt_test_`, mod, position_seconds)
-}
-
 render_ <- function(mod, filename, samplerate) {
   .Call(`_openmpt_render_`, mod, filename, samplerate)
 }
