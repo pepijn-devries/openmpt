@@ -11,6 +11,7 @@ Reads, renders and plays music tracker files using the libopenmpt library.
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://pepijn-devries.github.io/openmpt/}
   \item \url{https://github.com/pepijn-devries/openmpt}
   \item Report bugs at \url{https://github.com/pepijn-devries/openmpt/issues}
 }

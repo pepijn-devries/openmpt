@@ -1,6 +1,6 @@
 Package: openmpt
 Title: Open ModPlug Tracker port
-Version: 0.0.1
+Version: 0.0.1.0001
 Authors@R: c(
     person("Pepijn", "de Vries", role = c("aut", "cre"),
       email = "pepijn.devries@outlook.com",
@@ -27,5 +27,6 @@ SystemRequirements:
     libportaudio: portaudio-devel (rpm) or portaudio19-dev (deb).
     libportaudiocpp: portaudio-devel (rpm) or portaudio19-dev (deb).
 URL:
+    https://pepijn-devries.github.io/openmpt/,
     https://github.com/pepijn-devries/openmpt
 BugReports: https://github.com/pepijn-devries/openmpt/issues

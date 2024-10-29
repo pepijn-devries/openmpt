@@ -24,14 +24,15 @@ void pl_progress_report(module * mod, std::string * progress, uint32_t * counter
   } else if (progress->compare("vu") == 0) {
 
     uint8_t vu_meter = MAX_VU_METER * *vu/ stepsize;
-    Rprintf("\r", vu_meter);
+    std::string vu_meter_s = "\r";
     for (uint8_t j = 0; j < MAX_VU_METER; j++) {
       if (j < vu_meter) {
-        Rprintf("\u25A0");
+        vu_meter_s.append("\u25A0");
       } else {
-        Rprintf(" ");
+        vu_meter_s.append(" ");
       }
     }
+    Rprintf(vu_meter_s.c_str());
     *vu = 0;
 
   } else if (progress->compare("time") == 0) {
