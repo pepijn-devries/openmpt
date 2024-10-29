@@ -40,6 +40,46 @@ read_from_raw_ <- function(data) {
   .Call(`_openmpt_read_from_raw_`, data)
 }
 
+set_channel_mute_status_ <- function(mod, channel, status) {
+  .Call(`_openmpt_set_channel_mute_status_`, mod, channel, status)
+}
+
+get_channel_mute_status_ <- function(mod, channel) {
+  .Call(`_openmpt_get_channel_mute_status_`, mod, channel)
+}
+
+set_global_volume_ <- function(mod, volume) {
+  .Call(`_openmpt_set_global_volume_`, mod, volume)
+}
+
+get_global_volume_ <- function(mod) {
+  .Call(`_openmpt_get_global_volume_`, mod)
+}
+
+set_channel_volume_ <- function(mod, channel, volume) {
+  .Call(`_openmpt_set_channel_volume_`, mod, channel, volume)
+}
+
+get_channel_volume_ <- function(mod, channel) {
+  .Call(`_openmpt_get_channel_volume_`, mod, channel)
+}
+
+set_pitch_factor_ <- function(mod, factor) {
+  .Call(`_openmpt_set_pitch_factor_`, mod, factor)
+}
+
+get_pitch_factor_ <- function(mod) {
+  .Call(`_openmpt_get_pitch_factor_`, mod)
+}
+
+set_tempo_factor_ <- function(mod, factor) {
+  .Call(`_openmpt_set_tempo_factor_`, mod, factor)
+}
+
+get_tempo_factor_ <- function(mod) {
+  .Call(`_openmpt_get_tempo_factor_`, mod)
+}
+
 render_ <- function(mod, filename, samplerate) {
   .Call(`_openmpt_render_`, mod, filename, samplerate)
 }

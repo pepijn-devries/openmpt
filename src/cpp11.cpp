@@ -75,6 +75,76 @@ extern "C" SEXP _openmpt_read_from_raw_(SEXP data) {
     return cpp11::as_sexp(read_from_raw_(cpp11::as_cpp<cpp11::decay_t<raws>>(data)));
   END_CPP11
 }
+// module_ext.cpp
+SEXP set_channel_mute_status_(SEXP mod, int channel, bool status);
+extern "C" SEXP _openmpt_set_channel_mute_status_(SEXP mod, SEXP channel, SEXP status) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(set_channel_mute_status_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<int>>(channel), cpp11::as_cpp<cpp11::decay_t<bool>>(status)));
+  END_CPP11
+}
+// module_ext.cpp
+bool get_channel_mute_status_(SEXP mod, int channel);
+extern "C" SEXP _openmpt_get_channel_mute_status_(SEXP mod, SEXP channel) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(get_channel_mute_status_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<int>>(channel)));
+  END_CPP11
+}
+// module_ext.cpp
+SEXP set_global_volume_(SEXP mod, double volume);
+extern "C" SEXP _openmpt_set_global_volume_(SEXP mod, SEXP volume) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(set_global_volume_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<double>>(volume)));
+  END_CPP11
+}
+// module_ext.cpp
+double get_global_volume_(SEXP mod);
+extern "C" SEXP _openmpt_get_global_volume_(SEXP mod) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(get_global_volume_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod)));
+  END_CPP11
+}
+// module_ext.cpp
+SEXP set_channel_volume_(SEXP mod, int channel, double volume);
+extern "C" SEXP _openmpt_set_channel_volume_(SEXP mod, SEXP channel, SEXP volume) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(set_channel_volume_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<int>>(channel), cpp11::as_cpp<cpp11::decay_t<double>>(volume)));
+  END_CPP11
+}
+// module_ext.cpp
+double get_channel_volume_(SEXP mod, int channel);
+extern "C" SEXP _openmpt_get_channel_volume_(SEXP mod, SEXP channel) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(get_channel_volume_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<int>>(channel)));
+  END_CPP11
+}
+// module_ext.cpp
+SEXP set_pitch_factor_(SEXP mod, double factor);
+extern "C" SEXP _openmpt_set_pitch_factor_(SEXP mod, SEXP factor) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(set_pitch_factor_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<double>>(factor)));
+  END_CPP11
+}
+// module_ext.cpp
+double get_pitch_factor_(SEXP mod);
+extern "C" SEXP _openmpt_get_pitch_factor_(SEXP mod) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(get_pitch_factor_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod)));
+  END_CPP11
+}
+// module_ext.cpp
+SEXP set_tempo_factor_(SEXP mod, double factor);
+extern "C" SEXP _openmpt_set_tempo_factor_(SEXP mod, SEXP factor) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(set_tempo_factor_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<double>>(factor)));
+  END_CPP11
+}
+// module_ext.cpp
+double get_tempo_factor_(SEXP mod);
+extern "C" SEXP _openmpt_get_tempo_factor_(SEXP mod) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(get_tempo_factor_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod)));
+  END_CPP11
+}
 // render.cpp
 SEXP render_(SEXP mod, std::string filename, int samplerate);
 extern "C" SEXP _openmpt_render_(SEXP mod, SEXP filename, SEXP samplerate) {
@@ -102,16 +172,26 @@ static const R_CallMethodDef CallEntries[] = {
     {"_openmpt_ctl_get_text_",               (DL_FUNC) &_openmpt_ctl_get_text_,               2},
     {"_openmpt_format_pattern_",             (DL_FUNC) &_openmpt_format_pattern_,             4},
     {"_openmpt_format_pattern_row_channel_", (DL_FUNC) &_openmpt_format_pattern_row_channel_, 6},
+    {"_openmpt_get_channel_mute_status_",    (DL_FUNC) &_openmpt_get_channel_mute_status_,    2},
+    {"_openmpt_get_channel_volume_",         (DL_FUNC) &_openmpt_get_channel_volume_,         2},
     {"_openmpt_get_duration_seconds_",       (DL_FUNC) &_openmpt_get_duration_seconds_,       1},
+    {"_openmpt_get_global_volume_",          (DL_FUNC) &_openmpt_get_global_volume_,          1},
     {"_openmpt_get_metadata_",               (DL_FUNC) &_openmpt_get_metadata_,               2},
     {"_openmpt_get_metadata_keys_",          (DL_FUNC) &_openmpt_get_metadata_keys_,          1},
+    {"_openmpt_get_pitch_factor_",           (DL_FUNC) &_openmpt_get_pitch_factor_,           1},
     {"_openmpt_get_position_seconds_",       (DL_FUNC) &_openmpt_get_position_seconds_,       1},
+    {"_openmpt_get_tempo_factor_",           (DL_FUNC) &_openmpt_get_tempo_factor_,           1},
     {"_openmpt_lompt_get_string_",           (DL_FUNC) &_openmpt_lompt_get_string_,           1},
     {"_openmpt_play_",                       (DL_FUNC) &_openmpt_play_,                       3},
     {"_openmpt_read_from_raw_",              (DL_FUNC) &_openmpt_read_from_raw_,              1},
     {"_openmpt_render_",                     (DL_FUNC) &_openmpt_render_,                     3},
+    {"_openmpt_set_channel_mute_status_",    (DL_FUNC) &_openmpt_set_channel_mute_status_,    3},
+    {"_openmpt_set_channel_volume_",         (DL_FUNC) &_openmpt_set_channel_volume_,         3},
+    {"_openmpt_set_global_volume_",          (DL_FUNC) &_openmpt_set_global_volume_,          2},
+    {"_openmpt_set_pitch_factor_",           (DL_FUNC) &_openmpt_set_pitch_factor_,           2},
     {"_openmpt_set_position_order_row_",     (DL_FUNC) &_openmpt_set_position_order_row_,     3},
     {"_openmpt_set_position_seconds_",       (DL_FUNC) &_openmpt_set_position_seconds_,       2},
+    {"_openmpt_set_tempo_factor_",           (DL_FUNC) &_openmpt_set_tempo_factor_,           2},
     {NULL, NULL, 0}
 };
 }
