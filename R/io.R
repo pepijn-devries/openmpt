@@ -7,7 +7,13 @@
 #' @returns A `modplug` class object. It is an external pointer, pointing to the module object
 #' in memory. It can be used for rendering audio.
 #' @examples
-#' mod <- read_mod("https://api.modarchive.org/downloads.php?moduleid=41529#elektric_funk.mod")
+#' ## You can read from files
+#' mod1 <- read_mod(system.file("cyberrid", "cyberrid.mod", package = "openmpt"))
+#' 
+#' \donttest{
+#' ## but also URLs
+#' mod2 <- read_mod("https://api.modarchive.org/downloads.php?moduleid=41529#elektric_funk.mod")
+#' }
 #' @export
 read_mod <- function(file, ...) {
   x <- raw()

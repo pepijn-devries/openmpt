@@ -4,9 +4,17 @@
 \name{openmpt-package}
 \alias{openmpt}
 \alias{openmpt-package}
-\title{openmpt: Open ModPlug Tracker port for R}
+\title{openmpt: Open ModPlug Tracker port}
 \description{
-TODO.
+Reads, renders and plays music tracker files using the libopenmpt library.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/pepijn-devries/openmpt}
+  \item Report bugs at \url{https://github.com/pepijn-devries/openmpt/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Pepijn de Vries \email{pepijn.devries@outlook.com} (\href{https://orcid.org/0000-0002-7961-6646}{ORCID})
@@ -14,6 +22,7 @@ TODO.
 Other contributors:
 \itemize{
   \item Jeroen Ooms \email{jeroenooms@gmail.com} (\href{https://orcid.org/0000-0002-4035-0289}{ORCID}) [contributor]
+  \item Jester (Copyright holder of cyberrid.mod) [copyright holder, data contributor]
   \item OpenMPT Project Developers and Contributors [copyright holder]
 }
 
