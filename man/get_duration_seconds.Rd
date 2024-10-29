@@ -12,11 +12,12 @@ get_duration_seconds(mod, ...)
 \item{...}{Ignored}
 }
 \value{
-TODO
+Returns a \code{numeric} value indicating the song duration in seconds.
 }
 \description{
-TODO
+Get the duration of the song from a \code{openmpt} class module object in seconds.
 }
 \examples{
-# TODO
+mod <- demo_mod()
+get_duration_seconds(mod)
 }

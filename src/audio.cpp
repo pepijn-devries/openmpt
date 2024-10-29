@@ -5,10 +5,48 @@
 using namespace cpp11;
 using namespace openmpt;
 
+#define MAX_VU_METER 20
+
 module * get_mod(SEXP mod); // specified in get_mod.cpp
 
+void pl_progress_report(module * mod, std::string * progress, uint32_t * counter, float * vu) {
+  uint32_t stepsize = 5;
+  uint32_t n_channels = mod->get_num_channels();
+  float delta = 0;
+  for (uint32_t i = 0; i < n_channels; i++) {
+    float temp = mod->get_current_channel_vu_mono(i)/1.414214;
+    delta += temp*temp;
+  }
+  *vu += std::sqrt(delta) / std::sqrt(n_channels);
+  if (progress->compare("none") == 0 || *counter % stepsize != 0) {
+    return;
+
+  } else if (progress->compare("vu") == 0) {
+
+    uint8_t vu_meter = MAX_VU_METER * *vu/ stepsize;
+    Rprintf("\r", vu_meter);
+    for (uint8_t j = 0; j < MAX_VU_METER; j++) {
+      if (j < vu_meter) {
+        Rprintf("\u25A0");
+      } else {
+        Rprintf(" ");
+      }
+    }
+    *vu = 0;
+
+  } else if (progress->compare("time") == 0) {
+
+    float secs = mod->get_position_seconds();
+    float total = mod->get_duration_seconds();
+    Rprintf("\r%02i:%02i (%02i:%02i)",
+            ((int)(secs/60))%60,  ((int)secs)%60,
+            ((int)(total/60))%60,  ((int)total)%60);
+  }
+  return;
+}
+
 [[cpp11::register]]
-SEXP play_(SEXP mod, int samplerate) {
+SEXP play_(SEXP mod, int samplerate, std::string progress) {
   module * my_mod = get_mod(mod);
   try {
     constexpr std::size_t buffersize = 480;
@@ -44,7 +82,12 @@ SEXP play_(SEXP mod, int samplerate) {
     }();
 #endif
     stream.start();
+    uint32_t counter = 0;
+    float vu = 0;
+    Rprintf("Press [Esc] to pause\n");
     while ( true ) {
+      pl_progress_report(my_mod, &progress, &counter, &vu);
+      counter++;
       R_CheckUserInterrupt();
       std::size_t count = is_interleaved ? my_mod->read_interleaved_stereo( samplerate, buffersize, interleaved_buffer.data() ) : my_mod->read( samplerate, buffersize, left.data(), right.data() );
       if ( count == 0 ) {

@@ -4,24 +4,28 @@
 \alias{play}
 \title{Play a ModPlug Tracker module}
 \usage{
-play(mod, sample_rate = 44100L, ...)
+play(mod, sample_rate = 44100L, progress = "vu", ...)
 }
 \arguments{
 \item{mod}{A tracker module object of class \code{openmpt}.}
 
 \item{sample_rate}{Output sample rate when playing the module.}
 
+\item{progress}{Progress printed to console while playing. Should be one of
+\code{"vu"} (indicative volume meter), \code{"time"} (shows timer) or \code{"none"} (don't show progress).
+If your audio is stuttering you might want to set this to \code{"none"} to save processing speed.}
+
 \item{...}{Ignored}
 }
 \value{
-\code{NULL}
+Returns \code{NULL} invisibly.
 }
 \description{
-TODO
+Renders a module tracker object of class \code{openmpt} and plays it instantaneously.
 }
 \examples{
 \dontrun{
-mod <- read_mod("https://api.modarchive.org/downloads.php?moduleid=41529#elektric_funk.mod")
+mod <- demo_mod()
 play(mod)
 }
 }

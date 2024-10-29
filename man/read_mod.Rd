@@ -20,5 +20,11 @@ Read any of the music tracker module file formats supported by libopenmpt:
 \url{https://wiki.openmpt.org/Manual:_Module_formats}.
 }
 \examples{
-mod <- read_mod("https://api.modarchive.org/downloads.php?moduleid=41529#elektric_funk.mod")
+## You can read from files
+mod1 <- read_mod(system.file("cyberrid", "cyberrid.mod", package = "openmpt"))
+
+\donttest{
+## but also URLs
+mod2 <- read_mod("https://api.modarchive.org/downloads.php?moduleid=41529#elektric_funk.mod")
+}
 }

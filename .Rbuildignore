@@ -5,3 +5,4 @@
 ^windows$
 ^README\.Rmd$
 ^\.github$
+^CODE_OF_CONDUCT\.md$

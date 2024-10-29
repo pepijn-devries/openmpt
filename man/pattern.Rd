@@ -9,11 +9,11 @@ pattern(mod, pattern = 0L, width = 0L, pad = TRUE, ...)
 \arguments{
 \item{mod}{A tracker module object of class \code{openmpt}.}
 
-\item{pattern}{TODO}
+\item{pattern}{The pattern index (starting at \code{0}) of the pattern to get.}
 
-\item{width}{TODO}
+\item{width}{The maximum number of characters the string should contain. \code{0} means no limit.}
 
-\item{pad}{TODO}
+\item{pad}{If \code{TRUE}, the string will be resized to the exact length provided in the width parameter.}
 
 \item{...}{Ignored}
 }
@@ -22,8 +22,10 @@ A \code{matrix} of pattern cells formatted as \code{character} strings. Each col
 an audio channel.
 }
 \description{
-TODO
+Collects a specific pattern table from a tracker module and presents it as
+a matrix of formatted \code{character} strings.
 }
 \examples{
-# TODO
+mod <- demo_mod()
+pattern(mod)
 }

@@ -8,7 +8,7 @@ module * get_mod(SEXP mod); // specified in get_mod.cpp
 [[cpp11::register]]
 SEXP lompt_get_string_(const char * key) {
   r_string result(
-      string::get(key) // TODO get seems to be deprecated
+      string::get(key)
   );
   return writable::strings(result);
 }
@@ -28,6 +28,12 @@ strings get_metadata_keys_(SEXP mod) {
 double get_duration_seconds_(SEXP mod) {
   module * my_mod = get_mod(mod);
   return my_mod->get_duration_seconds();
+}
+
+[[cpp11::register]]
+double get_position_seconds_(SEXP mod) {
+  module * my_mod = get_mod(mod);
+  return my_mod->get_position_seconds();
 }
 
 [[cpp11::register]]

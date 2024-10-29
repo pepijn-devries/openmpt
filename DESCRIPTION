@@ -1,6 +1,6 @@
 Package: openmpt
-Title: Open ModPlug Tracker port for R
-Version: 0.0.0.9006
+Title: Open ModPlug Tracker port
+Version: 0.0.1
 Authors@R: c(
     person("Pepijn", "de Vries", role = c("aut", "cre"),
       email = "pepijn.devries@outlook.com",
@@ -8,13 +8,24 @@ Authors@R: c(
     person("Jeroen", "Ooms", role = "ctb",
       email = "jeroenooms@gmail.com",
       comment = c(ORCID = "0000-0002-4035-0289")),
+    person("Jester", role = c("cph", "dtc"),
+      comment = "Copyright holder of cyberrid.mod"),
     person("OpenMPT Project Developers and Contributors", role = "cph")
     )
-Description: TODO.
+Description: Reads, renders and plays music tracker files using
+    the libopenmpt library.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Imports:
+    av
 LinkingTo: 
     cpp11
-SystemRequirements: libopenmpt: libopenmpt-devel (rpm) or libopenmpt-dev (deb).
+SystemRequirements:
+    libopenmpt: libopenmpt-devel (rpm) or libopenmpt-dev (deb).
+    libportaudio: portaudio-devel (rpm) or portaudio19-dev (deb).
+    libportaudiocpp: portaudio-devel (rpm) or portaudio19-dev (deb).
+URL:
+    https://github.com/pepijn-devries/openmpt
+BugReports: https://github.com/pepijn-devries/openmpt/issues

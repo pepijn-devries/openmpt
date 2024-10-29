@@ -2,23 +2,31 @@
 % Please edit documentation in R/info.R
 \name{get_metadata}
 \alias{get_metadata}
+\alias{get_metadata_keys}
 \title{Get ModPlug Tracker module meta data}
 \usage{
 get_metadata(mod, key = "title", ...)
+
+get_metadata_keys(mod, ...)
 }
 \arguments{
 \item{mod}{A tracker module object of class \code{openmpt}.}
 
-\item{key}{TODO}
+\item{key}{A key as listed by \code{\link[=get_metadata_keys]{get_metadata_keys()}}.}
 
 \item{...}{Ignored}
 }
 \value{
-TODO
+A list of available keys in case of \code{\link[=get_metadata_keys]{get_metadata_keys()}}, the requested
+information in case of \code{\link[=get_metadata]{get_metadata()}}.
 }
 \description{
-TODO
+Get meta data of a tracker module such as its \code{"type"}, \code{"title"} and \code{"tracker"}.
+Use \code{\link[=get_metadata_keys]{get_metadata_keys()}} to get the available keys for a module object.
 }
 \examples{
-# TODO
+mod <- demo_mod()
+get_metadata_keys(mod)
+
+get_metadata(mod, "tracker")
 }
