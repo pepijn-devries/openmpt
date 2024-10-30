@@ -38,9 +38,11 @@ Renders ModPlug Tracker music to an audio file and encodes it to a desired
 output format (e.g. .mp3, .ogg, etc) using \code{\link[av:encoding]{av::av_audio_convert()}}.
 }
 \examples{
+\donttest{
 mod <- demo_mod()
 
 destination <- tempfile(fileext = ".mp3")
 
 convert_mod(mod, destination)
+}
 }

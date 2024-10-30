@@ -3,10 +3,8 @@
 #include <vector>
 #include <cpp11.hpp>
 #include <libopenmpt/libopenmpt.hpp>
-#include <boost/endian/conversion.hpp>
 using namespace cpp11;
 using namespace openmpt;
-using namespace boost::endian;
 
 #define WAV_HEADER_SIZE 44
 

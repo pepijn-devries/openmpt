@@ -1,5 +1,5 @@
-#include <R_ext/Error.h>
 #include <cpp11.hpp>
+#include <R_ext/Error.h>
 #include <libopenmpt/libopenmpt.hpp>
 #include <portaudiocpp/PortAudioCpp.hxx>
 using namespace cpp11;
@@ -32,7 +32,7 @@ void pl_progress_report(module * mod, std::string * progress, uint32_t * counter
         vu_meter_s.append(" ");
       }
     }
-    Rprintf(vu_meter_s.c_str());
+    Rprintf("%s", vu_meter_s.c_str());
     *vu = 0;
 
   } else if (progress->compare("time") == 0) {

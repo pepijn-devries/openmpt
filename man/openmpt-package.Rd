@@ -6,6 +6,8 @@
 \alias{openmpt-package}
 \title{openmpt: Open ModPlug Tracker port}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Reads, renders and plays music tracker files using the libopenmpt library.
 }
 \seealso{
