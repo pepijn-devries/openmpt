@@ -1,0 +1,23 @@
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>/LICENSE.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/convert_mod.html</loc></url>
+<url><loc>/reference/demo_mod.html</loc></url>
+<url><loc>/reference/get_duration_seconds.html</loc></url>
+<url><loc>/reference/get_metadata.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/openmpt-package.html</loc></url>
+<url><loc>/reference/openmpt_info.html</loc></url>
+<url><loc>/reference/pattern.html</loc></url>
+<url><loc>/reference/pitch-tempo.html</loc></url>
+<url><loc>/reference/play.html</loc></url>
+<url><loc>/reference/position.html</loc></url>
+<url><loc>/reference/read_mod.html</loc></url>
+<url><loc>/reference/s3methods.html</loc></url>
+<url><loc>/reference/volume-control.html</loc></url>
+</urlset>
+
