@@ -13,10 +13,38 @@ extern "C" SEXP _openmpt_play_(SEXP mod, SEXP samplerate, SEXP progress) {
   END_CPP11
 }
 // ctl.cpp
-strings ctl_get_text_(SEXP mod, std::string ctl);
+strings get_ctls_(SEXP mod);
+extern "C" SEXP _openmpt_get_ctls_(SEXP mod) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(get_ctls_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod)));
+  END_CPP11
+}
+// ctl.cpp
+std::string ctl_get_text_(SEXP mod, std::string ctl);
 extern "C" SEXP _openmpt_ctl_get_text_(SEXP mod, SEXP ctl) {
   BEGIN_CPP11
     return cpp11::as_sexp(ctl_get_text_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<std::string>>(ctl)));
+  END_CPP11
+}
+// ctl.cpp
+int ctl_get_int_(SEXP mod, std::string ctl);
+extern "C" SEXP _openmpt_ctl_get_int_(SEXP mod, SEXP ctl) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(ctl_get_int_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<std::string>>(ctl)));
+  END_CPP11
+}
+// ctl.cpp
+bool ctl_get_bool_(SEXP mod, std::string ctl);
+extern "C" SEXP _openmpt_ctl_get_bool_(SEXP mod, SEXP ctl) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(ctl_get_bool_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<std::string>>(ctl)));
+  END_CPP11
+}
+// ctl.cpp
+double ctl_get_double_(SEXP mod, std::string ctl);
+extern "C" SEXP _openmpt_ctl_get_double_(SEXP mod, SEXP ctl) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(ctl_get_double_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<std::string>>(ctl)));
   END_CPP11
 }
 // format.cpp
@@ -169,11 +197,15 @@ extern "C" SEXP _openmpt_set_position_order_row_(SEXP mod, SEXP order, SEXP row)
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
+    {"_openmpt_ctl_get_bool_",               (DL_FUNC) &_openmpt_ctl_get_bool_,               2},
+    {"_openmpt_ctl_get_double_",             (DL_FUNC) &_openmpt_ctl_get_double_,             2},
+    {"_openmpt_ctl_get_int_",                (DL_FUNC) &_openmpt_ctl_get_int_,                2},
     {"_openmpt_ctl_get_text_",               (DL_FUNC) &_openmpt_ctl_get_text_,               2},
     {"_openmpt_format_pattern_",             (DL_FUNC) &_openmpt_format_pattern_,             4},
     {"_openmpt_format_pattern_row_channel_", (DL_FUNC) &_openmpt_format_pattern_row_channel_, 6},
     {"_openmpt_get_channel_mute_status_",    (DL_FUNC) &_openmpt_get_channel_mute_status_,    2},
     {"_openmpt_get_channel_volume_",         (DL_FUNC) &_openmpt_get_channel_volume_,         2},
+    {"_openmpt_get_ctls_",                   (DL_FUNC) &_openmpt_get_ctls_,                   1},
     {"_openmpt_get_duration_seconds_",       (DL_FUNC) &_openmpt_get_duration_seconds_,       1},
     {"_openmpt_get_global_volume_",          (DL_FUNC) &_openmpt_get_global_volume_,          1},
     {"_openmpt_get_metadata_",               (DL_FUNC) &_openmpt_get_metadata_,               2},

@@ -5,11 +5,13 @@
 # R CMD INSTALL --configure-vars='INCLUDE_DIR=/.../include LIB_DIR=/.../lib'
 
 # Library settings
-PKG_CONFIG_NAME="libopenmpt portaudio-2.0 portaudiocpp"
+PKG_CONFIG_NAME="libopenmpt portaudio"
 PKG_DEB_NAME="libopenmpt-dev portaudio-dev"
 PKG_RPM_NAME="libopenmpt-devel portaudio-devel"
-PKG_TEST_HEADER="<libopenmpt/libopenmpt.h>"
+PKG_BREW_NAME="libopenmpt"
 PKG_LIBS="-llibportaudio -llibportaudiocpp -llibopenmpt"
+PKG_CFLAGS="-LIBOPENMPT_EXT_INTERFACE_INTERACTIVE"
+PKG_TEST_HEADER="\"inst/include/ropenmpt.hpp\""
 
 # Use pkg-config if available
 if [ `command -v pkg-config` ]; then
@@ -26,20 +28,29 @@ elif [ "$PKGCONFIG_CFLAGS" ] || [ "$PKGCONFIG_LIBS" ]; then
   echo "Found pkg-config cflags and libs!"
   PKG_CFLAGS=${PKGCONFIG_CFLAGS}
   PKG_LIBS=${PKGCONFIG_LIBS}
+elif [ `uname` = "Darwin" ]; then
+  test ! "$CI" && brew --version 2>/dev/null
+  if [ $? -eq 0 ]; then
+    BREWDIR=`brew --prefix`
+    PKG_CFLAGS="-I$BREWDIR/include $PKG_CFLAGS"
+    PKG_LIBS="-L$BREWDIR/lib $PKG_LIBS"
+  else
+    curl -sfL "https://autobrew.github.io/scripts/libopenmpt" > autobrew
+    . ./autobrew
+  fi
 fi
-
 
 # For debugging
 echo "Using PKG_CFLAGS=$PKG_CFLAGS"
 echo "Using PKG_LIBS=$PKG_LIBS"
 
 # Find compiler
-CC=`${R_HOME}/bin/R CMD config CC`
-CFLAGS=`${R_HOME}/bin/R CMD config CFLAGS`
+CXX=`${R_HOME}/bin/R CMD config CXX`
+CXXFLAGS=`${R_HOME}/bin/R CMD config CXXFLAGS`
 CPPFLAGS=`${R_HOME}/bin/R CMD config CPPFLAGS`
 
 # Test configuration
-echo "#include $PKG_TEST_HEADER" | ${CC} ${CPPFLAGS} ${PKG_CFLAGS} ${CFLAGS} -E -xc - >/dev/null 2>configure.log
+echo "#include $PKG_TEST_HEADER" | ${CXX} ${CPPFLAGS} ${PKG_CFLAGS} ${CFLAGS} -E -xc++ - >/dev/null 2>configure.log
 
 # Customize the error
 if [ $? -ne 0 ]; then
