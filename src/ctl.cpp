@@ -10,7 +10,7 @@ strings get_ctls_(SEXP mod) {
   module * my_mod = get_mod(mod);
   std::vector< std::string > temp = my_mod->get_ctls();
   writable::strings result((R_xlen_t)temp.size());
-  for (long long unsigned int i = 0; i < temp.size(); i++) {
+  for (int i = 0; i < (int)temp.size(); i++) {
     result.at(i) = r_string(temp.at(i));
   }
   return(result);
