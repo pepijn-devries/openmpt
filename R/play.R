@@ -10,8 +10,10 @@
 #' @returns Returns `NULL` invisibly.
 #' @examples
 #' \dontrun{
-#' mod <- demo_mod()
-#' play(mod)
+#' if (interactive()) {
+#'   mod <- demo_mod()
+#'   play(mod)
+#' }
 #' }
 #' @export
 play <- function(mod, sample_rate = 44100L, progress = "vu", ...) {

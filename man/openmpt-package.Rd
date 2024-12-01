@@ -4,7 +4,7 @@
 \name{openmpt-package}
 \alias{openmpt}
 \alias{openmpt-package}
-\title{openmpt: Open ModPlug Tracker port}
+\title{openmpt: Open ModPlug Tracker Port}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
@@ -15,6 +15,7 @@ Useful links:
 \itemize{
   \item \url{https://pepijn-devries.github.io/openmpt/}
   \item \url{https://github.com/pepijn-devries/openmpt}
+  \item \url{https://lib.openmpt.org/}
   \item Report bugs at \url{https://github.com/pepijn-devries/openmpt/issues}
 }
 
