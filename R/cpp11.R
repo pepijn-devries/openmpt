@@ -8,20 +8,12 @@ get_ctls_ <- function(mod) {
   .Call(`_openmpt_get_ctls_`, mod)
 }
 
-ctl_get_text_ <- function(mod, ctl) {
-  .Call(`_openmpt_ctl_get_text_`, mod, ctl)
+ctl_get_ <- function(mod, ctl) {
+  .Call(`_openmpt_ctl_get_`, mod, ctl)
 }
 
-ctl_get_int_ <- function(mod, ctl) {
-  .Call(`_openmpt_ctl_get_int_`, mod, ctl)
-}
-
-ctl_get_bool_ <- function(mod, ctl) {
-  .Call(`_openmpt_ctl_get_bool_`, mod, ctl)
-}
-
-ctl_get_double_ <- function(mod, ctl) {
-  .Call(`_openmpt_ctl_get_double_`, mod, ctl)
+ctl_set_ <- function(mod, ctl, value) {
+  .Call(`_openmpt_ctl_set_`, mod, ctl, value)
 }
 
 format_pattern_row_channel_ <- function(mod, pattern, row, channel, width, pad) {

@@ -11,7 +11,6 @@ PKG_RPM_NAME="libopenmpt-devel portaudio-devel"
 PKG_BREW_NAME="libopenmpt"
 PKG_LIBS="-llibportaudio -llibportaudiocpp -llibopenmpt"
 PKG_TEST_HEADER="<libopenmpt/libopenmpt.h>"
-PKG_CFLAGS="-LIBOPENMPT_EXT_INTERFACE_INTERACTIVE"
 
 # Use pkg-config if available
 if [ `command -v pkg-config` ]; then

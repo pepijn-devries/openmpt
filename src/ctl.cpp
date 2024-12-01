@@ -17,25 +17,99 @@ strings get_ctls_(SEXP mod) {
 }
 
 [[cpp11::register]]
-std::string ctl_get_text_(SEXP mod, std::string ctl) {
+SEXP ctl_get_(SEXP mod, std::string ctl) {
   module * my_mod = get_mod(mod);
-  return my_mod->ctl_get_text(ctl);
+  try {
+    return as_sexp(my_mod->ctl_get_boolean(ctl));
+  } catch (...) {
+    try {
+      return as_sexp(my_mod->ctl_get_integer(ctl));
+    } catch (...) {
+      try {
+        return as_sexp(my_mod->ctl_get_floatingpoint(ctl));
+      } catch (...) {
+        try {
+          return as_sexp(my_mod->ctl_get_text(ctl));
+        } catch (...) {
+          Rf_error("Failed to retrieve control key");
+        }
+      }
+    }
+  }
+  return R_NilValue;
 }
 
 [[cpp11::register]]
-int ctl_get_int_(SEXP mod, std::string ctl) {
+SEXP ctl_set_(SEXP mod, std::string ctl, SEXP value) {
+  if (Rf_length(value) != 1)
+    Rf_error("Replacement should have length 1");
+  SEXP required = ctl_get_(mod, ctl);
+  if (TYPEOF(required) != TYPEOF(value))
+    Rf_error("Incorrect replacement type. Expected '%s', but got '%s'",
+             Rf_type2char(TYPEOF(required)), Rf_type2char(TYPEOF(value)));
   module * my_mod = get_mod(mod);
-  return (int)my_mod->ctl_get_integer(ctl);
-}
-
-[[cpp11::register]]
-bool ctl_get_bool_(SEXP mod, std::string ctl) {
-  module * my_mod = get_mod(mod);
-  return my_mod->ctl_get_boolean(ctl);
-}
-
-[[cpp11::register]]
-double ctl_get_double_(SEXP mod, std::string ctl) {
-  module * my_mod = get_mod(mod);
-  return my_mod->ctl_get_floatingpoint(ctl);
+  bool success = true;
+  switch(TYPEOF(value)) {
+  case LGLSXP:
+  {
+    logicals replacement_b = as_cpp<logicals>(value);
+    if (replacement_b.at(0) == NA_LOGICAL) {
+      success = false;
+      break;
+    }
+    try {
+      my_mod->ctl_set_boolean(ctl, (bool)(replacement_b.at(0)));
+    } catch(...) {
+      success = false;
+    }
+    break;
+  }
+  case INTSXP:
+  {
+    integers replacement_i = as_cpp<integers>(value);
+    if (replacement_i.at(0) == NA_INTEGER) {
+      success = false;
+      break;
+    }
+    try {
+      my_mod->ctl_set_integer(ctl, replacement_i.at(0));
+    } catch(...) {
+      success = false;
+    }
+    break;
+  }
+  case REALSXP:
+  {
+    doubles replacement_f = as_cpp<doubles>(value);
+    if (replacement_f.at(0) == NA_REAL) {
+      success = false;
+      break;
+    }
+    try {
+      my_mod->ctl_set_floatingpoint(ctl, replacement_f.at(0));
+    } catch(...) {
+      success = false;
+    }
+    break;
+  }
+  case STRSXP:
+  {
+    strings replacement_t = as_cpp<strings>(value);
+    if (replacement_t.at(0) == NA_STRING) {
+      success = false;
+      break;
+    }
+    try {
+      my_mod->ctl_set_text(ctl, (std::string)(replacement_t.at(0)));
+    } catch(...) {
+      success = false;
+    }
+    break;
+  }
+  default:
+    Rf_error("Unexpected type of replacement value");
+  }
+  if (!success)
+    Rf_error("Failed to assign control value");
+  return mod;
 }

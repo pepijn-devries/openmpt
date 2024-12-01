@@ -20,31 +20,17 @@ extern "C" SEXP _openmpt_get_ctls_(SEXP mod) {
   END_CPP11
 }
 // ctl.cpp
-std::string ctl_get_text_(SEXP mod, std::string ctl);
-extern "C" SEXP _openmpt_ctl_get_text_(SEXP mod, SEXP ctl) {
+SEXP ctl_get_(SEXP mod, std::string ctl);
+extern "C" SEXP _openmpt_ctl_get_(SEXP mod, SEXP ctl) {
   BEGIN_CPP11
-    return cpp11::as_sexp(ctl_get_text_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<std::string>>(ctl)));
+    return cpp11::as_sexp(ctl_get_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<std::string>>(ctl)));
   END_CPP11
 }
 // ctl.cpp
-int ctl_get_int_(SEXP mod, std::string ctl);
-extern "C" SEXP _openmpt_ctl_get_int_(SEXP mod, SEXP ctl) {
+SEXP ctl_set_(SEXP mod, std::string ctl, SEXP value);
+extern "C" SEXP _openmpt_ctl_set_(SEXP mod, SEXP ctl, SEXP value) {
   BEGIN_CPP11
-    return cpp11::as_sexp(ctl_get_int_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<std::string>>(ctl)));
-  END_CPP11
-}
-// ctl.cpp
-bool ctl_get_bool_(SEXP mod, std::string ctl);
-extern "C" SEXP _openmpt_ctl_get_bool_(SEXP mod, SEXP ctl) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(ctl_get_bool_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<std::string>>(ctl)));
-  END_CPP11
-}
-// ctl.cpp
-double ctl_get_double_(SEXP mod, std::string ctl);
-extern "C" SEXP _openmpt_ctl_get_double_(SEXP mod, SEXP ctl) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(ctl_get_double_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<std::string>>(ctl)));
+    return cpp11::as_sexp(ctl_set_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<std::string>>(ctl), cpp11::as_cpp<cpp11::decay_t<SEXP>>(value)));
   END_CPP11
 }
 // format.cpp
@@ -197,10 +183,8 @@ extern "C" SEXP _openmpt_set_position_order_row_(SEXP mod, SEXP order, SEXP row)
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
-    {"_openmpt_ctl_get_bool_",               (DL_FUNC) &_openmpt_ctl_get_bool_,               2},
-    {"_openmpt_ctl_get_double_",             (DL_FUNC) &_openmpt_ctl_get_double_,             2},
-    {"_openmpt_ctl_get_int_",                (DL_FUNC) &_openmpt_ctl_get_int_,                2},
-    {"_openmpt_ctl_get_text_",               (DL_FUNC) &_openmpt_ctl_get_text_,               2},
+    {"_openmpt_ctl_get_",                    (DL_FUNC) &_openmpt_ctl_get_,                    2},
+    {"_openmpt_ctl_set_",                    (DL_FUNC) &_openmpt_ctl_set_,                    3},
     {"_openmpt_format_pattern_",             (DL_FUNC) &_openmpt_format_pattern_,             4},
     {"_openmpt_format_pattern_row_channel_", (DL_FUNC) &_openmpt_format_pattern_row_channel_, 6},
     {"_openmpt_get_channel_mute_status_",    (DL_FUNC) &_openmpt_get_channel_mute_status_,    2},

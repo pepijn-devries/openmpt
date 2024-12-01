@@ -1,7 +1,9 @@
-openmpt v0.0.1.0005
+openmpt v0.0.2
 -------------
 
   * Initial commit, which can:
     * load Open ModPlug modules
     * play and render audio
     * control the pitch, tempo and volume
+  * And has:
+    * test and test coverage workflows

@@ -25,7 +25,9 @@ Renders a module tracker object of class \code{openmpt} and plays it instantaneo
 }
 \examples{
 \dontrun{
-mod <- demo_mod()
-play(mod)
+if (interactive()) {
+  mod <- demo_mod()
+  play(mod)
+}
 }
 }

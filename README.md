@@ -2,9 +2,12 @@
 # openmpt
 
 <!-- badges: start -->
-<!-- TODO add when system-requirements are available in workflow
+
 [![R-CMD-check](https://github.com/pepijn-devries/openmpt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pepijn-devries/openmpt/actions/workflows/R-CMD-check.yaml)
--->
+[![openmpt status
+badge](https://pepijn-devries.r-universe.dev/badges/openmpt)](https://pepijn-devries.r-universe.dev/openmpt)
+<!--[![version](https://www.r-pkg.org/badges/version/openmpt)](https://CRAN.R-project.org/package=openmpt)-->
+<!--![cranlogs](https://cranlogs.r-pkg.org/badges/openmpt)-->
 <!-- badges: end -->
 
 <img src="man/figures/logo.svg" align="right" height="139" copyright="cc-sa" alt="logo" class="pkgdown-hide" />
@@ -15,11 +18,10 @@ converts Open ModPlug Tracker music. It supports a wide range of music
 
 ## Installation
 
-<!-- TODO check if installation works with r-system-requirements-->
+Install latest developmental version from R-Universe:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("pepijn-devries/openmpt")
+install.packages("openmpt", repos = c('https://pepijn-devries.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
 On Debian/Ubuntu you need to install the developer version of libopenmpt
@@ -50,7 +52,7 @@ play it:
 ``` r
 library(openmpt)
 
-mod <- demo_mod()
+mod <- read_mod(system.file("cyberrid", "cyberrid.mod", package = "openmpt"))
 
 play(mod)
 ```
