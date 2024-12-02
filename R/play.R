@@ -13,11 +13,13 @@
 #' @examples
 #' mod <- demo_mod()
 #' \dontrun{
-#' if (interactive()) {
+#' if (interactive() && has_audio_device()) {
 #'   play(mod)
 #' }
 #' }
-#' play(mod, progress = "none", duration = 2)
+#' if (has_audio_device()) {
+#'   play(mod, progress = "none", duration = 2)
+#' }
 #' @export
 play <- function(mod, sample_rate = 44100L, progress = "vu", duration = NA_real_, ...) {
   progress <- match.arg(progress, c("vu", "time", "none"))

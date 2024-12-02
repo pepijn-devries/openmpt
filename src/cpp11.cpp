@@ -5,6 +5,13 @@
 #include "cpp11/declarations.hpp"
 #include <R_ext/Visibility.h>
 
+// ap_helpers.cpp
+bool has_audio_device_();
+extern "C" SEXP _openmpt_has_audio_device_() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(has_audio_device_());
+  END_CPP11
+}
 // audio.cpp
 SEXP play_(SEXP mod, int samplerate, std::string progress, double duration);
 extern "C" SEXP _openmpt_play_(SEXP mod, SEXP samplerate, SEXP progress, SEXP duration) {
@@ -212,6 +219,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_openmpt_get_position_seconds_",       (DL_FUNC) &_openmpt_get_position_seconds_,       1},
     {"_openmpt_get_render_param_",           (DL_FUNC) &_openmpt_get_render_param_,           2},
     {"_openmpt_get_tempo_factor_",           (DL_FUNC) &_openmpt_get_tempo_factor_,           1},
+    {"_openmpt_has_audio_device_",           (DL_FUNC) &_openmpt_has_audio_device_,           0},
     {"_openmpt_lompt_get_string_",           (DL_FUNC) &_openmpt_lompt_get_string_,           1},
     {"_openmpt_play_",                       (DL_FUNC) &_openmpt_play_,                       4},
     {"_openmpt_read_from_raw_",              (DL_FUNC) &_openmpt_read_from_raw_,              1},

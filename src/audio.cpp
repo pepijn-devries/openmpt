@@ -1,5 +1,4 @@
 #include <cpp11.hpp>
-#include <R_ext/Error.h>
 #include <libopenmpt/libopenmpt.hpp>
 #include <portaudiocpp/PortAudioCpp.hxx>
 using namespace cpp11;

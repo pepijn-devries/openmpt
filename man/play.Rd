@@ -29,9 +29,11 @@ Renders a module tracker object of class \code{openmpt} and plays it instantaneo
 \examples{
 mod <- demo_mod()
 \dontrun{
-if (interactive()) {
+if (interactive() && has_audio_device()) {
   play(mod)
 }
 }
-play(mod, progress = "none", duration = 2)
+if (has_audio_device()) {
+  play(mod, progress = "none", duration = 2)
+}
 }
