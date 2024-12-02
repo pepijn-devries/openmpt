@@ -1,6 +1,6 @@
 Package: openmpt
 Title: Open ModPlug Tracker Port
-Version: 0.0.2
+Version: 0.0.2.0001
 Authors@R: c(
     person("Pepijn", "de Vries", role = c("aut", "cre"),
       email = "pepijn.devries@outlook.com",
@@ -20,6 +20,11 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Imports:
     av
+Suggests:
+    kableExtra,
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
 LinkingTo: 
     cpp11
 SystemRequirements:
@@ -31,6 +36,5 @@ URL:
     https://github.com/pepijn-devries/openmpt,
     https://lib.openmpt.org/
 BugReports: https://github.com/pepijn-devries/openmpt/issues
-Suggests: 
-    testthat (>= 3.0.0)
 Config/testthat/edition: 3
+VignetteBuilder: knitr

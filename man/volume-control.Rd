@@ -50,7 +50,10 @@ channel_mute_status(mod, 0L) <- TRUE
 
 ## Second channel volume at 50\%
 channel_volume(mod, 1L) <- 0.5
+channel_volume(mod, 1L)
 
 ## global volume at 90\%
-global_volume(mod, 1L) <- 0.9
+global_volume(mod) <- 0.9
+global_volume(mod)
+
 }

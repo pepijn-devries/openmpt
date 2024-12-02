@@ -4,7 +4,7 @@
 \alias{play}
 \title{Play a ModPlug Tracker module}
 \usage{
-play(mod, sample_rate = 44100L, progress = "vu", ...)
+play(mod, sample_rate = 44100L, progress = "vu", duration = NA_real_, ...)
 }
 \arguments{
 \item{mod}{A tracker module object of class \code{openmpt}.}
@@ -15,6 +15,9 @@ play(mod, sample_rate = 44100L, progress = "vu", ...)
 \code{"vu"} (indicative volume meter), \code{"time"} (shows timer) or \code{"none"} (don't show progress).
 If your audio is stuttering you might want to set this to \code{"none"} to save processing speed.}
 
+\item{duration}{Duration in seconds. Play routine will not last longer than this duration.
+if set to \code{NA_real_} it is ignored and the module keeps rendering conform the specified \code{\link[=control]{control()}}.}
+
 \item{...}{Ignored}
 }
 \value{
@@ -24,10 +27,11 @@ Returns \code{NULL} invisibly.
 Renders a module tracker object of class \code{openmpt} and plays it instantaneously.
 }
 \examples{
+mod <- demo_mod()
 \dontrun{
 if (interactive()) {
-  mod <- demo_mod()
   play(mod)
 }
 }
+play(mod, progress = "none", duration = 2)
 }

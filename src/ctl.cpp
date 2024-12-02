@@ -81,7 +81,7 @@ SEXP ctl_set_(SEXP mod, std::string ctl, SEXP value) {
   case REALSXP:
   {
     doubles replacement_f = as_cpp<doubles>(value);
-    if (replacement_f.at(0) == NA_REAL) {
+    if (ISNA(replacement_f.at(0))) {
       success = false;
       break;
     }
@@ -107,7 +107,7 @@ SEXP ctl_set_(SEXP mod, std::string ctl, SEXP value) {
     break;
   }
   default:
-    Rf_error("Unexpected type of replacement value");
+    break;
   }
   if (!success)
     Rf_error("Failed to assign control value");

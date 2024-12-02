@@ -10,6 +10,7 @@ convert_mod(
   start_order = 0L,
   start_row = 0L,
   sample_rate = 44100L,
+  duration = NA_real_,
   verbose = FALSE,
   ...
 )
@@ -26,6 +27,9 @@ extension is used to determine the type of encoding to be applied.}
 
 \item{sample_rate}{Output sample rate in Hz (samples per seconds).}
 
+\item{duration}{Duration in seconds. Rendered sample will not be longer than this duration.
+if set to \code{NA_real_} it is ignored and the module keeps rendering conform the specified \code{\link[=control]{control()}}.}
+
 \item{verbose}{Passed on to \code{\link[av:encoding]{av::av_audio_convert()}}.}
 
 \item{...}{Ignored}
@@ -38,11 +42,9 @@ Renders ModPlug Tracker music to an audio file and encodes it to a desired
 output format (e.g. .mp3, .ogg, etc) using \code{\link[av:encoding]{av::av_audio_convert()}}.
 }
 \examples{
-\donttest{
 mod <- demo_mod()
 
 destination <- tempfile(fileext = ".mp3")
 
-convert_mod(mod, destination)
-}
+convert_mod(mod, destination, duration = 2)
 }

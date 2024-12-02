@@ -47,8 +47,10 @@ void pl_progress_report(module * mod, std::string * progress, uint32_t * counter
 }
 
 [[cpp11::register]]
-SEXP play_(SEXP mod, int samplerate, std::string progress) {
+SEXP play_(SEXP mod, int samplerate, std::string progress, double duration) {
   module * my_mod = get_mod(mod);
+  if (duration <= 0) Rf_error("`duration` should have a value greater than zero.");
+  double playtime = 0;
   try {
     constexpr std::size_t buffersize = 480;
     portaudio::AutoSystem portaudio_initializer;
@@ -85,7 +87,8 @@ SEXP play_(SEXP mod, int samplerate, std::string progress) {
     stream.start();
     uint32_t counter = 0;
     float vu = 0;
-    Rprintf("Press [Esc] to pause\n");
+    if (progress.compare("none") != 0)
+      Rprintf("Press [Esc] to pause\n");
     while ( true ) {
       pl_progress_report(my_mod, &progress, &counter, &vu);
       counter++;
@@ -106,6 +109,8 @@ SEXP play_(SEXP mod, int samplerate, std::string progress) {
           throw;
         }
       }
+      playtime += (double)count/samplerate;
+      if (!ISNA(duration) && playtime >= duration) break;
     }
     stream.stop();
   } catch ( const std::bad_alloc & ) {
