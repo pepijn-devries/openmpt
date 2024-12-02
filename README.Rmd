@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 [![openmpt status badge](https://pepijn-devries.r-universe.dev/badges/openmpt)](https://pepijn-devries.r-universe.dev/openmpt)
 <!--[![version](https://www.r-pkg.org/badges/version/openmpt)](https://CRAN.R-project.org/package=openmpt)-->
 <!--![cranlogs](https://cranlogs.r-pkg.org/badges/openmpt)-->
+[![codecov](https://codecov.io/gh/pepijn-devries/openmpt/graph/badge.svg?token=HAV50SM4TF)](https://codecov.io/gh/pepijn-devries/openmpt)
 <!-- badges: end -->
 
 <img src="man/figures/logo.svg" align="right" height="139" copyright="cc-sa" alt="logo" class="pkgdown-hide" />
