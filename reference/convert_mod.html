@@ -18,7 +18,7 @@ output format (e.g. .mp3, .ogg, etc) using av::av_audio_convert()."><meta proper
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openmpt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.2.0001</span>
       </span>
     </div>
 
@@ -26,6 +26,19 @@ output format (e.g. .mp3, .ogg, etc) using av::av_audio_convert()."><meta proper
       <ul class="nav navbar-nav"><li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Articles
+
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/openmpt-alternatives.html">`openmpt` and Alternatives</a>
+    </li>
+    <li>
+      <a href="../articles/openmpt-objects.html">openmpt S3 Class Objects</a>
+    </li>
+  </ul></li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -61,6 +74,7 @@ output format (e.g. .mp3, .ogg, etc) using <code><a href="https://docs.ropensci.
 <span>  start_order <span class="op">=</span> <span class="fl">0L</span>,</span>
 <span>  start_row <span class="op">=</span> <span class="fl">0L</span>,</span>
 <span>  sample_rate <span class="op">=</span> <span class="fl">44100L</span>,</span>
+<span>  duration <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -91,6 +105,11 @@ extension is used to determine the type of encoding to be applied.</p></dd>
 <dd><p>Output sample rate in Hz (samples per seconds).</p></dd>
 
 
+<dt id="arg-duration">duration<a class="anchor" aria-label="anchor" href="#arg-duration"></a></dt>
+<dd><p>Duration in seconds. Rendered sample will not be longer than this duration.
+if set to <code>NA_real_</code> it is ignored and the module keeps rendering conform the specified <code><a href="controls.html">control()</a></code>.</p></dd>
+
+
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>Passed on to <code><a href="https://docs.ropensci.org/av/reference/encoding.html" class="external-link">av::av_audio_convert()</a></code>.</p></dd>
 
@@ -106,13 +125,11 @@ extension is used to determine the type of encoding to be applied.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="demo_mod.html">demo_mod</a></span><span class="op">(</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="demo_mod.html">demo_mod</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">destination</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".mp3"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">convert_mod</span><span class="op">(</span><span class="va">mod</span>, <span class="va">destination</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="fu">convert_mod</span><span class="op">(</span><span class="va">mod</span>, <span class="va">destination</span>, duration <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>

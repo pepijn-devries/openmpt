@@ -18,7 +18,7 @@ of specific channels in the module."><meta property="og:image" content="/logo.sv
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openmpt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.2.0001</span>
       </span>
     </div>
 
@@ -26,6 +26,19 @@ of specific channels in the module."><meta property="og:image" content="/logo.sv
       <ul class="nav navbar-nav"><li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Articles
+
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/openmpt-alternatives.html">`openmpt` and Alternatives</a>
+    </li>
+    <li>
+      <a href="../articles/openmpt-objects.html">openmpt S3 Class Objects</a>
+    </li>
+  </ul></li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -108,9 +121,14 @@ of an assign operation (<code>&lt;-</code>).</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Second channel volume at 50%</span></span></span>
 <span class="r-in"><span><span class="fu">channel_volume</span><span class="op">(</span><span class="va">mod</span>, <span class="fl">1L</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0.5</span></span></span>
+<span class="r-in"><span><span class="fu">channel_volume</span><span class="op">(</span><span class="va">mod</span>, <span class="fl">1L</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## global volume at 90%</span></span></span>
-<span class="r-in"><span><span class="fu">global_volume</span><span class="op">(</span><span class="va">mod</span>, <span class="fl">1L</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0.9</span></span></span>
+<span class="r-in"><span><span class="fu">global_volume</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0.9</span></span></span>
+<span class="r-in"><span><span class="fu">global_volume</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8984375</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
