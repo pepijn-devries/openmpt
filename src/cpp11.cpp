@@ -5,11 +5,18 @@
 #include "cpp11/declarations.hpp"
 #include <R_ext/Visibility.h>
 
-// audio.cpp
-SEXP play_(SEXP mod, int samplerate, std::string progress);
-extern "C" SEXP _openmpt_play_(SEXP mod, SEXP samplerate, SEXP progress) {
+// ap_helpers.cpp
+bool has_audio_device_();
+extern "C" SEXP _openmpt_has_audio_device_() {
   BEGIN_CPP11
-    return cpp11::as_sexp(play_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<int>>(samplerate), cpp11::as_cpp<cpp11::decay_t<std::string>>(progress)));
+    return cpp11::as_sexp(has_audio_device_());
+  END_CPP11
+}
+// audio.cpp
+SEXP play_(SEXP mod, int samplerate, std::string progress, double duration);
+extern "C" SEXP _openmpt_play_(SEXP mod, SEXP samplerate, SEXP progress, SEXP duration) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(play_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<int>>(samplerate), cpp11::as_cpp<cpp11::decay_t<std::string>>(progress), cpp11::as_cpp<cpp11::decay_t<double>>(duration)));
   END_CPP11
 }
 // ctl.cpp
@@ -160,10 +167,24 @@ extern "C" SEXP _openmpt_get_tempo_factor_(SEXP mod) {
   END_CPP11
 }
 // render.cpp
-SEXP render_(SEXP mod, std::string filename, int samplerate);
-extern "C" SEXP _openmpt_render_(SEXP mod, SEXP filename, SEXP samplerate) {
+SEXP render_(SEXP mod, std::string filename, int samplerate, double duration);
+extern "C" SEXP _openmpt_render_(SEXP mod, SEXP filename, SEXP samplerate, SEXP duration) {
   BEGIN_CPP11
-    return cpp11::as_sexp(render_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<std::string>>(filename), cpp11::as_cpp<cpp11::decay_t<int>>(samplerate)));
+    return cpp11::as_sexp(render_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<std::string>>(filename), cpp11::as_cpp<cpp11::decay_t<int>>(samplerate), cpp11::as_cpp<cpp11::decay_t<double>>(duration)));
+  END_CPP11
+}
+// render_params.cpp
+int get_render_param_(SEXP mod, std::string param);
+extern "C" SEXP _openmpt_get_render_param_(SEXP mod, SEXP param) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(get_render_param_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<std::string>>(param)));
+  END_CPP11
+}
+// render_params.cpp
+SEXP set_render_param_(SEXP mod, std::string param, int value);
+extern "C" SEXP _openmpt_set_render_param_(SEXP mod, SEXP param, SEXP value) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(set_render_param_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<std::string>>(param), cpp11::as_cpp<cpp11::decay_t<int>>(value)));
   END_CPP11
 }
 // set.cpp
@@ -196,17 +217,20 @@ static const R_CallMethodDef CallEntries[] = {
     {"_openmpt_get_metadata_keys_",          (DL_FUNC) &_openmpt_get_metadata_keys_,          1},
     {"_openmpt_get_pitch_factor_",           (DL_FUNC) &_openmpt_get_pitch_factor_,           1},
     {"_openmpt_get_position_seconds_",       (DL_FUNC) &_openmpt_get_position_seconds_,       1},
+    {"_openmpt_get_render_param_",           (DL_FUNC) &_openmpt_get_render_param_,           2},
     {"_openmpt_get_tempo_factor_",           (DL_FUNC) &_openmpt_get_tempo_factor_,           1},
+    {"_openmpt_has_audio_device_",           (DL_FUNC) &_openmpt_has_audio_device_,           0},
     {"_openmpt_lompt_get_string_",           (DL_FUNC) &_openmpt_lompt_get_string_,           1},
-    {"_openmpt_play_",                       (DL_FUNC) &_openmpt_play_,                       3},
+    {"_openmpt_play_",                       (DL_FUNC) &_openmpt_play_,                       4},
     {"_openmpt_read_from_raw_",              (DL_FUNC) &_openmpt_read_from_raw_,              1},
-    {"_openmpt_render_",                     (DL_FUNC) &_openmpt_render_,                     3},
+    {"_openmpt_render_",                     (DL_FUNC) &_openmpt_render_,                     4},
     {"_openmpt_set_channel_mute_status_",    (DL_FUNC) &_openmpt_set_channel_mute_status_,    3},
     {"_openmpt_set_channel_volume_",         (DL_FUNC) &_openmpt_set_channel_volume_,         3},
     {"_openmpt_set_global_volume_",          (DL_FUNC) &_openmpt_set_global_volume_,          2},
     {"_openmpt_set_pitch_factor_",           (DL_FUNC) &_openmpt_set_pitch_factor_,           2},
     {"_openmpt_set_position_order_row_",     (DL_FUNC) &_openmpt_set_position_order_row_,     3},
     {"_openmpt_set_position_seconds_",       (DL_FUNC) &_openmpt_set_position_seconds_,       2},
+    {"_openmpt_set_render_param_",           (DL_FUNC) &_openmpt_set_render_param_,           3},
     {"_openmpt_set_tempo_factor_",           (DL_FUNC) &_openmpt_set_tempo_factor_,           2},
     {NULL, NULL, 0}
 };

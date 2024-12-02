@@ -30,13 +30,26 @@ control keys for \code{mod}. \code{control()} returns the value for the specifie
 returned, where the control key has been set if successful.
 }
 \description{
-Each individual module has its own set of control variables. Use these functions
-to obtain or set the state of these variables.
+Each individual module has its own set of control parameters. Use these functions
+to obtain or set the state of these parameters.
 }
 \examples{
 mod <- demo_mod()
 control_keys(mod)
 
+## get a specific control value
 control(mod, "play.at_end")
+
+## set a number of control values
 control(mod, "play.at_end") <- "stop"
+control(mod, "play.pitch_factor") <- 2
+control(mod, "load.skip_plugins") <- TRUE
+control(mod, "dither") <- 2L
+
+## Show all control settings
+all_keys <- control_keys(mod)
+structure(
+  lapply(all_keys, control, mod = mod),
+  names = all_keys
+)
 }

@@ -35,7 +35,9 @@ mod <- demo_mod()
 
 ## Increase the module pitch with a factor 2
 pitch_factor(mod) <- 2
+pitch_factor(mod)
 
 ## Increase the module tempo with a factor 2
 tempo_factor(mod) <- 2
+tempo_factor(mod)
 }
