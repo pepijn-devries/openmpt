@@ -1,3 +1,8 @@
+openmpt v0.0.4.0001
+-------------
+
+  * All `libopenmpt` features are now ported to R
+
 openmpt v0.0.4
 -------------
 

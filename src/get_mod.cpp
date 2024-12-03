@@ -16,5 +16,5 @@ module * get_mod(SEXP mod) {
 [[cpp11::register]]
 bool test_get_mod(SEXP mod) {
   module * my_mod = get_mod(mod);
-  return true;
+  return my_mod != NULL;
 }
