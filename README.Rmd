@@ -18,13 +18,13 @@ knitr::opts_chunk$set(
 [![openmpt status badge](https://pepijn-devries.r-universe.dev/badges/openmpt)](https://pepijn-devries.r-universe.dev/openmpt)
 <!--[![version](https://www.r-pkg.org/badges/version/openmpt)](https://CRAN.R-project.org/package=openmpt)-->
 <!--![cranlogs](https://cranlogs.r-pkg.org/badges/openmpt)-->
-[![codecov](https://codecov.io/gh/pepijn-devries/openmpt/graph/badge.svg?token=HAV50SM4TF)](https://codecov.io/gh/pepijn-devries/openmpt)
+[![codecov](https://codecov.io/gh/pepijn-devries/openmpt/graph/badge.svg?token=HAV50SM4TF)](https://app.codecov.io/gh/pepijn-devries/openmpt)
 <!-- badges: end -->
 
 <img src="man/figures/logo.svg" align="right" height="139" copyright="cc-sa" alt="logo" class="pkgdown-hide" />
 
 A [libopenmpt](https://lib.openmpt.org/) port for `R`. It reads, plays and converts
-[Open ModPlug]((https://www.openmpt.org)) Tracker music.
+[Open ModPlug](https://openmpt.org) Tracker music.
 It supports a wide range of music [file formats](https://wiki.openmpt.org/Manual:_Module_formats).
 
 ## Installation

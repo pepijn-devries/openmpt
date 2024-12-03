@@ -40,7 +40,7 @@ so this is also true for the R package.
 On Windows machines
 you can use the [OpenMPT](https://openmpt.org/) software, which has a graphical user interface (GUI).
 It allows you to compose and edit music. If you want to stick to `R` you can use
-[ProTrackR2](https://pepijn-devries.github.io/ProTrackR2). That package allows you to create and modify
+[ProTrackR2](https://pepijn-devries.github.io/ProTrackR2/). That package allows you to create and modify
 modules in `R`. The downside is that it only support ProTracker compatible module files.
 
 What about midi files? Well midi files are no modules (i.e., not self-contained). According
@@ -55,7 +55,7 @@ library(kableExtra)
 data.frame(
   Software =
     c("[`openmpt` R package](https://pepijn-devries.github.io/openmpt/)",
-      "[OpenMPT (with GUI)](https://www.openmpt.org)",
+      "[OpenMPT (with GUI)](https://openmpt.org)",
       "[`ProTrackR2` R package](https://pepijn-devries.github.io/ProTrackR2/)",
       "[`fluidsynth` R package](https://docs.ropensci.org/fluidsynth/)"),
   `Runs in R`  =

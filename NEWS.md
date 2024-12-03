@@ -1,4 +1,4 @@
-openmpt v0.0.3
+openmpt v0.0.4
 -------------
 
   * Initial commit, which can:
