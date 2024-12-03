@@ -67,3 +67,29 @@ test_that(
       control(mod, "load.skip_plugins") <- 4L
     })
   })
+
+test_that(
+  "Module cannot be obtained from incorrect type/class", {
+    expect_error({
+      openmpt:::test_getmod(1)
+    })
+  })
+
+test_that(
+  "Cannot retrieve non-existing render param", {
+    expect_error({
+      render_param(demo_mod(), "foobar")
+    })
+  })
+
+test_that(
+  "Cannot read module from text connection", {
+    expect_error({
+      con <- file(system.file("cyberrid", "cyberrid.mod", package = "openmpt"), "rt")
+      tryCatch({
+        mod <- read_mod(con)
+      }, finally = {
+        close(con)
+      })
+    })
+  })

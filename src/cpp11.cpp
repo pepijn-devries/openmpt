@@ -41,17 +41,17 @@ extern "C" SEXP _openmpt_ctl_set_(SEXP mod, SEXP ctl, SEXP value) {
   END_CPP11
 }
 // format.cpp
-strings format_pattern_row_channel_(SEXP mod, int pattern, int row, int channel, int width, bool pad);
-extern "C" SEXP _openmpt_format_pattern_row_channel_(SEXP mod, SEXP pattern, SEXP row, SEXP channel, SEXP width, SEXP pad) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(format_pattern_row_channel_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<int>>(pattern), cpp11::as_cpp<cpp11::decay_t<int>>(row), cpp11::as_cpp<cpp11::decay_t<int>>(channel), cpp11::as_cpp<cpp11::decay_t<int>>(width), cpp11::as_cpp<cpp11::decay_t<bool>>(pad)));
-  END_CPP11
-}
-// format.cpp
 strings_matrix<> format_pattern_(SEXP mod, int pattern, int width, bool pad);
 extern "C" SEXP _openmpt_format_pattern_(SEXP mod, SEXP pattern, SEXP width, SEXP pad) {
   BEGIN_CPP11
     return cpp11::as_sexp(format_pattern_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<int>>(pattern), cpp11::as_cpp<cpp11::decay_t<int>>(width), cpp11::as_cpp<cpp11::decay_t<bool>>(pad)));
+  END_CPP11
+}
+// get_mod.cpp
+bool test_get_mod(SEXP mod);
+extern "C" SEXP _openmpt_test_get_mod(SEXP mod) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(test_get_mod(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod)));
   END_CPP11
 }
 // info.cpp
@@ -204,34 +204,34 @@ extern "C" SEXP _openmpt_set_position_order_row_(SEXP mod, SEXP order, SEXP row)
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
-    {"_openmpt_ctl_get_",                    (DL_FUNC) &_openmpt_ctl_get_,                    2},
-    {"_openmpt_ctl_set_",                    (DL_FUNC) &_openmpt_ctl_set_,                    3},
-    {"_openmpt_format_pattern_",             (DL_FUNC) &_openmpt_format_pattern_,             4},
-    {"_openmpt_format_pattern_row_channel_", (DL_FUNC) &_openmpt_format_pattern_row_channel_, 6},
-    {"_openmpt_get_channel_mute_status_",    (DL_FUNC) &_openmpt_get_channel_mute_status_,    2},
-    {"_openmpt_get_channel_volume_",         (DL_FUNC) &_openmpt_get_channel_volume_,         2},
-    {"_openmpt_get_ctls_",                   (DL_FUNC) &_openmpt_get_ctls_,                   1},
-    {"_openmpt_get_duration_seconds_",       (DL_FUNC) &_openmpt_get_duration_seconds_,       1},
-    {"_openmpt_get_global_volume_",          (DL_FUNC) &_openmpt_get_global_volume_,          1},
-    {"_openmpt_get_metadata_",               (DL_FUNC) &_openmpt_get_metadata_,               2},
-    {"_openmpt_get_metadata_keys_",          (DL_FUNC) &_openmpt_get_metadata_keys_,          1},
-    {"_openmpt_get_pitch_factor_",           (DL_FUNC) &_openmpt_get_pitch_factor_,           1},
-    {"_openmpt_get_position_seconds_",       (DL_FUNC) &_openmpt_get_position_seconds_,       1},
-    {"_openmpt_get_render_param_",           (DL_FUNC) &_openmpt_get_render_param_,           2},
-    {"_openmpt_get_tempo_factor_",           (DL_FUNC) &_openmpt_get_tempo_factor_,           1},
-    {"_openmpt_has_audio_device_",           (DL_FUNC) &_openmpt_has_audio_device_,           0},
-    {"_openmpt_lompt_get_string_",           (DL_FUNC) &_openmpt_lompt_get_string_,           1},
-    {"_openmpt_play_",                       (DL_FUNC) &_openmpt_play_,                       4},
-    {"_openmpt_read_from_raw_",              (DL_FUNC) &_openmpt_read_from_raw_,              1},
-    {"_openmpt_render_",                     (DL_FUNC) &_openmpt_render_,                     4},
-    {"_openmpt_set_channel_mute_status_",    (DL_FUNC) &_openmpt_set_channel_mute_status_,    3},
-    {"_openmpt_set_channel_volume_",         (DL_FUNC) &_openmpt_set_channel_volume_,         3},
-    {"_openmpt_set_global_volume_",          (DL_FUNC) &_openmpt_set_global_volume_,          2},
-    {"_openmpt_set_pitch_factor_",           (DL_FUNC) &_openmpt_set_pitch_factor_,           2},
-    {"_openmpt_set_position_order_row_",     (DL_FUNC) &_openmpt_set_position_order_row_,     3},
-    {"_openmpt_set_position_seconds_",       (DL_FUNC) &_openmpt_set_position_seconds_,       2},
-    {"_openmpt_set_render_param_",           (DL_FUNC) &_openmpt_set_render_param_,           3},
-    {"_openmpt_set_tempo_factor_",           (DL_FUNC) &_openmpt_set_tempo_factor_,           2},
+    {"_openmpt_ctl_get_",                 (DL_FUNC) &_openmpt_ctl_get_,                 2},
+    {"_openmpt_ctl_set_",                 (DL_FUNC) &_openmpt_ctl_set_,                 3},
+    {"_openmpt_format_pattern_",          (DL_FUNC) &_openmpt_format_pattern_,          4},
+    {"_openmpt_get_channel_mute_status_", (DL_FUNC) &_openmpt_get_channel_mute_status_, 2},
+    {"_openmpt_get_channel_volume_",      (DL_FUNC) &_openmpt_get_channel_volume_,      2},
+    {"_openmpt_get_ctls_",                (DL_FUNC) &_openmpt_get_ctls_,                1},
+    {"_openmpt_get_duration_seconds_",    (DL_FUNC) &_openmpt_get_duration_seconds_,    1},
+    {"_openmpt_get_global_volume_",       (DL_FUNC) &_openmpt_get_global_volume_,       1},
+    {"_openmpt_get_metadata_",            (DL_FUNC) &_openmpt_get_metadata_,            2},
+    {"_openmpt_get_metadata_keys_",       (DL_FUNC) &_openmpt_get_metadata_keys_,       1},
+    {"_openmpt_get_pitch_factor_",        (DL_FUNC) &_openmpt_get_pitch_factor_,        1},
+    {"_openmpt_get_position_seconds_",    (DL_FUNC) &_openmpt_get_position_seconds_,    1},
+    {"_openmpt_get_render_param_",        (DL_FUNC) &_openmpt_get_render_param_,        2},
+    {"_openmpt_get_tempo_factor_",        (DL_FUNC) &_openmpt_get_tempo_factor_,        1},
+    {"_openmpt_has_audio_device_",        (DL_FUNC) &_openmpt_has_audio_device_,        0},
+    {"_openmpt_lompt_get_string_",        (DL_FUNC) &_openmpt_lompt_get_string_,        1},
+    {"_openmpt_play_",                    (DL_FUNC) &_openmpt_play_,                    4},
+    {"_openmpt_read_from_raw_",           (DL_FUNC) &_openmpt_read_from_raw_,           1},
+    {"_openmpt_render_",                  (DL_FUNC) &_openmpt_render_,                  4},
+    {"_openmpt_set_channel_mute_status_", (DL_FUNC) &_openmpt_set_channel_mute_status_, 3},
+    {"_openmpt_set_channel_volume_",      (DL_FUNC) &_openmpt_set_channel_volume_,      3},
+    {"_openmpt_set_global_volume_",       (DL_FUNC) &_openmpt_set_global_volume_,       2},
+    {"_openmpt_set_pitch_factor_",        (DL_FUNC) &_openmpt_set_pitch_factor_,        2},
+    {"_openmpt_set_position_order_row_",  (DL_FUNC) &_openmpt_set_position_order_row_,  3},
+    {"_openmpt_set_position_seconds_",    (DL_FUNC) &_openmpt_set_position_seconds_,    2},
+    {"_openmpt_set_render_param_",        (DL_FUNC) &_openmpt_set_render_param_,        3},
+    {"_openmpt_set_tempo_factor_",        (DL_FUNC) &_openmpt_set_tempo_factor_,        2},
+    {"_openmpt_test_get_mod",             (DL_FUNC) &_openmpt_test_get_mod,             1},
     {NULL, NULL, 0}
 };
 }

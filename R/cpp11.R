@@ -20,12 +20,12 @@ ctl_set_ <- function(mod, ctl, value) {
   .Call(`_openmpt_ctl_set_`, mod, ctl, value)
 }
 
-format_pattern_row_channel_ <- function(mod, pattern, row, channel, width, pad) {
-  .Call(`_openmpt_format_pattern_row_channel_`, mod, pattern, row, channel, width, pad)
-}
-
 format_pattern_ <- function(mod, pattern, width, pad) {
   .Call(`_openmpt_format_pattern_`, mod, pattern, width, pad)
+}
+
+test_get_mod <- function(mod) {
+  .Call(`_openmpt_test_get_mod`, mod)
 }
 
 lompt_get_string_ <- function(key) {
