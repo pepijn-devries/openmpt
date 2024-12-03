@@ -13,9 +13,10 @@ badge](https://pepijn-devries.r-universe.dev/badges/openmpt)](https://pepijn-dev
 
 <img src="man/figures/logo.svg" align="right" height="139" copyright="cc-sa" alt="logo" class="pkgdown-hide" />
 
-An [OpenMPT](https://www.openmpt.org) port for `R`. It reads, plays and
-converts Open ModPlug Tracker music. It supports a wide range of music
-[file formats](https://wiki.openmpt.org/Manual:_Module_formats).
+A [libopenmpt](https://lib.openmpt.org/) port for `R`. It reads, plays
+and converts [Open ModPlug]((https://www.openmpt.org)) Tracker music. It
+supports a wide range of music [file
+formats](https://wiki.openmpt.org/Manual:_Module_formats).
 
 ## Installation
 

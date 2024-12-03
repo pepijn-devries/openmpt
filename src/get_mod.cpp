@@ -12,3 +12,9 @@ module * get_mod(SEXP mod) {
   if (!my_mod) Rf_error("Invalid pointer");
   return my_mod;
 }
+
+[[cpp11::register]]
+bool test_get_mod(SEXP mod) {
+  module * my_mod = get_mod(mod);
+  return true;
+}
