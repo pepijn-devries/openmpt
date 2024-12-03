@@ -71,7 +71,7 @@ test_that(
 test_that(
   "Module cannot be obtained from incorrect type/class", {
     expect_error({
-      openmpt:::test_getmod(1)
+      openmpt:::test_get_mod(1)
     })
   })
 
