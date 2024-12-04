@@ -13,8 +13,11 @@
 <url><loc>/reference/demo_mod.html</loc></url>
 <url><loc>/reference/get_duration_seconds.html</loc></url>
 <url><loc>/reference/get_metadata.html</loc></url>
+<url><loc>/reference/get_order_pattern.html</loc></url>
 <url><loc>/reference/has_audio_device.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/names.html</loc></url>
+<url><loc>/reference/numbers.html</loc></url>
 <url><loc>/reference/openmpt-package.html</loc></url>
 <url><loc>/reference/openmpt_info.html</loc></url>
 <url><loc>/reference/pattern.html</loc></url>
@@ -23,7 +26,10 @@
 <url><loc>/reference/position.html</loc></url>
 <url><loc>/reference/read_mod.html</loc></url>
 <url><loc>/reference/render_param.html</loc></url>
+<url><loc>/reference/repeat.html</loc></url>
 <url><loc>/reference/s3methods.html</loc></url>
+<url><loc>/reference/state.html</loc></url>
+<url><loc>/reference/subsong.html</loc></url>
 <url><loc>/reference/volume-control.html</loc></url>
 </urlset>
 

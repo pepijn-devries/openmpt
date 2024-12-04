@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openmpt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.5</span>
       </span>
     </div>
 
@@ -84,17 +84,29 @@
         </td>
         <td><p>Get ModPlug Tracker module meta data</p></td>
       </tr><tr><td>
+          <p><code><a href="get_order_pattern.html">get_order_pattern()</a></code> </p>
+        </td>
+        <td><p>Get the pattern index of an <code>openmpt</code> module at a specific order index</p></td>
+      </tr><tr><td>
           <p><code><a href="has_audio_device.html">has_audio_device()</a></code> </p>
         </td>
         <td><p>Test if there is an audio device</p></td>
+      </tr><tr><td>
+          <p><code><a href="names.html">get_instrument_names()</a></code> <code><a href="names.html">get_sample_names()</a></code> <code><a href="names.html">get_channel_names()</a></code> <code><a href="names.html">get_pattern_names()</a></code> <code><a href="names.html">get_order_names()</a></code> <code><a href="names.html">get_subsong_names()</a></code> </p>
+        </td>
+        <td><p>Get <code>openmpt</code> module element names</p></td>
+      </tr><tr><td>
+          <p><code><a href="numbers.html">get_num_instruments()</a></code> <code><a href="numbers.html">get_num_samples()</a></code> <code><a href="numbers.html">get_num_channels()</a></code> <code><a href="numbers.html">get_num_orders()</a></code> <code><a href="numbers.html">get_num_patterns()</a></code> <code><a href="numbers.html">get_num_subsongs()</a></code> <code><a href="numbers.html">get_pattern_num_rows()</a></code> </p>
+        </td>
+        <td><p>Get element counts from an <code>openmpt</code> module</p></td>
       </tr><tr><td>
           <p><code><a href="openmpt_info.html">openmpt_info()</a></code> </p>
         </td>
         <td><p>Retrieve information about the OpenMPT library</p></td>
       </tr><tr><td>
-          <p><code><a href="pattern.html">pattern()</a></code> </p>
+          <p><code><a href="pattern.html">pattern()</a></code> <code><a href="pattern.html">format_pattern_row_channel()</a></code> <code><a href="pattern.html">format_pattern_row_channel_command()</a></code> <code><a href="pattern.html">highlight_pattern_row_channel()</a></code> <code><a href="pattern.html">highlight_pattern_row_channel_command()</a></code> </p>
         </td>
-        <td><p>Get a specific ModPlug pattern table</p></td>
+        <td><p>Get a specific <code>openmpt</code> pattern table or its cells</p></td>
       </tr><tr><td>
           <p><code><a href="pitch-tempo.html">pitch_factor()</a></code> <code><a href="pitch-tempo.html">`pitch_factor&lt;-`()</a></code> <code><a href="pitch-tempo.html">tempo_factor()</a></code> <code><a href="pitch-tempo.html">`tempo_factor&lt;-`()</a></code> </p>
         </td>
@@ -116,9 +128,21 @@
         </td>
         <td><p>Get or set render parameters for a specific module</p></td>
       </tr><tr><td>
+          <p><code><a href="repeat.html">repeat_count()</a></code> <code><a href="repeat.html">`repeat_count&lt;-`()</a></code> </p>
+        </td>
+        <td><p>Get or set the repeat count for an <code>openmpt</code> module</p></td>
+      </tr><tr><td>
           <p><code><a href="s3methods.html">print(<i>&lt;openmpt&gt;</i>)</a></code> <code><a href="s3methods.html">format(<i>&lt;openmpt&gt;</i>)</a></code> </p>
         </td>
         <td><p>Implementation of basic S3 generics</p></td>
+      </tr><tr><td>
+          <p><code><a href="state.html">get_current_channel_vu_left()</a></code> <code><a href="state.html">get_current_channel_vu_mono()</a></code> <code><a href="state.html">get_current_channel_vu_rear_left()</a></code> <code><a href="state.html">get_current_channel_vu_rear_right()</a></code> <code><a href="state.html">get_current_channel_vu_right()</a></code> <code><a href="state.html">get_current_estimated_bpm()</a></code> <code><a href="state.html">get_current_order()</a></code> <code><a href="state.html">get_current_pattern()</a></code> <code><a href="state.html">get_current_playing_channels()</a></code> <code><a href="state.html">get_current_row()</a></code> <code><a href="state.html">get_current_speed()</a></code> <code><a href="state.html">get_current_tempo()</a></code> </p>
+        </td>
+        <td><p>Get the state of specific aspects of an <code>openmpt</code> class object</p></td>
+      </tr><tr><td>
+          <p><code><a href="subsong.html">subsong()</a></code> <code><a href="subsong.html">`subsong&lt;-`()</a></code> </p>
+        </td>
+        <td><p>Get or set the current subsong in an <code>openmpt</code> module</p></td>
       </tr><tr><td>
           <p><code><a href="volume-control.html">channel_mute_status()</a></code> <code><a href="volume-control.html">`channel_mute_status&lt;-`()</a></code> <code><a href="volume-control.html">channel_volume()</a></code> <code><a href="volume-control.html">`channel_volume&lt;-`()</a></code> <code><a href="volume-control.html">global_volume()</a></code> <code><a href="volume-control.html">`global_volume&lt;-`()</a></code> </p>
         </td>
