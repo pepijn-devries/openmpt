@@ -1,4 +1,5 @@
 #include <cpp11.hpp>
+#include <vector>
 #include <portaudio.h>
 using namespace cpp11;
 
@@ -13,4 +14,12 @@ bool has_audio_device_(void) {
     
   }
   return result > 0;
+}
+
+strings vector_to_strings(std::vector < std::string > v) {
+  writable::strings result((R_xlen_t)v.size());
+  for (int i = 0; i < (int)v.size(); i++) {
+    result.at(i) = r_string(v.at(i));
+  }
+  return result;
 }

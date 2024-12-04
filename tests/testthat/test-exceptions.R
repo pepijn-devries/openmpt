@@ -1,3 +1,5 @@
+mod <- demo_mod()
+
 test_that(
   "Set control character to NA is not accepted", {
     expect_error({

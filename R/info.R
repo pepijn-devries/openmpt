@@ -99,3 +99,21 @@ set_position_order_row <- function(mod, order, row, ...) {
   set_position_order_row_(mod, as.integer(order), as.integer(row))
   invisible(NULL)
 }
+
+#' Get the pattern index of an `openmpt` module at a specific order index
+#' 
+#' A module contains a sequence table describing the order in which to play
+#' patterns. This function returns the index of the patter at specific position
+#' in the sequence table.
+#' @param mod A tracker module object of class `openmpt`.
+#' @param order Index of the position in the pattern sequence table (starts at `0`).
+#' @param ... Ignored
+#' @returns Returns the `integer` index (starting at `0`) of the pattern at the
+#' indicated `order` position.
+#' @examples
+#' mod <- demo_mod()
+#' get_order_pattern(mod, 3L)
+#' @export
+get_order_pattern <- function(mod, order, ...) {
+  get_order_pattern_(mod, order)
+}
