@@ -46,6 +46,15 @@ void pl_progress_report(module * mod, std::string * progress, uint32_t * counter
 }
 
 [[cpp11::register]]
+SEXP test_omt_progress(SEXP mod, std::string progress) {
+  module * my_mod = get_mod(mod);
+  uint32_t counter = 0;
+  float vu = 0;
+  pl_progress_report(my_mod, & progress, & counter, & vu);
+  return R_NilValue;
+}
+
+[[cpp11::register]]
 SEXP play_(SEXP mod, int samplerate, std::string progress, double duration) {
   module * my_mod = get_mod(mod);
   if (duration <= 0) Rf_error("`duration` should have a value greater than zero.");

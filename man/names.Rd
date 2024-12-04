@@ -6,6 +6,7 @@
 \alias{get_channel_names}
 \alias{get_pattern_names}
 \alias{get_order_names}
+\alias{get_subsong_names}
 \title{Get \code{openmpt} module element names}
 \usage{
 get_instrument_names(mod, ...)
@@ -17,6 +18,8 @@ get_channel_names(mod, ...)
 get_pattern_names(mod, ...)
 
 get_order_names(mod, ...)
+
+get_subsong_names(mod, ...)
 }
 \arguments{
 \item{mod}{A tracker module object of class \code{openmpt}.}
@@ -31,6 +34,7 @@ Get names of elements in an \code{openmpt} class object. Use \code{\link[=get_me
 }
 \examples{
 mod <- demo_mod()
+get_subsong_names(mod)
 get_channel_names(mod)
 get_pattern_names(mod)
 get_order_names(mod)

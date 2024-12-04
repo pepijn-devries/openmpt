@@ -6,6 +6,13 @@
 #include <R_ext/Visibility.h>
 
 // audio.cpp
+SEXP test_omt_progress(SEXP mod, std::string progress);
+extern "C" SEXP _openmpt_test_omt_progress(SEXP mod, SEXP progress) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(test_omt_progress(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod), cpp11::as_cpp<cpp11::decay_t<std::string>>(progress)));
+  END_CPP11
+}
+// audio.cpp
 SEXP play_(SEXP mod, int samplerate, std::string progress, double duration);
 extern "C" SEXP _openmpt_play_(SEXP mod, SEXP samplerate, SEXP progress, SEXP duration) {
   BEGIN_CPP11
@@ -504,6 +511,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_openmpt_set_repeat_count_",                      (DL_FUNC) &_openmpt_set_repeat_count_,                      2},
     {"_openmpt_set_tempo_factor_",                      (DL_FUNC) &_openmpt_set_tempo_factor_,                      2},
     {"_openmpt_test_get_mod",                           (DL_FUNC) &_openmpt_test_get_mod,                           1},
+    {"_openmpt_test_omt_progress",                      (DL_FUNC) &_openmpt_test_omt_progress,                      2},
     {NULL, NULL, 0}
 };
 }

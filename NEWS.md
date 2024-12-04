@@ -1,14 +1,9 @@
-openmpt v0.0.4.0001
--------------
-
-  * All `libopenmpt` features are now ported to R
-
-openmpt v0.0.4
+openmpt v0.0.5
 -------------
 
   * Initial commit, which can:
     * load Open ModPlug modules
     * play and render audio
-    * control the pitch, tempo and volume
+    * ports all relevant features offered by libopenmpt
   * And has:
     * test and test coverage workflows

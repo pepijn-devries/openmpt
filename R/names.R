@@ -7,6 +7,7 @@
 #' @returns A `vector` of strings with names
 #' @examples
 #' mod <- demo_mod()
+#' get_subsong_names(mod)
 #' get_channel_names(mod)
 #' get_pattern_names(mod)
 #' get_order_names(mod)
@@ -39,5 +40,11 @@ get_pattern_names <- function(mod, ...) {
 #' @rdname names
 #' @export
 get_order_names <- function(mod, ...) {
+  get_order_names_(mod)
+}
+
+#' @rdname names
+#' @export
+get_subsong_names <- function(mod, ...) {
   get_order_names_(mod)
 }
