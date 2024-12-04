@@ -236,8 +236,8 @@ get_current_speed_ <- function(mod) {
   .Call(`_openmpt_get_current_speed_`, mod)
 }
 
-get_current_tempo2_ <- function(mod) {
-  .Call(`_openmpt_get_current_tempo2_`, mod)
+get_current_tempo_ <- function(mod) {
+  .Call(`_openmpt_get_current_tempo_`, mod)
 }
 
 get_selected_subsong_ <- function(mod) {

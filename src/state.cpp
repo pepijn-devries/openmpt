@@ -72,7 +72,12 @@ int get_current_speed_(SEXP mod) {
 }
 
 [[cpp11::register]]
-double get_current_tempo2_(SEXP mod) {
+double get_current_tempo_(SEXP mod) {
   module * my_mod = get_mod(mod);
+  // In versions >= 0.7.0 get_current_tempo() is deprecated
+#if OPENMPT_API_VERSION_MAJOR > 0 || OPENMPT_API_VERSION_MINOR >= 7
   return my_mod->get_current_tempo2();
+#else
+  return my_mod->get_current_tempo();
+#endif
 }

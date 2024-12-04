@@ -419,10 +419,10 @@ extern "C" SEXP _openmpt_get_current_speed_(SEXP mod) {
   END_CPP11
 }
 // state.cpp
-double get_current_tempo2_(SEXP mod);
-extern "C" SEXP _openmpt_get_current_tempo2_(SEXP mod) {
+double get_current_tempo_(SEXP mod);
+extern "C" SEXP _openmpt_get_current_tempo_(SEXP mod) {
   BEGIN_CPP11
-    return cpp11::as_sexp(get_current_tempo2_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod)));
+    return cpp11::as_sexp(get_current_tempo_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(mod)));
   END_CPP11
 }
 // subsong.cpp
@@ -462,7 +462,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_openmpt_get_current_playing_channels_",          (DL_FUNC) &_openmpt_get_current_playing_channels_,          1},
     {"_openmpt_get_current_row_",                       (DL_FUNC) &_openmpt_get_current_row_,                       1},
     {"_openmpt_get_current_speed_",                     (DL_FUNC) &_openmpt_get_current_speed_,                     1},
-    {"_openmpt_get_current_tempo2_",                    (DL_FUNC) &_openmpt_get_current_tempo2_,                    1},
+    {"_openmpt_get_current_tempo_",                     (DL_FUNC) &_openmpt_get_current_tempo_,                     1},
     {"_openmpt_get_duration_seconds_",                  (DL_FUNC) &_openmpt_get_duration_seconds_,                  1},
     {"_openmpt_get_global_volume_",                     (DL_FUNC) &_openmpt_get_global_volume_,                     1},
     {"_openmpt_get_instrument_names_",                  (DL_FUNC) &_openmpt_get_instrument_names_,                  1},

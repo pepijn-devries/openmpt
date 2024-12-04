@@ -96,6 +96,5 @@ get_current_speed <- function(mod, ...) {
 #' @rdname state
 #' @export
 get_current_tempo <- function(mod, ...) {
-  ## Note that get_current_tempo (without 2) is deprecated
-  get_current_tempo2_(mod)
+  get_current_tempo_(mod)
 }
