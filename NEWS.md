@@ -1,3 +1,8 @@
+openmpt v0.0.5.0001
+-------------
+
+  * Interact with modarchive.org
+
 openmpt v0.0.5
 -------------
 
