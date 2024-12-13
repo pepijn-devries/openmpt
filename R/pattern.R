@@ -6,7 +6,7 @@
 #' @param mod A tracker module object of class `openmpt`.
 #' @param pattern The pattern index (starting at `0`) of the pattern to get.
 #' @param row A row index (starting at `0`) for the row inside the pattern table.
-#' @param channel a channel (i.e., column) index (starting at `0`) inside the patterb table. 
+#' @param channel a channel (i.e., column) index (starting at `0`) inside the pattern table. 
 #' @param width The maximum number of characters the string should contain. `0` means no limit.
 #' @param pad If `TRUE`, the string will be resized to the exact length provided in the width parameter.
 #' @param command One of `"note"`, `"instrument"`, `"volumeffect"`, `"effect"`, `"volume"`, or
