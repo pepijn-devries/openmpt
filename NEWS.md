@@ -1,4 +1,4 @@
-openmpt v0.0.6
+openmpt v0.0.7
 -------------
 
   * Small adjustments to conform with CRAN policy
