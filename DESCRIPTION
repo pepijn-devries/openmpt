@@ -24,10 +24,12 @@ RoxygenNote: 7.2.3
 Imports:
     av
 Suggests:
+    httr2,
     kableExtra,
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    xml2
 LinkingTo: 
     cpp11
 SystemRequirements:
