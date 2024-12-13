@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Reads, renders and plays music tracker files using the libopenmpt library.
+Tracker music uses audio samples and pattern tables to organise musical compositions. Such music is stored in module files. This package reads, renders and plays module files using the 'libopenmpt' library \url{https://lib.openmpt.org/}.
 }
 \seealso{
 Useful links:
