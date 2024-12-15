@@ -1,6 +1,6 @@
 #' Functions to interact with modArchive
 #' 
-#' [https://ModArchive.org] is on of the largest online archives of module
+#' [ModArchive](https://ModArchive.org) is one of the largest online archives of module
 #' files. These functions will assist in accessing this archive.
 #' For mor information see `vignette("modarchive")`.
 #' @param mod_id An `integer` code used as module identifier in the

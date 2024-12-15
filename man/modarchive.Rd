@@ -134,7 +134,7 @@ environmental variable (\code{"MODARCHIVE_API"}) or session option
 listing the music genres specified by ModArchive.
 }
 \description{
-\link{https://ModArchive.org} is on of the largest online archives of module
+\href{https://ModArchive.org}{ModArchive} is one of the largest online archives of module
 files. These functions will assist in accessing this archive.
 For mor information see \code{vignette("modarchive")}.
 }
