@@ -1,7 +1,12 @@
-openmpt v0.0.5.0001
+openmpt v0.0.7.0001
 -------------
 
-  * Interact with modarchive.org
+  * Included ModArchive features
+
+openmpt v0.0.7
+-------------
+
+  * Small adjustments to conform with CRAN policy
 
 openmpt v0.0.5
 -------------

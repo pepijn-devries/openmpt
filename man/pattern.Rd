@@ -31,7 +31,7 @@ highlight_pattern_row_channel_command(mod, pattern, row, channel, command, ...)
 
 \item{row}{A row index (starting at \code{0}) for the row inside the pattern table.}
 
-\item{channel}{a channel (i.e., column) index (starting at \code{0}) inside the patterb table.}
+\item{channel}{a channel (i.e., column) index (starting at \code{0}) inside the pattern table.}
 
 \item{command}{One of \code{"note"}, \code{"instrument"}, \code{"volumeffect"}, \code{"effect"}, \code{"volume"}, or
 \code{"parameter"}.}
