@@ -2,6 +2,7 @@ pandoc: 3.1.11
 pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
+  modarchive: modarchive.html
   openmpt-alternatives: openmpt-alternatives.html
   openmpt-objects: openmpt-objects.html
-last_built: 2024-12-13T19:12Z
+last_built: 2024-12-15T23:07Z
