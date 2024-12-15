@@ -1,3 +1,4 @@
+
 if(!file.exists("../windows/libopenmpt/include/libopenmpt.h")){
   unlink("../windows", recursive = TRUE)
   url <- if(grepl("aarch", R.version$platform)){
@@ -13,6 +14,8 @@ if(!file.exists("../windows/libopenmpt/include/libopenmpt.h")){
   dir.create("../windows", showWarnings = FALSE)
   untar(basename(url), exdir = "../windows", tar = 'internal')
   unlink(basename(url))
+  oldwd <- getwd()
   setwd("../windows")
   file.rename(list.files(), 'libopenmpt')
+  setwd(oldwd)
 }
