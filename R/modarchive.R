@@ -286,8 +286,9 @@ modarchive_api <- function() {
 #' @rdname modarchive
 #' @export
 modarchive_requests <- function(api = modarchive_api()) {
-  .modarchive_req(request = "view_requests", key = api) |>
-    xml2::xml_find_all("requests") |> xml2::as_list() |>
+  result <- .modarchive_req(request = "view_requests", key = api)
+  if (is.null(result)) return(NULL)
+  xml2::xml_find_all(result, "requests") |> xml2::as_list() |>
     unlist() |> as.list() |> lapply(as.integer)
 }
 
