@@ -141,12 +141,19 @@ For mor information see \code{vignette("modarchive")}.
 \examples{
 elekfunk <- modarchive_download(41529)
 
+## Check how many API requests are left this month
+reqs <- modarchive_requests()
+if (length(reqs) > 0) {
+  reqs <- 1 - reqs$current / reqs$maximum
+} else {
+  reqs <- 0
+}
+
 ## The examples below will only work with a valid
-## API key for modArchive:
-if (modarchive_api() != "") {
-  ## How many request are made this month
-  ## with the API key and what is its limit?
-  modarchive_requests()
+## API key for modArchive and if more than 25\%
+## of the monthly requests are left:
+if (modarchive_api() != "" && reqs > 0.25) {
+  
   mod_info <- modarchive_info(41529)
   if (nrow(mod_info) > 0) mod_info$url[[1]]
   info_search <- modarchive_search_mod("*intro.mod",
@@ -159,4 +166,7 @@ if (modarchive_api() != "") {
                                     page = 2)
   info_random <- modarchive_random("Comedy")
 }
+}
+\seealso{
+\code{\link[=modland_search]{modland_search()}}
 }

@@ -1,6 +1,6 @@
 Package: openmpt
 Title: Open ModPlug Tracker Port
-Version: 0.0.7.0001
+Version: 0.1.0
 Authors@R: c(
     person("Pepijn", "de Vries", role = c("aut", "cre"),
       email = "pepijn.devries@outlook.com",

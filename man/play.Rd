@@ -27,13 +27,8 @@ Returns \code{NULL} invisibly.
 Renders a module tracker object of class \code{openmpt} and plays it instantaneously.
 }
 \examples{
-mod <- demo_mod()
-\dontrun{
 if (interactive() && has_audio_device()) {
+  mod <- demo_mod()
   play(mod)
-}
-}
-if (has_audio_device()) {
-  play(mod, progress = "none", duration = 2)
 }
 }

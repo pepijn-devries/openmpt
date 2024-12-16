@@ -1,7 +1,8 @@
-openmpt v0.0.7.0001
+openmpt v0.1.0
 -------------
 
   * Included ModArchive features
+  * Included ModLand features
 
 openmpt v0.0.7
 -------------

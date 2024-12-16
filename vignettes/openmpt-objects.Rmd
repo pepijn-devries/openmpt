@@ -2,7 +2,7 @@
 title: "openmpt S3 Class Objects"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{`openmpt` S3 Class Objects}
+  %\VignetteIndexEntry{openmpt S3 Class Objects}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

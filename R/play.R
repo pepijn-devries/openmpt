@@ -11,14 +11,9 @@
 #' @param ... Ignored
 #' @returns Returns `NULL` invisibly.
 #' @examples
-#' mod <- demo_mod()
-#' \dontrun{
 #' if (interactive() && has_audio_device()) {
+#'   mod <- demo_mod()
 #'   play(mod)
-#' }
-#' }
-#' if (has_audio_device()) {
-#'   play(mod, progress = "none", duration = 2)
 #' }
 #' @export
 play <- function(mod, sample_rate = 44100L, progress = "vu", duration = NA_real_, ...) {
