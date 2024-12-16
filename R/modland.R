@@ -1,9 +1,9 @@
 #' Functions to interact with modLand
 #' 
-#' [ModLand](https://www.modland.com) is an online archive containing over 400,000
+#' [ModLand](https://modland.com/) is an online archive containing over 400,000
 #' module files. These functions allow you to search in and download from this archive.
 #' @seealso [modarchive_search_mod()]
-#' @param text Search text, to look for on [modland](https://www.modland.com).
+#' @param text Search text, to look for on [modland](https://modland.com/).
 #' @param format A single length `character` vector, indicating the
 #' tracker file format. Can be obtained from a `modland_search()`.
 #' @param author A single length `character` vector, indicating the

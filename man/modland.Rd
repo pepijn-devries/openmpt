@@ -18,7 +18,7 @@ modland_download(
 )
 }
 \arguments{
-\item{text}{Search text, to look for on \href{https://www.modland.com}{modland}.}
+\item{text}{Search text, to look for on \href{https://modland.com/}{modland}.}
 
 \item{...}{Arguments passed on to \code{read_fun}}
 
@@ -47,7 +47,7 @@ results are returned (or \code{NULL} if there are no results).
 specified by \code{read_fun}. By default it will return an \code{openmpt} class object.
 }
 \description{
-\href{https://www.modland.com}{ModLand} is an online archive containing over 400,000
+\href{https://modland.com/}{ModLand} is an online archive containing over 400,000
 module files. These functions allow you to search in and download from this archive.
 }
 \examples{

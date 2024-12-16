@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-[Modarchive](https://www.modarchive.org) is a decades old archive containing
+[Modarchive](https://www.modarchive.org/) is a decades old archive containing
 thousands of module files. It is maintained and operated by a team of volunteers,
 and is funded with donations. It contains a diversity of module file formats and
 music genres.
