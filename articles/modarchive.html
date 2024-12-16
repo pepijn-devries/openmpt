@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openmpt</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.7.0001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
       </span>
     </div>
 
@@ -52,7 +52,7 @@
       <a href="../articles/modarchive.html">ModArchive</a>
     </li>
     <li>
-      <a href="../articles/openmpt-alternatives.html">`openmpt` and Alternatives</a>
+      <a href="../articles/openmpt-alternatives.html">openmpt and Alternatives</a>
     </li>
     <li>
       <a href="../articles/openmpt-objects.html">openmpt S3 Class Objects</a>
@@ -93,7 +93,7 @@
 
     
     
-<p><a href="https://www.modarchive.org" class="external-link">Modarchive</a> is a decades old
+<p><a href="https://www.modarchive.org/" class="external-link">Modarchive</a> is a decades old
 archive containing thousands of module files. It is maintained and
 operated by a team of volunteers, and is funded with donations. It
 contains a diversity of module file formats and music genres.</p>
@@ -119,6 +119,7 @@ ModArchive for that module.</p>
 <span>  <span class="va">info</span><span class="op">$</span><span class="va">genretext</span></span>
 <span><span class="op">}</span></span>
 <span><span class="co">#&gt; Loading required namespace: httr2</span></span>
+<span><span class="co">#&gt; Loading required namespace: xml2</span></span>
 <span><span class="co">#&gt; [1] "Electronic - Techno"</span></span></code></pre></div>
 <p>If you don’t know the module ID, you can search the archive through
 different entry points:</p>
@@ -164,7 +165,8 @@ obtained with <code><a href="../reference/modarchive.html">modarchive_api()</a><
 can make to the server. You can check how many requests you have and can
 make each month with your key with <code><a href="../reference/modarchive.html">modarchive_requests()</a></code>.
 Below you can how many requests where made with the key used for
-developing this package at the time this vignette was rendered.</p>
+developing this package at the time this vignette was rendered (only if
+the machine rendering this vignette has registered an API key).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="../reference/modarchive.html">modarchive_api</a></span><span class="op">(</span><span class="op">)</span> <span class="op">!=</span> <span class="st">""</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="../reference/modarchive.html">modarchive_requests</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -172,7 +174,21 @@ developing this package at the time this vignette was rendered.</p>
 <span><span class="co">#&gt; [1] 1000</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $current</span></span>
-<span><span class="co">#&gt; [1] 462</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 645</span></span></code></pre></div>
+<p>If you want to extract large quantities of files it is advised to use
+(torrent files)[<a href="http://modarchive.textfiles.com/" class="external-link uri">http://modarchive.textfiles.com/</a>], which distributes the
+traffic across multiple hosts.</p>
+</div>
+<div class="section level2">
+<h2 id="other-online-resources">Other online resources<a class="anchor" aria-label="anchor" href="#other-online-resources"></a>
+</h2>
+<p>Currently, the only alternative for ModArchive, supported by the
+<code>openmpt</code> package is <a href="https://modland.com/" class="external-link">modland</a>. It offers less features
+compared to ModArchive, yet it has a large collection of over 400,000
+files and counting. You can use <code><a href="../reference/modland.html">modland_search()</a></code> and
+<code><a href="../reference/modland.html">modland_download()</a></code> to search and download files on and from
+modland, respectively. The good news here is that you don’t need an API
+key.</p>
 </div>
   </div>
 
