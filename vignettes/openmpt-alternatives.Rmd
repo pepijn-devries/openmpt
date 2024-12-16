@@ -1,8 +1,8 @@
 ---
-title: "`openmpt` and Alternatives"
+title: "openmpt and Alternatives"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{`openmpt` and Alternatives}
+  %\VignetteIndexEntry{openmpt and Alternatives}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -86,9 +86,22 @@ Each API key comes with a cap on the number of monthly requests you
 can make to the server. You can check how many requests you have and can
 make each month with your key with `modarchive_requests()`. Below you can
 how many requests where made with the key used for developing this package
-at the time this vignette was rendered.
+at the time this vignette was rendered (only if the machine rendering this
+vignette has registered an API key).
 
 ```{r modarchive-requests}
 if (modarchive_api() != "")
   modarchive_requests()
 ```
+
+If you want to extract large quantities of files it is advised to use
+(torrent files)[http://modarchive.textfiles.com/], which distributes the traffic
+across multiple hosts.
+
+## Other online resources
+
+Currently, the only alternative for ModArchive, supported by the `openmpt` package
+is [modland](https://modland.com/). It offers less features compared to ModArchive,
+yet it has a large collection of over 400,000 files and counting. You can use
+`modland_search()` and `modland_download()` to search and download files on and from
+modland, respectively. The good news here is that you don't need an API key.
