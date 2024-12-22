@@ -56,10 +56,11 @@ search_result <- modland_search("elekfunk mod")
 ## The URL in the search results will download a rendered
 ## ogg file. If you want to download te original mod file,
 ## use this: 
-
-mod <- modland_download(search_result$format[[1]],
-                        search_result$author[[1]],
-                        search_result$title[[1]])
+if (length(search_result) > 0) {
+  mod <- modland_download(search_result$format[[1]],
+                          search_result$author[[1]],
+                          search_result$title[[1]])
+}
 }
 \seealso{
 \code{\link[=modarchive_search_mod]{modarchive_search_mod()}}

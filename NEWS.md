@@ -1,4 +1,4 @@
-openmpt v0.1.1
+openmpt v0.1.2
 -------------
 
   * Included ModArchive features

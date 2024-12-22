@@ -270,7 +270,9 @@ modarchive_view_by <- function(
 modarchive_download <- function(mod_id, read_fun = read_mod, ...) {
   mod_id <- as.integer(mod_id[[1]])
   url <- paste0("https://api.modarchive.org/downloads.php?moduleid=", mod_id)
-  read_fun(url, ...)
+  .try_online({
+    read_fun(url, ...) |> suppressWarnings()
+  }, "modarchive")
 }
 
 #' @rdname modarchive
@@ -306,7 +308,7 @@ modarchive_genres <- function() {
       httr2::request(.modarchive_tool) |>
         httr2::req_url_query(...) |>
         httr2::req_perform()
-    })
+    }, "modarchive")
     if (!is.null(x)) httr2::resp_body_xml(x) else NULL
   } else NULL
 }
