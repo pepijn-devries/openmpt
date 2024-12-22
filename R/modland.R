@@ -28,10 +28,11 @@
 #' ## The URL in the search results will download a rendered
 #' ## ogg file. If you want to download te original mod file,
 #' ## use this: 
-#'
-#' mod <- modland_download(search_result$format[[1]],
-#'                         search_result$author[[1]],
-#'                         search_result$title[[1]])
+#' if (length(search_result) > 0) {
+#'   mod <- modland_download(search_result$format[[1]],
+#'                           search_result$author[[1]],
+#'                           search_result$title[[1]])
+#' }
 #' @rdname modland
 #' @export
 modland_search <- function(text, ...) {
@@ -39,7 +40,7 @@ modland_search <- function(text, ...) {
     httr2::request("https://www.exotica.org.uk/mediawiki/extensions/ExoticASearch/Modland_xbmc.php") |>
       httr2::req_url_query(qs = text) |>
       httr2::req_perform()
-  })
+  }, "modland")
   if (!is.null(x)) {
     x <-
       x |>
@@ -76,5 +77,7 @@ modland_download <- function(
                       utils::URLencode(author),
                       utils::URLencode(title),
                       sep = "/")
-  read_fun(paste0(mirror, url_suffix), ...)
+  .try_online({
+    read_fun(paste0(mirror, url_suffix), ...)
+  }, "modland")
 }

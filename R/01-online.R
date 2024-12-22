@@ -1,4 +1,5 @@
 .http_status_ok <- function(x) {
+  if (!hasName(x, "status_code")) return(TRUE)
   if (x$status_code >= 100 && x$status_code <= 199) {
     message(sprintf("Unexpected informational response from online resource (status %i).", x$status_code))
     return(FALSE)
