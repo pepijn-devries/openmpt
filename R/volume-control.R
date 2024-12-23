@@ -26,36 +26,42 @@
 #' global_volume(mod) <- 0.9
 #' global_volume(mod)
 #' 
+#' @name volume-control
 #' @rdname volume-control
 #' @export
 channel_mute_status <- function(mod, channel, ...) {
   get_channel_mute_status_(mod, as.integer(channel))
 }
 
+#' @name volume-control
 #' @rdname volume-control
 #' @export
 `channel_mute_status<-` <- function(mod, channel, ..., value) {
   set_channel_mute_status_(mod, as.integer(channel), as.logical(value))
 }
 
+#' @name volume-control
 #' @rdname volume-control
 #' @export
 channel_volume <- function(mod, channel, ...) {
   get_channel_volume_(mod, as.integer(channel))
 }
 
+#' @name volume-control
 #' @rdname volume-control
 #' @export
 `channel_volume<-` <- function(mod, channel, ..., value) {
   set_channel_volume_(mod, as.integer(channel), as.numeric(value))
 }
 
+#' @name volume-control
 #' @rdname volume-control
 #' @export
 global_volume <- function(mod, ...) {
   get_global_volume_(mod)
 }
 
+#' @name volume-control
 #' @rdname volume-control
 #' @export
 `global_volume<-` <- function(mod, ..., value) {

@@ -95,7 +95,7 @@ if (modarchive_api() != "")
 ```
 
 If you want to extract large quantities of files it is advised to use
-(torrent files)[http://modarchive.textfiles.com/], which distributes the traffic
+[torrent files](http://modarchive.textfiles.com/), which distributes the traffic
 across multiple hosts.
 
 ## Other online resources
