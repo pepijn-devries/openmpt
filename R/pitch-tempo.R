@@ -17,24 +17,28 @@
 #' ## Increase the module tempo with a factor 2
 #' tempo_factor(mod) <- 2
 #' tempo_factor(mod)
+#' @name pitch-tempo
 #' @rdname pitch-tempo
 #' @export
 pitch_factor <- function(mod, ...) {
   get_pitch_factor_(mod)
 }
 
+#' @name pitch-tempo
 #' @rdname pitch-tempo
 #' @export
 `pitch_factor<-` <- function(mod, ..., value) {
   set_pitch_factor_(mod, as.numeric(value))
 }
 
+#' @name pitch-tempo
 #' @rdname pitch-tempo
 #' @export
 tempo_factor <- function(mod, ...) {
   get_tempo_factor_(mod)
 }
 
+#' @name pitch-tempo
 #' @rdname pitch-tempo
 #' @export
 `tempo_factor<-` <- function(mod, ..., value) {
