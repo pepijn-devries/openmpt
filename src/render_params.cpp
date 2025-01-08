@@ -16,7 +16,7 @@ int render_param_string_to_int(std::string param) {
   } else if(param.compare("VOLUMERAMPING") == 0) {
     parami = module::RENDER_VOLUMERAMPING_STRENGTH;
   } else {
-    Rf_error("Unknown render parameter");
+    cpp11::stop("Unknown render parameter");
   }
   return parami;
 }

@@ -37,7 +37,7 @@ void mod_write_long(std::ofstream * s, uint32_t val) {
 
 [[cpp11::register]]
 SEXP render_(SEXP mod, std::string filename, int samplerate, double duration) {
-  if (duration <= 0) Rf_error("`duration` should have a value greater than zero.");
+  if (duration <= 0) cpp11::stop("`duration` should have a value greater than zero.");
   double playtime = 0;
   module * my_mod = get_mod(mod);
   std::ofstream tempfile;

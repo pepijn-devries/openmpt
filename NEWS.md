@@ -1,12 +1,8 @@
-openmpt v0.1.2
+openmpt v0.1.4
 -------------
 
   * Included ModArchive features
   * Included ModLand features
-
-openmpt v0.0.7
--------------
-
   * Small adjustments to conform with CRAN policy
 
 openmpt v0.0.5
