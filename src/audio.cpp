@@ -57,7 +57,7 @@ SEXP test_omt_progress(SEXP mod, std::string progress) {
 [[cpp11::register]]
 SEXP play_(SEXP mod, int samplerate, std::string progress, double duration) {
   module * my_mod = get_mod(mod);
-  if (duration <= 0) Rf_error("`duration` should have a value greater than zero.");
+  if (duration <= 0) cpp11::stop("`duration` should have a value greater than zero.");
   double playtime = 0;
   try {
     constexpr std::size_t buffersize = 480;
@@ -122,9 +122,9 @@ SEXP play_(SEXP mod, int samplerate, std::string progress, double duration) {
     }
     stream.stop();
   } catch ( const std::bad_alloc & ) {
-    Rf_error("Out of memory");
+    cpp11::stop("Out of memory");
   } catch ( const std::exception & e ) {
-    Rf_error("Error %s", std::string( e.what() ? e.what() : "unknown error" ).c_str());
+    cpp11::stop("Error %s", std::string( e.what() ? e.what() : "unknown error" ).c_str());
   }
   return R_NilValue;
 }

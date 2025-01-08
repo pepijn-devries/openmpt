@@ -31,7 +31,7 @@ SEXP ctl_get_(SEXP mod, std::string ctl) {
         try {
           return as_sexp(my_mod->ctl_get_text(ctl));
         } catch (...) {
-          Rf_error("Failed to retrieve control key");
+          cpp11::stop("Failed to retrieve control key");
         }
       }
     }
@@ -42,10 +42,10 @@ SEXP ctl_get_(SEXP mod, std::string ctl) {
 [[cpp11::register]]
 SEXP ctl_set_(SEXP mod, std::string ctl, SEXP value) {
   if (Rf_length(value) != 1)
-    Rf_error("Replacement should have length 1");
+    cpp11::stop("Replacement should have length 1");
   SEXP required = ctl_get_(mod, ctl);
   if (TYPEOF(required) != TYPEOF(value))
-    Rf_error("Incorrect replacement type. Expected '%s', but got '%s'",
+    cpp11::stop("Incorrect replacement type. Expected '%s', but got '%s'",
              Rf_type2char(TYPEOF(required)), Rf_type2char(TYPEOF(value)));
   module * my_mod = get_mod(mod);
   bool success = true;
@@ -110,6 +110,6 @@ SEXP ctl_set_(SEXP mod, std::string ctl, SEXP value) {
     break;
   }
   if (!success)
-    Rf_error("Failed to assign control value");
+    cpp11::stop("Failed to assign control value");
   return mod;
 }

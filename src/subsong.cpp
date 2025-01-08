@@ -17,7 +17,7 @@ SEXP select_subsong_(SEXP mod, int subsong) {
   try {
     my_mod->select_subsong(subsong);
   } catch(...) {
-    Rf_error("Failed to select subsong");
+    cpp11::stop("Failed to select subsong");
   }
   return mod;
 }

@@ -13,10 +13,10 @@ ext::interactive * get_interactive(SEXP mod) {
   iact =
     static_cast<ext::interactive *>(my_mod->get_interface(ext::interactive_id));
   if (!iact) {
-    Rf_error("Failed to get libopenmpt interactive object");
+    cpp11::stop("Failed to get libopenmpt interactive object");
   }
 #else
-  Rf_error("libopenmpt interactive mode not available");
+  cpp11::stop("libopenmpt interactive mode not available");
 #endif
   return iact;
 }

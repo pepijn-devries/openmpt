@@ -17,7 +17,7 @@ SEXP set_repeat_count_(SEXP mod, int repeat_count) {
   try {
     my_mod->set_repeat_count(repeat_count);
   } catch(...) {
-    Rf_error("Failed to set repeat_count");
+    cpp11::stop("Failed to set repeat_count");
   }
   return mod;
 }
