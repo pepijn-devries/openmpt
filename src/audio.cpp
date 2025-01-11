@@ -54,6 +54,14 @@ SEXP test_omt_progress(SEXP mod, std::string progress) {
   return R_NilValue;
 }
 
+static void check_interrupt_fn(void *dummy) {
+  R_CheckUserInterrupt();
+}
+
+static int pending_interrupt(void) {
+  return !(R_ToplevelExec(check_interrupt_fn, NULL));
+}
+
 [[cpp11::register]]
 SEXP play_(SEXP mod, int samplerate, std::string progress, double duration) {
   module * my_mod = get_mod(mod);
@@ -100,7 +108,7 @@ SEXP play_(SEXP mod, int samplerate, std::string progress, double duration) {
     while ( true ) {
       pl_progress_report(my_mod, &progress, &counter, &vu);
       counter++;
-      R_CheckUserInterrupt();
+      if (pending_interrupt()) break;
       std::size_t count = is_interleaved ? my_mod->read_interleaved_stereo( samplerate, buffersize, interleaved_buffer.data() ) : my_mod->read( samplerate, buffersize, left.data(), right.data() );
       if ( count == 0 ) {
         break;

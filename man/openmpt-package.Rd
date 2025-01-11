@@ -4,7 +4,7 @@
 \name{openmpt-package}
 \alias{openmpt}
 \alias{openmpt-package}
-\title{openmpt: Open ModPlug Tracker Port}
+\title{openmpt: Open 'ModPlug' Tracker Port}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
