@@ -6,7 +6,7 @@
 
 # Library settings
 PKG_CONFIG_NAME="libopenmpt portaudio-2.0 portaudiocpp"
-PKG_DEB_NAME="libopenmpt-dev portaudio-dev"
+PKG_DEB_NAME="libopenmpt-dev portaudio19-dev"
 PKG_RPM_NAME="libopenmpt-devel portaudio-devel"
 PKG_BREW_NAME="libopenmpt"
 PKG_LIBS="-llibportaudio -llibportaudiocpp -llibopenmpt"
