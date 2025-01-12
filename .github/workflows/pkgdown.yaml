@@ -35,7 +35,7 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v2
 
       - name: Package Dependencies
-        run: R -q -e 'remotes::install_deps(".", dependencies=TRUE);install.packages("pkgdown", dependencies = TRUE)'
+        run: R -q -e 'remotes::install_local(".", dependencies=TRUE);install.packages("pkgdown", dependencies = TRUE)'
       - name: Build Package
         run: R CMD build --no-build-vignettes --no-manual .
 
