@@ -34,11 +34,10 @@ jobs:
         
       - uses: r-lib/actions/setup-pandoc@v2
 
-      - name: Install Packages
-        run:
-           install.packages(c("devtools", "pkgdown"))
-           devtools::install_github("pepijn-devries/openmpt")
-        shell: Rscript {0}
+      - name: Package Dependencies
+        run: R -q -e 'remotes::install_deps(".", dependencies=TRUE)'
+      - name: Build Package
+        run: R CMD build --no-build-vignettes --no-manual .
 
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
