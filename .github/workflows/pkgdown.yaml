@@ -16,8 +16,6 @@ permissions: read-all
 jobs:
   pkgdown:
     runs-on: ubuntu-latest
-    container:
-      image: rocker/r2u:22.04
     # Only restrict concurrency for non-PR jobs
     concurrency:
       group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
@@ -27,17 +25,39 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: System Dependencies
-        run: apt update -qq && apt install --yes --no-install-recommends git libopenmpt-dev portaudio19-dev
-        
       - uses: r-lib/actions/setup-pandoc@v2
 
-      - name: Package Dependencies
-        run: R -q -e 'remotes::install_local(".", dependencies=TRUE);install.packages("pkgdown", dependencies = TRUE)'
-      - name: Build Package
-        run: R CMD build --no-build-vignettes --no-manual .
+      # ---- old setup, can be reactivated if desired
+      #
+      # - name: System Dependencies
+      #   run: apt update -qq && apt install --yes --no-install-recommends git libopenmpt-dev portaudio19-dev        
+      # - name: Package Dependencies
+      #   run: R -q -e 'remotes::install_local(".", dependencies=TRUE);install.packages("pkgdown", dependencies = TRUE)'
+
+      # - name: Build Package
+      #   run: R CMD build --no-build-vignettes --no-manual .
+      #
+      # ---- end old setup
+      
+      # ---- new setup, relies on r2u
+      - name: Setup r2u
+        uses: eddelbuettel/github-actions/r2u-setup@master
+        
+      - name: Install remotes and pkgdown
+        run: Rscript -e 'install.packages(c("remotes", "pkgdown"))'
+        
+      - name: Install all CRAN dependencies 
+        run: Rscript -e 'remotes::install_deps(".", dependencies=TRUE)'
+
+      - name: Install for this package its idiosyncratic non-CRAN dependencies 
+        run: sudo apt install libopenmpt-dev portaudio19-dev
+        
+      - name: Install package itself
+        run: R CMD INSTALL .
+      #
+      # ---- end old setup, remainder unchanged     
 
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
