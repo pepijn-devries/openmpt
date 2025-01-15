@@ -67,13 +67,13 @@ SEXP play_(SEXP mod, int samplerate, std::string progress, double duration) {
   module * my_mod = get_mod(mod);
   if (duration <= 0) cpp11::stop("`duration` should have a value greater than zero.");
   double playtime = 0;
+  constexpr std::size_t buffersize = 480;
+  std::vector<float> left( buffersize );
+  std::vector<float> right( buffersize );
+  std::vector<float> interleaved_buffer( buffersize * 2 );
   try {
-    constexpr std::size_t buffersize = 480;
     portaudio::AutoSystem portaudio_initializer;
     portaudio::System & portaudio = portaudio::System::instance();
-    std::vector<float> left( buffersize );
-    std::vector<float> right( buffersize );
-    std::vector<float> interleaved_buffer( buffersize * 2 );
     bool is_interleaved = false;
 #if defined( _MSC_VER ) && defined( _PREFAST_ )
     // work-around bug in VS2019 MSVC 16.5.5 static analyzer
@@ -110,9 +110,7 @@ SEXP play_(SEXP mod, int samplerate, std::string progress, double duration) {
       counter++;
       if (pending_interrupt()) break;
       std::size_t count = is_interleaved ? my_mod->read_interleaved_stereo( samplerate, buffersize, interleaved_buffer.data() ) : my_mod->read( samplerate, buffersize, left.data(), right.data() );
-      if ( count == 0 ) {
-        break;
-      }
+      if ( count == 0 ) break;
       try {
         if ( is_interleaved ) {
           stream.write( interleaved_buffer.data(), static_cast<unsigned long>( count ) );

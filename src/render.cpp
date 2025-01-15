@@ -10,6 +10,7 @@ using namespace openmpt;
 
 module * get_mod(SEXP mod); // specified in get_mod.cpp
 
+# ifdef WORDS_BIGENDIAN
 static inline uint16_t swapShort ( const uint8_t * const p ) {
   return (uint16_t) ( ( p[0] << 8 ) | p[1] );
 }
@@ -18,6 +19,7 @@ static inline uint32_t swapLong ( const uint8_t * const p ) {
   return (uint32_t) ( ( swapShort(p) << 16 ) |
           swapShort( p + 2 ) );
 }
+# endif
 
 void mod_write_short(std::ofstream * s, uint16_t val) {
 # ifdef WORDS_BIGENDIAN

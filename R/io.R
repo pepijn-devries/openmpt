@@ -23,11 +23,11 @@ read_mod <- function(file, ...) {
   } else {
     file <- file(file, "rb", ...)
   }
+  on.exit({ close(file) })
   repeat {
     chunk <- readBin(file, "raw", 1024*1024)
     x <- c(x, chunk)
     if (length(chunk) == 0) break
   }
-  close(file)
   read_from_raw_(x)
 }

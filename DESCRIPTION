@@ -8,6 +8,8 @@ Authors@R: c(
     person("Jeroen", "Ooms", role = "ctb",
       email = "jeroenooms@gmail.com",
       comment = c(ORCID = "0000-0002-4035-0289")),
+    person("Dirk", "Eddelbuettel", role = "ctb",
+      comment = c(ORCID = "0000-0001-6419-907X")),
     person("Jester", role = c("cph", "dtc"),
       comment = "Copyright holder of cyberrid.mod"),
     person("OpenMPT Project Developers and Contributors", role = "cph")

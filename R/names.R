@@ -46,5 +46,5 @@ get_order_names <- function(mod, ...) {
 #' @rdname names
 #' @export
 get_subsong_names <- function(mod, ...) {
-  get_order_names_(mod)
+  get_subsong_names_(mod)
 }
