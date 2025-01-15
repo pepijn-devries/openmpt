@@ -26,6 +26,7 @@ Useful links:
 Other contributors:
 \itemize{
   \item Jeroen Ooms \email{jeroenooms@gmail.com} (\href{https://orcid.org/0000-0002-4035-0289}{ORCID}) [contributor]
+  \item Dirk Eddelbuettel (\href{https://orcid.org/0000-0001-6419-907X}{ORCID}) [contributor]
   \item Jester (Copyright holder of cyberrid.mod) [copyright holder, data contributor]
   \item OpenMPT Project Developers and Contributors [copyright holder]
 }

@@ -28,8 +28,8 @@ convert_mod <- function(mod, file, start_order = 0L, start_row = 0L,
     tempwav <- tempfile(fileext = ".wav")
     render_(mod, tempwav, as.integer(sample_rate), duration)
     con     <- file(tempwav, "rb")
+    on.exit({ close(con) })
     temp    <- readBin(con, "raw", 1000)
-    close(con)
     if (file |> toupper() |> endsWith(".WAV")) {
       file.rename(tempwav, file)
     } else {
