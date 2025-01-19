@@ -72,11 +72,6 @@ fi
 echo "PKG_CFLAGS: $PKG_CFLAGS"
 echo "PKG_LIBS: $PKG_LIBS"
 
-# Check if the compiler is clang
-if [ "$CC" = "clang" ] || [ "$CXX" = "clang++" ]; then
-  PKG_LIBS="$PKG_LIBS -stdlib=libc++"
-fi
-
 # Create a temporary C++ file to test the compatibility with libopenmpt
 cat <<EOF > conftest.cpp
 #include <fstream>
