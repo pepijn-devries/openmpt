@@ -68,6 +68,36 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Print debug information
+echo "PKG_CFLAGS: $PKG_CFLAGS"
+echo "PKG_LIBS: $PKG_LIBS"
+
+if [ `uname` != "Darwin" ]
+then
+# Create a temporary C++ file to test the compatibility with libopenmpt
+cat <<EOF > conftest.cpp
+#include <fstream>
+#include <iostream>
+#include <libopenmpt/libopenmpt.hpp>
+int main() {
+    std::ifstream file( "inst/cyberrid/cyberrid.mod", std::ios::binary );
+    openmpt::module mod( file );
+    mod.ctl_get_integer("dither");
+    return 0;
+}
+EOF
+
+# Test libopenmpt
+if ! ${CXX} -c conftest.cpp -o conftest.o ${PKG_LIBS} ${PKG_CFLAGS}
+then
+    echo "openmpt cannot be compiled with this setup"
+    rm -rf conftest.cpp conftest.o
+    # Fail
+    exit 1
+else
+    rm -rf conftest.cpp conftest.o
+fi
+fi
 # Write to Makevars
 sed -e "s|@cflags@|$PKG_CFLAGS|" -e "s|@libs@|$PKG_LIBS|" src/Makevars.in > src/Makevars
 
