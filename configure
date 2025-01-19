@@ -72,6 +72,8 @@ fi
 echo "PKG_CFLAGS: $PKG_CFLAGS"
 echo "PKG_LIBS: $PKG_LIBS"
 
+if [ `uname` != "Darwin" ]
+then
 # Create a temporary C++ file to test the compatibility with libopenmpt
 cat <<EOF > conftest.cpp
 #include <fstream>
@@ -95,7 +97,7 @@ then
 else
     rm -rf conftest.cpp conftest.o
 fi
-
+fi
 # Write to Makevars
 sed -e "s|@cflags@|$PKG_CFLAGS|" -e "s|@libs@|$PKG_LIBS|" src/Makevars.in > src/Makevars
 
