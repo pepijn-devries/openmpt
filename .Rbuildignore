@@ -1,4 +1,5 @@
 ^.*\.Rproj$
+^configure\.ac$
 ^\.Rproj\.user$
 ^src/Makevars$
 ^LICENSE\.md$
