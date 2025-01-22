@@ -1,5 +1,12 @@
 ^.*\.Rproj$
+^\.clang-format$
+^alocal\.m4$
+^build-aux$
 ^configure\.ac$
+^Doxyfile\.in$
+^libopenmpt$
+^Makefile\.in$
+^m4$
 ^\.Rproj\.user$
 ^src/Makevars$
 ^LICENSE\.md$
