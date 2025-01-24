@@ -1,6 +1,6 @@
 Package: openmpt
 Title: Open 'ModPlug' Tracker Port
-Version: 0.1.7
+Version: 0.1.8
 Authors@R: c(
     person("Pepijn", "de Vries", role = c("aut", "cre"),
       email = "pepijn.devries@outlook.com",
@@ -23,6 +23,8 @@ License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Depends:
+    R (>= 4.1.0)
 Imports:
     av
 Suggests:
