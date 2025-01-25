@@ -3,7 +3,6 @@
 ^alocal\.m4$
 ^build$
 ^build-aux$
-^configure\.ac$
 ^Doxyfile\.in$
 ^libopenmpt$
 ^Makefile\.in$
