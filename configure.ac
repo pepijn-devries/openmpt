@@ -266,7 +266,6 @@ DX_INIT_DOXYGEN([libopenmpt], [Doxyfile], [doxygen-doc])
 # AC_OUTPUT
 
 echo "
-printf("prepared Makevars")
 ${PACKAGE_NAME} $PACKAGE_VERSION
 ================
 
