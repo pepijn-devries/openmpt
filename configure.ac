@@ -3,18 +3,6 @@ AC_PREREQ([2.69])
 # we do want 2.70, but distributions are not ready yet
 #AC_PREREQ([2.70])
 
-# Ensure C++ is set up as R expects
-: ${R_HOME=`R RHOME`}
-if test -z "${R_HOME}"; then
-    AC_MSG_ERROR([Could not determine R_HOME.])
-fi
-CXX=`"${R_HOME}/bin/R" CMD config CXX`
-CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
-AC_LANG(C++)
-AC_REQUIRE_CPP
-AC_PROG_CC
-AC_PROG_CXX
-
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_FILES([Makefile libopenmpt/libopenmpt.pc Doxyfile])
@@ -234,76 +222,6 @@ AM_CONDITIONAL([ENABLE_EXAMPLES], [test "x$enable_examples" != "xno"])
 AC_ARG_ENABLE([tests], AS_HELP_STRING([--disable-tests], [Disable the test suite.]))
 AM_CONDITIONAL([ENABLE_TESTS], [test "x$enable_tests" != "xno"])
 
-
-# Optional openmpt123 dependency
-# AC_ARG_WITH([pulseaudio], AS_HELP_STRING([--with-pulseaudio], [Enable use of libpulse and libpulse-simple (enabled by default on Linux).]))
-# AS_IF([test "x$enable_openmpt123" != "xno"],[
-# AS_CASE([$host_os],
-#  [linux*],[
-# AS_IF([test "x$with_pulseaudio" != "xno"],
-#  [
-#   PKG_CHECK_MODULES([PULSEAUDIO], [libpulse libpulse-simple],
-#    [
-#     have_pulseaudio=1
-#     PULSEAUDIO_CFLAGS="-DMPT_WITH_PULSEAUDIO $PULSEAUDIO_CFLAGS"
-#    ],
-#    [
-#     have_pulseaudio=0
-#     AC_MSG_ERROR([Unable to find libpulse and/or libpulse-simple.])
-#    ]
-#   )
-#  ],
-#  [
-#   have_pulseaudio=0
-#  ]
-# )
-#  ;;
-#  *)
-# AS_IF([test "x$with_pulseaudio" = "xyes"],
-#  [
-#   PKG_CHECK_MODULES([PULSEAUDIO], [libpulse libpulse-simple],
-#    [
-#     have_pulseaudio=1
-#     PULSEAUDIO_CFLAGS="-DMPT_WITH_PULSEAUDIO $PULSEAUDIO_CFLAGS"
-#    ],
-#    [
-#     have_pulseaudio=0
-#     AC_MSG_ERROR([Unable to find libpulse and/or libpulse-simple.])
-#    ]
-#   )
-#  ],
-#  [
-#   have_pulseaudio=0
-#  ]
-# )
-#  ],
-#  []
-# )
-# ],[have_pulseaudio=0])
-
-# Optional openmpt123 and examples dependency
-AC_ARG_WITH([portaudio], AS_HELP_STRING([--without-portaudio], [Disable use of libportaudio.]))
-AS_IF([test "x$enable_openmpt123$enable_examples" != "xnono"],[
-AS_IF([test "x$with_portaudio" != "xno"],
- [
-  PKG_CHECK_MODULES([PORTAUDIO], [portaudio-2.0],
-   [
-    have_portaudio=1
-    PORTAUDIO_CFLAGS="-DMPT_WITH_PORTAUDIO $PORTAUDIO_CFLAGS"
-   ],
-   [
-    have_portaudio=0
-    AC_MSG_ERROR([Unable to find libportaudio.])
-   ]
-  )
- ],
- [
-  have_portaudio=0
- ]
-)
-],[have_portaudio=0])
-AM_CONDITIONAL([HAVE_PORTAUDIO], [test x$have_portaudio = x1])
-
 # Optional examples dependency: PortAudio C++
 AC_ARG_WITH([portaudiocpp], AS_HELP_STRING([--without-portaudiocpp], [Disable use of libportaudiocpp.]))
 AS_IF([test "x$enable_examples" != "xno"],[
@@ -327,39 +245,9 @@ AS_IF([test "x$with_portaudiocpp" != "xno"],
 ],[have_portaudiocpp=0])
 AM_CONDITIONAL([HAVE_PORTAUDIOCPP], [test x$have_portaudiocpp = x1])
 
-# Optional disabled openmpt123 dependency: libsdl2
-AC_ARG_WITH([sdl2], AS_HELP_STRING([--with-sdl2], [Enable use of libsdl2.]))
-AS_IF([test "x$enable_openmpt123" != "xno"],[
-AS_IF([test "x$with_sdl2" = "xyes"],
- [
-  PKG_CHECK_MODULES([SDL2], [sdl2 >= 2.0.4], [SDL2_CFLAGS="-DMPT_WITH_SDL2 $SDL2_CFLAGS"], [AC_MSG_ERROR([Unable to find libsdl2.])])
- ]
-)
-])
-
-# Optional openmpt123 dependency: libsndfile
-# AC_ARG_WITH([sndfile], AS_HELP_STRING([--without-sndfile], [Disable use of libsndfile.]))
-# AS_IF([test "x$enable_openmpt123" != "xno"],[
-# AS_IF([test "x$with_sndfile" != "xno"],
-#  [
-#   PKG_CHECK_MODULES([SNDFILE], [sndfile], [SNDFILE_CFLAGS="-DMPT_WITH_SNDFILE $SNDFILE_CFLAGS"], [AC_MSG_ERROR([Unable to find libsndfile.])])
-#  ]
-# )
-# ])
-
-# Optional openmpt123 dependency: libFLAC
-# AC_ARG_WITH([flac], AS_HELP_STRING([--without-flac], [Disable use of libflac.]))
-# AS_IF([test "x$enable_openmpt123" != "xno"],[
-# AS_IF([test "x$with_flac" != "xno"],
-#  [
-#   PKG_CHECK_MODULES([FLAC], [flac >= 1.3.0], [FLAC_CFLAGS="-DMPT_WITH_FLAC $FLAC_CFLAGS"], [AC_MSG_ERROR([Unable to find libflac >= 1.3.0.])])
-#  ]
-# )
-# ])
-
-DX_DOXYGEN_FEATURE(OFF)
+DX_DOXYGEN_FEATURE(ON)
 DX_DOT_FEATURE(OFF)
-DX_HTML_FEATURE(OFF)
+DX_HTML_FEATURE(ON)
 
 DX_MAN_FEATURE(OFF)
 DX_CHM_FEATURE(OFF)
@@ -369,7 +257,19 @@ DX_XML_FEATURE(OFF)
 DX_PDF_FEATURE(OFF)
 DX_PS_FEATURE(OFF)
 
-# DX_INIT_DOXYGEN([libopenmpt], [Doxyfile], [doxygen-doc])
+DX_INIT_DOXYGEN([libopenmpt], [Doxyfile], [doxygen-doc])
 
+## now use all these TODO
+# AC_SUBST([PKG_CPPFLAGS],["${PKG_CPPFLAGS} ${CXXFLAGS} ${protobuf_cxxflags}"])
+# AC_SUBST([PKG_LIBS],["${PKG_LIBS} ${protobuf_libs}"])
+# AC_CONFIG_FILES([src/Makevars])
+# AC_OUTPUT
 
-AC_OUTPUT
+echo "
+printf("prepared Makevars")
+${PACKAGE_NAME} $PACKAGE_VERSION
+================
+
+cflags:  ${PKG_CPPFLAGS}
+libs:    ${PKG_LIBS}
+"
