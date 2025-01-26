@@ -88,7 +88,7 @@ int main() {
 EOF
 
 # Test libopenmpt
-if ! ${CXX} -c conftest.cpp -o conftest.o ${PKG_LIBS} ${PKG_CFLAGS}
+if ! ${CXX} -E -xc++ conftest.cpp -o conftest.o ${PKG_LIBS} ${PKG_CFLAGS}
 then
     echo "openmpt cannot be compiled with this setup"
     rm -rf conftest.cpp conftest.o
