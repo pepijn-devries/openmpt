@@ -10,7 +10,8 @@ PKG_DEB_NAME="libopenmpt-dev portaudio19-dev"
 PKG_RPM_NAME="libopenmpt-devel portaudio-devel"
 PKG_BREW_NAME="libopenmpt"
 PKG_LIBS="-llibportaudio -llibportaudiocpp -llibopenmpt"
-PKG_TEST_HEADER="<libopenmpt/libopenmpt.h>"
+PKG_TEST_HEADER="<libopenmpt/libopenmpt.hpp>"
+PKG_TEST_HEADER2="<portaudiocpp/PortAudioCpp.hxx>"
 
 # Use pkg-config if available
 if [ `command -v pkg-config` ]; then
@@ -29,6 +30,7 @@ elif [ "$PKGCONFIG_CFLAGS" ] || [ "$PKGCONFIG_LIBS" ]; then
   PKG_LIBS=${PKGCONFIG_LIBS}
 elif [ `uname` = "Darwin" ]; then
   PKG_TEST_HEADER="\"inst/include/ropenmpt.hpp\""
+  PKG_TEST_HEADER2="\"inst/include/ropenmpt.hpp\""
   test ! "$CI" && brew --version 2>/dev/null
   if [ $? -eq 0 ]; then
     BREWDIR=`brew --prefix`
@@ -51,6 +53,7 @@ CPPFLAGS=`${R_HOME}/bin/R CMD config CPPFLAGS`
 
 # Test configuration
 echo "#include $PKG_TEST_HEADER" | ${CXX} ${CPPFLAGS} ${PKG_CFLAGS} ${CFLAGS} -E -xc++ - >/dev/null 2>configure.log
+echo "#include $PKG_TEST_HEADER2" | ${CXX} ${CPPFLAGS} ${PKG_CFLAGS} ${CFLAGS} -E -xc++ - >/dev/null 2>configure.log
 
 # Customize the error
 if [ $? -ne 0 ]; then
@@ -72,32 +75,6 @@ fi
 echo "PKG_CFLAGS: $PKG_CFLAGS"
 echo "PKG_LIBS: $PKG_LIBS"
 
-if [ `uname` != "Darwin" ]
-then
-# Create a temporary C++ file to test the compatibility with libopenmpt
-cat <<EOF > conftest.cpp
-#include <fstream>
-#include <iostream>
-#include <libopenmpt/libopenmpt.hpp>
-int main() {
-    std::ifstream file( "inst/cyberrid/cyberrid.mod", std::ios::binary );
-    openmpt::module mod( file );
-    mod.ctl_get_integer("dither");
-    return 0;
-}
-EOF
-
-# Test libopenmpt
-if ! ${CXX} -E -xc++ conftest.cpp -o conftest.o ${PKG_LIBS} ${PKG_CFLAGS}
-then
-    echo "openmpt cannot be compiled with this setup"
-    rm -rf conftest.cpp conftest.o
-    # Fail
-    exit 1
-else
-    rm -rf conftest.cpp conftest.o
-fi
-fi
 # Write to Makevars
 sed -e "s|@cflags@|$PKG_CFLAGS|" -e "s|@libs@|$PKG_LIBS|" src/Makevars.in > src/Makevars
 
