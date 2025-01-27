@@ -271,27 +271,27 @@ AM_CONDITIONAL([ENABLE_TESTS], [test "x$enable_tests" != "xno"])
 # ],[have_pulseaudio=0])
 
 # Optional openmpt123 and examples dependency
-# AC_ARG_WITH([portaudio], AS_HELP_STRING([--without-portaudio], [Disable use of libportaudio.]))
-# AS_IF([test "x$enable_openmpt123$enable_examples" != "xnono"],[
-# AS_IF([test "x$with_portaudio" != "xno"],
-#  [
-#   PKG_CHECK_MODULES([PORTAUDIO], [portaudio-2.0],
-#    [
-#     have_portaudio=1
-#     PORTAUDIO_CFLAGS="-DMPT_WITH_PORTAUDIO $PORTAUDIO_CFLAGS"
-#    ],
-#    [
-#     have_portaudio=0
-#     AC_MSG_ERROR([Unable to find libportaudio.])
-#    ]
-#   )
-#  ],
-#  [
-#   have_portaudio=0
-#  ]
-# )
-# ],[have_portaudio=0])
-# AM_CONDITIONAL([HAVE_PORTAUDIO], [test x$have_portaudio = x1])
+AC_ARG_WITH([portaudio], AS_HELP_STRING([--without-portaudio], [Disable use of libportaudio.]))
+AS_IF([test "x$enable_openmpt123$enable_examples" != "xnono"],[
+AS_IF([test "x$with_portaudio" != "xno"],
+ [
+  PKG_CHECK_MODULES([PORTAUDIO], [portaudio-2.0],
+   [
+    have_portaudio=1
+    PORTAUDIO_CFLAGS="-DMPT_WITH_PORTAUDIO $PORTAUDIO_CFLAGS"
+   ],
+   [
+    have_portaudio=0
+    AC_MSG_ERROR([Unable to find libportaudio.])
+   ]
+  )
+ ],
+ [
+  have_portaudio=0
+ ]
+)
+],[have_portaudio=0])
+AM_CONDITIONAL([HAVE_PORTAUDIO], [test x$have_portaudio = x1])
 
 # Optional examples dependency: PortAudio C++
 AC_ARG_WITH([portaudiocpp], AS_HELP_STRING([--without-portaudiocpp], [Disable use of libportaudiocpp.]))

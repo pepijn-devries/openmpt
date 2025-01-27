@@ -662,6 +662,8 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
+PKG_LIBS
+PKG_CPPFLAGS
 DX_RULES
 PAPER_SIZE
 DOXYGEN_PAPER_SIZE
@@ -701,10 +703,16 @@ DX_ENV
 DX_DOCDIR
 DX_CONFIG
 DX_PROJECT
+SNDFILE_LIBS
+SNDFILE_CFLAGS
 HAVE_PORTAUDIOCPP_FALSE
 HAVE_PORTAUDIOCPP_TRUE
 PORTAUDIOCPP_LIBS
 PORTAUDIOCPP_CFLAGS
+HAVE_PORTAUDIO_FALSE
+HAVE_PORTAUDIO_TRUE
+PORTAUDIO_LIBS
+PORTAUDIO_CFLAGS
 ENABLE_TESTS_FALSE
 ENABLE_TESTS_TRUE
 ENABLE_EXAMPLES_FALSE
@@ -895,7 +903,9 @@ with_vorbisfile
 enable_openmpt123
 enable_examples
 enable_tests
+with_portaudio
 with_portaudiocpp
+with_sndfile
 enable_doxygen_doc
 enable_doxygen_dot
 enable_doxygen_man
@@ -935,8 +945,12 @@ VORBIS_CFLAGS
 VORBIS_LIBS
 VORBISFILE_CFLAGS
 VORBISFILE_LIBS
+PORTAUDIO_CFLAGS
+PORTAUDIO_LIBS
 PORTAUDIOCPP_CFLAGS
 PORTAUDIOCPP_LIBS
+SNDFILE_CFLAGS
+SNDFILE_LIBS
 DOXYGEN_PAPER_SIZE'
 
 
@@ -1580,7 +1594,7 @@ Optional Features:
   --disable-openmpt123    Disable the openmpt123 command line player.
   --disable-examples      Disable the example programs.
   --disable-tests         Disable the test suite.
-  --disable-doxygen-doc   don't generate any doxygen documentation
+  --enable-doxygen-doc    generate any doxygen documentation
   --enable-doxygen-dot    generate graphics for doxygen documentation
   --enable-doxygen-man    generate doxygen manual pages
   --enable-doxygen-rtf    generate doxygen RTF documentation
@@ -1588,7 +1602,7 @@ Optional Features:
   --enable-doxygen-chm    generate doxygen compressed HTML help documentation
   --enable-doxygen-chi    generate doxygen separate compressed HTML help index
                           file
-  --disable-doxygen-html  don't generate doxygen plain HTML documentation
+  --enable-doxygen-html   generate doxygen plain HTML documentation
   --enable-doxygen-ps     generate doxygen PostScript documentation
   --enable-doxygen-pdf    generate doxygen PDF documentation
 
@@ -1602,13 +1616,15 @@ Optional Packages:
                           provide on AIX, [default=aix].
   --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
   --with-sysroot[=DIR]    Search for dependent libraries within DIR (or the
-                          compiler's sysroot if not specified).
+                          compiler's sysroot if not specified).
   --without-zlib          Disable use of zlib.
   --without-mpg123        Disable use of libmpg123.
   --without-ogg           Disable use of libogg.
   --without-vorbis        Disable use of libvorbis.
   --without-vorbisfile    Disable use of libvorbisfile.
+  --without-portaudio     Disable use of libportaudio.
   --without-portaudiocpp  Disable use of libportaudiocpp.
+  --without-sndfile       Disable use of libsndfile.
 
 Some influential environment variables:
   CC          C compiler command
@@ -1647,10 +1663,18 @@ Some influential environment variables:
               C compiler flags for VORBISFILE, overriding pkg-config
   VORBISFILE_LIBS
               linker flags for VORBISFILE, overriding pkg-config
+  PORTAUDIO_CFLAGS
+              C compiler flags for PORTAUDIO, overriding pkg-config
+  PORTAUDIO_LIBS
+              linker flags for PORTAUDIO, overriding pkg-config
   PORTAUDIOCPP_CFLAGS
               C compiler flags for PORTAUDIOCPP, overriding pkg-config
   PORTAUDIOCPP_LIBS
               linker flags for PORTAUDIOCPP, overriding pkg-config
+  SNDFILE_CFLAGS
+              C compiler flags for SNDFILE, overriding pkg-config
+  SNDFILE_LIBS
+              linker flags for SNDFILE, overriding pkg-config
   DOXYGEN_PAPER_SIZE
               a4wide (default), a4, letter, legal or executive
 
@@ -18571,7 +18595,8 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 # We need C++17 support.
-  ax_cxx_compile_alternatives="20"    ax_cxx_compile_cxx20_required=false
+# AX_CXX_COMPILE_STDCXX([20], [noext], [optional])
+  ax_cxx_compile_alternatives="20"    ax_cxx_compile_cxx20_required=true
   ac_ext=cpp
 ac_cpp='$CXXCPP $CPPFLAGS'
 ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
@@ -22773,6 +22798,169 @@ else
 fi
 
 
+
+# Optional openmpt123 dependency
+# AC_ARG_WITH([pulseaudio], AS_HELP_STRING([--with-pulseaudio], [Enable use of libpulse and libpulse-simple (enabled by default on Linux).]))
+# AS_IF([test "x$enable_openmpt123" != "xno"],[
+# AS_CASE([$host_os],
+#  [linux*],[
+# AS_IF([test "x$with_pulseaudio" != "xno"],
+#  [
+#   PKG_CHECK_MODULES([PULSEAUDIO], [libpulse libpulse-simple],
+#    [
+#     have_pulseaudio=1
+#     PULSEAUDIO_CFLAGS="-DMPT_WITH_PULSEAUDIO $PULSEAUDIO_CFLAGS"
+#    ],
+#    [
+#     have_pulseaudio=0
+#     AC_MSG_ERROR([Unable to find libpulse and/or libpulse-simple.])
+#    ]
+#   )
+#  ],
+#  [
+#   have_pulseaudio=0
+#  ]
+# )
+#  ;;
+#  *)
+# AS_IF([test "x$with_pulseaudio" = "xyes"],
+#  [
+#   PKG_CHECK_MODULES([PULSEAUDIO], [libpulse libpulse-simple],
+#    [
+#     have_pulseaudio=1
+#     PULSEAUDIO_CFLAGS="-DMPT_WITH_PULSEAUDIO $PULSEAUDIO_CFLAGS"
+#    ],
+#    [
+#     have_pulseaudio=0
+#     AC_MSG_ERROR([Unable to find libpulse and/or libpulse-simple.])
+#    ]
+#   )
+#  ],
+#  [
+#   have_pulseaudio=0
+#  ]
+# )
+#  ],
+#  []
+# )
+# ],[have_pulseaudio=0])
+
+# Optional openmpt123 and examples dependency
+
+# Check whether --with-portaudio was given.
+if test ${with_portaudio+y}
+then :
+  withval=$with_portaudio;
+fi
+
+if test "x$enable_openmpt123$enable_examples" != "xnono"
+then :
+
+if test "x$with_portaudio" != "xno"
+then :
+
+
+pkg_failed=no
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for portaudio-2.0" >&5
+printf %s "checking for portaudio-2.0... " >&6; }
+
+if test -n "$PORTAUDIO_CFLAGS"; then
+    pkg_cv_PORTAUDIO_CFLAGS="$PORTAUDIO_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"portaudio-2.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "portaudio-2.0") 2>&5
+  ac_status=$?
+  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_PORTAUDIO_CFLAGS=`$PKG_CONFIG --cflags "portaudio-2.0" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$PORTAUDIO_LIBS"; then
+    pkg_cv_PORTAUDIO_LIBS="$PORTAUDIO_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"portaudio-2.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "portaudio-2.0") 2>&5
+  ac_status=$?
+  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_PORTAUDIO_LIBS=`$PKG_CONFIG --libs "portaudio-2.0" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+                PORTAUDIO_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "portaudio-2.0" 2>&1`
+        else
+                PORTAUDIO_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "portaudio-2.0" 2>&1`
+        fi
+        # Put the nasty error message in config.log where it belongs
+        echo "$PORTAUDIO_PKG_ERRORS" >&5
+
+
+   have_portaudio=0
+   as_fn_error $? "Unable to find libportaudio." "$LINENO" 5
+
+
+elif test $pkg_failed = untried; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+
+   have_portaudio=0
+   as_fn_error $? "Unable to find libportaudio." "$LINENO" 5
+
+
+else
+        PORTAUDIO_CFLAGS=$pkg_cv_PORTAUDIO_CFLAGS
+        PORTAUDIO_LIBS=$pkg_cv_PORTAUDIO_LIBS
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+
+   have_portaudio=1
+   PORTAUDIO_CFLAGS="-DMPT_WITH_PORTAUDIO $PORTAUDIO_CFLAGS"
+
+fi
+
+else $as_nop
+
+ have_portaudio=0
+
+
+fi
+
+else $as_nop
+  have_portaudio=0
+fi
+ if test x$have_portaudio = x1; then
+  HAVE_PORTAUDIO_TRUE=
+  HAVE_PORTAUDIO_FALSE='#'
+else
+  HAVE_PORTAUDIO_TRUE='#'
+  HAVE_PORTAUDIO_FALSE=
+fi
+
+
 # Optional examples dependency: PortAudio C++
 
 # Check whether --with-portaudiocpp was given.
@@ -22889,6 +23077,117 @@ else
 fi
 
 
+# Optional disabled openmpt123 dependency: libsdl2
+# AC_ARG_WITH([sdl2], AS_HELP_STRING([--with-sdl2], [Enable use of libsdl2.]))
+# AS_IF([test "x$enable_openmpt123" != "xno"],[
+# AS_IF([test "x$with_sdl2" = "xyes"],
+#  [
+#   PKG_CHECK_MODULES([SDL2], [sdl2 >= 2.0.4], [SDL2_CFLAGS="-DMPT_WITH_SDL2 $SDL2_CFLAGS"], [AC_MSG_ERROR([Unable to find libsdl2.])])
+#  ]
+# )
+# ])
+
+# Optional openmpt123 dependency: libsndfile
+
+# Check whether --with-sndfile was given.
+if test ${with_sndfile+y}
+then :
+  withval=$with_sndfile;
+fi
+
+if test "x$enable_openmpt123" != "xno"
+then :
+
+if test "x$with_sndfile" != "xno"
+then :
+
+
+pkg_failed=no
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for sndfile" >&5
+printf %s "checking for sndfile... " >&6; }
+
+if test -n "$SNDFILE_CFLAGS"; then
+    pkg_cv_SNDFILE_CFLAGS="$SNDFILE_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"sndfile\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "sndfile") 2>&5
+  ac_status=$?
+  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_SNDFILE_CFLAGS=`$PKG_CONFIG --cflags "sndfile" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$SNDFILE_LIBS"; then
+    pkg_cv_SNDFILE_LIBS="$SNDFILE_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"sndfile\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "sndfile") 2>&5
+  ac_status=$?
+  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_SNDFILE_LIBS=`$PKG_CONFIG --libs "sndfile" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+                SNDFILE_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "sndfile" 2>&1`
+        else
+                SNDFILE_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "sndfile" 2>&1`
+        fi
+        # Put the nasty error message in config.log where it belongs
+        echo "$SNDFILE_PKG_ERRORS" >&5
+
+        as_fn_error $? "Unable to find libsndfile." "$LINENO" 5
+elif test $pkg_failed = untried; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+        as_fn_error $? "Unable to find libsndfile." "$LINENO" 5
+else
+        SNDFILE_CFLAGS=$pkg_cv_SNDFILE_CFLAGS
+        SNDFILE_LIBS=$pkg_cv_SNDFILE_LIBS
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+        SNDFILE_CFLAGS="-DMPT_WITH_SNDFILE $SNDFILE_CFLAGS"
+fi
+
+
+fi
+
+fi
+
+# Optional openmpt123 dependency: libFLAC
+# AC_ARG_WITH([flac], AS_HELP_STRING([--without-flac], [Disable use of libflac.]))
+# AS_IF([test "x$enable_openmpt123" != "xno"],[
+# AS_IF([test "x$with_flac" != "xno"],
+#  [
+#   PKG_CHECK_MODULES([FLAC], [flac >= 1.3.0], [FLAC_CFLAGS="-DMPT_WITH_FLAC $FLAC_CFLAGS"], [AC_MSG_ERROR([Unable to find libflac >= 1.3.0.])])
+#  ]
+# )
+# ])
+
 
 
 
@@ -22947,7 +23246,7 @@ esac
 
 else $as_nop
 
-DX_FLAG_doc=1
+DX_FLAG_doc=0
 
 
 
@@ -23800,7 +24099,7 @@ esac
 
 else $as_nop
 
-DX_FLAG_html=1
+DX_FLAG_html=0
 
 
 test "$DX_FLAG_doc" = "1" || DX_FLAG_html=0
@@ -24991,6 +25290,12 @@ DX_RULES="${DX_SNIPPET_doc}"
 #echo DX_ENV=$DX_ENV
 
 
+PKG_CPPFLAGS="${PKG_CPPFLAGS} ${GLOBAL_CPPFLAGS} ${GLOBAL_CXXFLAGS}"
+
+PKG_LIBS="${PKG_LIBS} ${LIBS}"
+
+ac_config_files="$ac_config_files src/Makevars"
+
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
@@ -25178,6 +25483,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${ENABLE_TESTS_TRUE}" && test -z "${ENABLE_TESTS_FALSE}"; then
   as_fn_error $? "conditional \"ENABLE_TESTS\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${HAVE_PORTAUDIO_TRUE}" && test -z "${HAVE_PORTAUDIO_FALSE}"; then
+  as_fn_error $? "conditional \"HAVE_PORTAUDIO\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${HAVE_PORTAUDIOCPP_TRUE}" && test -z "${HAVE_PORTAUDIOCPP_FALSE}"; then
@@ -26140,6 +26449,7 @@ do
     "Doxyfile") CONFIG_FILES="$CONFIG_FILES Doxyfile" ;;
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
+    "src/Makevars") CONFIG_FILES="$CONFIG_FILES src/Makevars" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac
@@ -26941,7 +27251,7 @@ shlibpath_overrides_runpath=$shlibpath_overrides_runpath
 libname_spec=$lt_libname_spec
 
 # List of archive names.  First name is the real one, the rest are links.
-# The last name is the one that the linker finds with -lNAME
+# The last name is the one that the linker finds with -lNAME.
 library_names_spec=$lt_library_names_spec
 
 # The coded name of the library, if different from the real name.
@@ -27060,7 +27370,7 @@ allow_undefined_flag=$lt_allow_undefined_flag
 no_undefined_flag=$lt_no_undefined_flag
 
 # Flag to hardcode \$libdir into a binary during linking.
-# This must work even if \$libdir does not exist
+# This must work even if \$libdir does not exist.
 hardcode_libdir_flag_spec=$lt_hardcode_libdir_flag_spec
 
 # Whether we need a single "-rpath" flag with a separated argument.
@@ -27303,7 +27613,7 @@ allow_undefined_flag=$lt_allow_undefined_flag_CXX
 no_undefined_flag=$lt_no_undefined_flag_CXX
 
 # Flag to hardcode \$libdir into a binary during linking.
-# This must work even if \$libdir does not exist
+# This must work even if \$libdir does not exist.
 hardcode_libdir_flag_spec=$lt_hardcode_libdir_flag_spec_CXX
 
 # Whether we need a single "-rpath" flag with a separated argument.
@@ -27420,4 +27730,11 @@ printf "%s\n" "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2
 fi
 
 
+echo "
+${PACKAGE_NAME} $PACKAGE_VERSION
+================
+
+cflags:  ${PKG_CPPFLAGS}
+libs:    ${PKG_LIBS}
+"
 
