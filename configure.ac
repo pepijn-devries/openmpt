@@ -327,14 +327,14 @@ AM_CONDITIONAL([HAVE_PORTAUDIOCPP], [test x$have_portaudiocpp = x1])
 # ])
 
 # Optional openmpt123 dependency: libsndfile
-AC_ARG_WITH([sndfile], AS_HELP_STRING([--without-sndfile], [Disable use of libsndfile.]))
-AS_IF([test "x$enable_openmpt123" != "xno"],[
-AS_IF([test "x$with_sndfile" != "xno"],
- [
-  PKG_CHECK_MODULES([SNDFILE], [sndfile], [SNDFILE_CFLAGS="-DMPT_WITH_SNDFILE $SNDFILE_CFLAGS"], [AC_MSG_ERROR([Unable to find libsndfile.])])
- ]
-)
-])
+# AC_ARG_WITH([sndfile], AS_HELP_STRING([--without-sndfile], [Disable use of libsndfile.]))
+# AS_IF([test "x$enable_openmpt123" != "xno"],[
+# AS_IF([test "x$with_sndfile" != "xno"],
+#  [
+#   PKG_CHECK_MODULES([SNDFILE], [sndfile], [SNDFILE_CFLAGS="-DMPT_WITH_SNDFILE $SNDFILE_CFLAGS"], [AC_MSG_ERROR([Unable to find libsndfile.])])
+#  ]
+# )
+# ])
 
 # Optional openmpt123 dependency: libFLAC
 # AC_ARG_WITH([flac], AS_HELP_STRING([--without-flac], [Disable use of libflac.]))
