@@ -399,7 +399,7 @@ AC_PROG_R
 
 AC_SUBST([PKG_CPPFLAGS],["${CXXFLAGS} ${PKG_CPPFLAGS} ${GLOBAL_CPPFLAGS} ${GLOBAL_CXXFLAGS}"])
 # AC_SUBST([PKG_LIBS],["${PKG_LIBS} ${LIBOPENMPT_REQUIRES_PRIVATE} ${LIBOPENMPT_LIBS_PRIVATE}"])
-AC_SUBST([PKG_LIBS],["${PKG_LIBS} -lz -lmpg123 -logg -lvorbis -lvorbisfile -lportaudiocpp -lportaudio -lopenmpt -lsndfile"])
+AC_SUBST([PKG_LIBS],["${PKG_LIBS} -lz -lmpg123 -logg -lvorbis -lvorbisfile -lportaudiocpp -lportaudio -lopenmpt -lsndfile1"])
 AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT
 

@@ -25324,7 +25324,7 @@ fi
 PKG_CPPFLAGS="${CXXFLAGS} ${PKG_CPPFLAGS} ${GLOBAL_CPPFLAGS} ${GLOBAL_CXXFLAGS}"
 
 # AC_SUBST([PKG_LIBS],["${PKG_LIBS} ${LIBOPENMPT_REQUIRES_PRIVATE} ${LIBOPENMPT_LIBS_PRIVATE}"])
-PKG_LIBS="${PKG_LIBS} -lz -lmpg123 -logg -lvorbis -lvorbisfile -lportaudiocpp -lportaudio -lopenmpt -lsndfile"
+PKG_LIBS="${PKG_LIBS} -lz -lmpg123 -logg -lvorbis -lvorbisfile -lportaudiocpp -lportaudio -lopenmpt -lsndfile1"
 
 ac_config_files="$ac_config_files src/Makevars"
 
