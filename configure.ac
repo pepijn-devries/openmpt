@@ -361,7 +361,7 @@ AM_CONDITIONAL([HAVE_PORTAUDIOCPP], [test x$have_portaudiocpp = x1])
 # ])
 
 # Optional openmpt123 dependency: libsndfile
-AC_ARG_WITH([sndfile], AS_HELP_STRING([--without-sndfile], [Disable use of libsndfile.]))
+# AC_ARG_WITH([sndfile], AS_HELP_STRING([--without-sndfile], [Disable use of libsndfile.]))
 # AS_IF([test "x$enable_openmpt123" != "xno"],[
 # AS_IF([test "x$with_sndfile" != "xno"],
 #  [

@@ -905,7 +905,6 @@ enable_examples
 enable_tests
 with_portaudio
 with_portaudiocpp
-with_sndfile
 enable_doxygen_doc
 enable_doxygen_dot
 enable_doxygen_man
@@ -1622,7 +1621,6 @@ Optional Packages:
   --without-vorbisfile    Disable use of libvorbisfile.
   --without-portaudio     Disable use of libportaudio.
   --without-portaudiocpp  Disable use of libportaudiocpp.
-  --without-sndfile       Disable use of libsndfile.
 
 Some influential environment variables:
   CC          C compiler command
@@ -23157,13 +23155,7 @@ fi
 # ])
 
 # Optional openmpt123 dependency: libsndfile
-
-# Check whether --with-sndfile was given.
-if test ${with_sndfile+y}
-then :
-  withval=$with_sndfile;
-fi
-
+# AC_ARG_WITH([sndfile], AS_HELP_STRING([--without-sndfile], [Disable use of libsndfile.]))
 # AS_IF([test "x$enable_openmpt123" != "xno"],[
 # AS_IF([test "x$with_sndfile" != "xno"],
 #  [
