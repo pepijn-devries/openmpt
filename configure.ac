@@ -361,13 +361,13 @@ AM_CONDITIONAL([HAVE_PORTAUDIOCPP], [test x$have_portaudiocpp = x1])
 # ])
 
 # Optional openmpt123 dependency: libsndfile
-# AC_ARG_WITH([sndfile], AS_HELP_STRING([--without-sndfile], [Disable use of libsndfile.]))
+AC_ARG_WITH([sndfile], AS_HELP_STRING([--without-sndfile], [Disable use of libsndfile.]))
 # AS_IF([test "x$enable_openmpt123" != "xno"],[
-# AS_IF([test "x$with_sndfile" != "xno"],
-#  [
-#   PKG_CHECK_MODULES([SNDFILE], [sndfile], [SNDFILE_CFLAGS="-DMPT_WITH_SNDFILE $SNDFILE_CFLAGS"], [AC_MSG_ERROR([Unable to find libsndfile.])])
-#  ]
-# )
+AS_IF([test "x$with_sndfile" != "xno"],
+ [
+ PKG_CHECK_MODULES([SNDFILE], [sndfile], [SNDFILE_CFLAGS="-DMPT_WITH_SNDFILE $SNDFILE_CFLAGS"], [AC_MSG_ERROR([Unable to find libsndfile.])])
+ ]
+)
 # ])
 
 # Optional openmpt123 dependency: libFLAC
@@ -399,7 +399,7 @@ AC_PROG_R
 
 AC_SUBST([PKG_CPPFLAGS],["${CXXFLAGS} ${PKG_CPPFLAGS} ${GLOBAL_CPPFLAGS} ${GLOBAL_CXXFLAGS}"])
 # AC_SUBST([PKG_LIBS],["${PKG_LIBS} ${LIBOPENMPT_REQUIRES_PRIVATE} ${LIBOPENMPT_LIBS_PRIVATE}"])
-AC_SUBST([PKG_LIBS],["${PKG_LIBS} -lz -lmpg123 -logg -lvorbis -lvorbisfile -lportaudiocpp -lportaudio -lopenmpt -lsndfile1"])
+AC_SUBST([PKG_LIBS],["${PKG_LIBS} -lz -lmpg123 -logg -lvorbis -lvorbisfile -lportaudiocpp -lportaudio -lopenmpt -lsndfile"])
 AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT
 
