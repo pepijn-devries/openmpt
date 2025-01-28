@@ -43,9 +43,32 @@ AS_IF([test "x$HAVE_CXX20" != "x1"],
  ],[]
 )
 
-GLOBAL_CPPFLAGS=
+AC_DEFUN([AC_PROG_PKGCONFIG], [AC_CHECK_PROG(PKGCONFIG,pkg-config,yes)])
+AC_PROG_PKGCONFIG
+
+## use pkg-config for libopenmpt settings
+##
+if test x"${PKGCONFIG}" = x"yes"; then
+    if pkg-config --exists libopenmpt; then
+        libopenmpt_cxxflags=`pkg-config --cflags libopenmpt`
+        libopenmpt_libs=`pkg-config --libs libopenmpt`
+    else
+        libopenmpt_cxxflags=""
+        libopenmpt_libs="-llibopenmpt"
+    fi
+else
+    # Add a reasonable default of -llibopenmpt if we don't have pkg-config
+    libopenmpt_cxxflags=""
+    libopenmpt_libs="-llibopenmpt"
+fi
+
+## And make sure these flags are used for the tests below.
+GLOBAL_CPPFLAGS="${libopenmpt_cxxflags} ${CPPFLAGS}"
+GLOBAL_CXXFLAGS="${libopenmpt_cxxflags} ${CXXFLAGS}"
+
+# GLOBAL_CPPFLAGS=
 GLOBAL_CFLAGS=
-GLOBAL_CXXFLAGS=
+# GLOBAL_CXXFLAGS=
 
 AC_LANG_PUSH([C])
 AX_CHECK_COMPILE_FLAG([-fvisibility=hidden], [GLOBAL_CFLAGS="$GLOBAL_CFLAGS -fvisibility=hidden"])
