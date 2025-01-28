@@ -1613,7 +1613,8 @@ Optional Packages:
                           provide on AIX, [default=aix].
   --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
   --with-sysroot[=DIR]    Search for dependent libraries within DIR (or the
-                          compiler's sysroot if not specified).
+                          compiler's sysroot
+ if not specified).
   --without-zlib          Disable use of zlib.
   --without-mpg123        Disable use of libmpg123.
   --without-ogg           Disable use of libogg.
@@ -25323,7 +25324,7 @@ fi
 PKG_CPPFLAGS="${CXXFLAGS} ${PKG_CPPFLAGS} ${GLOBAL_CPPFLAGS} ${GLOBAL_CXXFLAGS}"
 
 # AC_SUBST([PKG_LIBS],["${PKG_LIBS} ${LIBOPENMPT_REQUIRES_PRIVATE} ${LIBOPENMPT_LIBS_PRIVATE}"])
-PKG_LIBS="${PKG_LIBS} -lz -lmpg123 -logg -lvorbis -lvorbisfile -lportaudiocpp -lportaudio -lopenmpt -llibsndfile"
+PKG_LIBS="${PKG_LIBS} -lz -lmpg123 -logg -lvorbis -lvorbisfile -lportaudiocpp -lportaudio -lopenmpt -lsndfile"
 
 ac_config_files="$ac_config_files src/Makevars"
 
