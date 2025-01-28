@@ -704,8 +704,6 @@ DX_ENV
 DX_DOCDIR
 DX_CONFIG
 DX_PROJECT
-SNDFILE_LIBS
-SNDFILE_CFLAGS
 HAVE_PORTAUDIOCPP_FALSE
 HAVE_PORTAUDIOCPP_TRUE
 PORTAUDIOCPP_LIBS
@@ -951,8 +949,6 @@ PORTAUDIO_CFLAGS
 PORTAUDIO_LIBS
 PORTAUDIOCPP_CFLAGS
 PORTAUDIOCPP_LIBS
-SNDFILE_CFLAGS
-SNDFILE_LIBS
 DOXYGEN_PAPER_SIZE'
 
 
@@ -1673,10 +1669,6 @@ Some influential environment variables:
               C compiler flags for PORTAUDIOCPP, overriding pkg-config
   PORTAUDIOCPP_LIBS
               linker flags for PORTAUDIOCPP, overriding pkg-config
-  SNDFILE_CFLAGS
-              C compiler flags for SNDFILE, overriding pkg-config
-  SNDFILE_LIBS
-              linker flags for SNDFILE, overriding pkg-config
   DOXYGEN_PAPER_SIZE
               a4wide (default), a4, letter, legal or executive
 
@@ -23173,83 +23165,11 @@ then :
 fi
 
 # AS_IF([test "x$enable_openmpt123" != "xno"],[
-if test "x$with_sndfile" != "xno"
-then :
-
-
-pkg_failed=no
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for sndfile" >&5
-printf %s "checking for sndfile... " >&6; }
-
-if test -n "$SNDFILE_CFLAGS"; then
-    pkg_cv_SNDFILE_CFLAGS="$SNDFILE_CFLAGS"
- elif test -n "$PKG_CONFIG"; then
-    if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"sndfile\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "sndfile") 2>&5
-  ac_status=$?
-  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; }; then
-  pkg_cv_SNDFILE_CFLAGS=`$PKG_CONFIG --cflags "sndfile" 2>/dev/null`
-		      test "x$?" != "x0" && pkg_failed=yes
-else
-  pkg_failed=yes
-fi
- else
-    pkg_failed=untried
-fi
-if test -n "$SNDFILE_LIBS"; then
-    pkg_cv_SNDFILE_LIBS="$SNDFILE_LIBS"
- elif test -n "$PKG_CONFIG"; then
-    if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"sndfile\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "sndfile") 2>&5
-  ac_status=$?
-  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; }; then
-  pkg_cv_SNDFILE_LIBS=`$PKG_CONFIG --libs "sndfile" 2>/dev/null`
-		      test "x$?" != "x0" && pkg_failed=yes
-else
-  pkg_failed=yes
-fi
- else
-    pkg_failed=untried
-fi
-
-
-
-if test $pkg_failed = yes; then
-        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
-printf "%s\n" "no" >&6; }
-
-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
-        _pkg_short_errors_supported=yes
-else
-        _pkg_short_errors_supported=no
-fi
-        if test $_pkg_short_errors_supported = yes; then
-                SNDFILE_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "sndfile" 2>&1`
-        else
-                SNDFILE_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "sndfile" 2>&1`
-        fi
-        # Put the nasty error message in config.log where it belongs
-        echo "$SNDFILE_PKG_ERRORS" >&5
-
-        as_fn_error $? "Unable to find libsndfile." "$LINENO" 5
-elif test $pkg_failed = untried; then
-        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
-printf "%s\n" "no" >&6; }
-        as_fn_error $? "Unable to find libsndfile." "$LINENO" 5
-else
-        SNDFILE_CFLAGS=$pkg_cv_SNDFILE_CFLAGS
-        SNDFILE_LIBS=$pkg_cv_SNDFILE_LIBS
-        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-printf "%s\n" "yes" >&6; }
-        SNDFILE_CFLAGS="-DMPT_WITH_SNDFILE $SNDFILE_CFLAGS"
-fi
-
-
-fi
+# AS_IF([test "x$with_sndfile" != "xno"],
+#  [
+#  PKG_CHECK_MODULES([SNDFILE], [sndfile], [SNDFILE_CFLAGS="-DMPT_WITH_SNDFILE $SNDFILE_CFLAGS"], [AC_MSG_ERROR([Unable to find libsndfile.])])
+#  ]
+# )
 # ])
 
 # Optional openmpt123 dependency: libFLAC
@@ -25411,7 +25331,7 @@ fi
 PKG_CPPFLAGS="${CXXFLAGS} ${PKG_CPPFLAGS} ${GLOBAL_CPPFLAGS} ${GLOBAL_CXXFLAGS}"
 
 # AC_SUBST([PKG_LIBS],["${PKG_LIBS} ${LIBOPENMPT_REQUIRES_PRIVATE} ${LIBOPENMPT_LIBS_PRIVATE}"])
-PKG_LIBS="${PKG_LIBS} -lz -lmpg123 -logg -lvorbis -lvorbisfile -lportaudiocpp -lportaudio -lopenmpt -lsndfile"
+PKG_LIBS="${PKG_LIBS} -lz -lmpg123 -logg -lvorbis -lvorbisfile -lportaudiocpp -lportaudio -lopenmpt"
 
 ac_config_files="$ac_config_files src/Makevars"
 
