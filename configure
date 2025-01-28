@@ -664,6 +664,7 @@ LTLIBOBJS
 LIBOBJS
 PKG_LIBS
 PKG_CPPFLAGS
+R
 DX_RULES
 PAPER_SIZE
 DOXYGEN_PAPER_SIZE
@@ -25208,6 +25209,50 @@ DX_RULES="${DX_SNIPPET_doc}"
 #echo DX_FLAG_pdf=$DX_FLAG_pdf
 #echo DX_FLAG_ps=$DX_FLAG_ps
 #echo DX_ENV=$DX_ENV
+
+
+
+# Extract the first word of "R", so it can be a program name with args.
+set dummy R; ac_word=$2
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+printf %s "checking for $ac_word... " >&6; }
+if test ${ac_cv_prog_R+y}
+then :
+  printf %s "(cached) " >&6
+else $as_nop
+  if test -n "$R"; then
+  ac_cv_prog_R="$R" # Let the user override the test.
+else
+as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  case $as_dir in #(((
+    '') as_dir=./ ;;
+    */) ;;
+    *) as_dir=$as_dir/ ;;
+  esac
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir$ac_word$ac_exec_ext"; then
+    ac_cv_prog_R="yes"
+    printf "%s\n" "$as_me:${as_lineno-$LINENO}: found $as_dir$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+fi
+fi
+R=$ac_cv_prog_R
+if test -n "$R"; then
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $R" >&5
+printf "%s\n" "$R" >&6; }
+else
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+fi
+
 
 
 PKG_CPPFLAGS="${CXXFLAGS} ${PKG_CPPFLAGS} ${GLOBAL_CPPFLAGS} ${GLOBAL_CXXFLAGS}"
