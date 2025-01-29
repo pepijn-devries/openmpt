@@ -1,0 +1,9 @@
+#!/bin/sh
+
+rm -f config.* src/Makedeps src/Makevars \
+    Doxyfile Makefile \
+    src/*.o src/*.d src/*.a src/*.dll src/*.so src/*.rc */*~ *~
+
+rm -rf -- common examples openmpt123 sounddsp \
+    soundlib test
+
