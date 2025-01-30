@@ -6,3 +6,11 @@
 ^README\.Rmd$
 ^\.github$
 ^CODE_OF_CONDUCT\.md$
+^\.clang-format$
+^common$
+^examples$
+^libopenmpt/\.deps$
+^openmpt123$
+^sounddsp$
+^soundlib$
+^test$
