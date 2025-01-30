@@ -27,6 +27,7 @@ if test -z "${R_HOME}"; then
 fi
 CXX=`"${R_HOME}/bin/R" CMD config CXX`
 CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
+AC_SUBST(R_HOME)
 AC_REQUIRE_CPP
 
 AC_PROG_CC
@@ -54,12 +55,12 @@ if test x"${PKGCONFIG}" = x"yes"; then
         libopenmpt_libs=`pkg-config --libs libopenmpt`
     else
         libopenmpt_cxxflags=""
-        libopenmpt_libs="-llibopenmpt"
+        libopenmpt_libs="-lopenmpt"
     fi
 else
-    # Add a reasonable default of -llibopenmpt if we don't have pkg-config
+    # Add a reasonable default of -lopenmpt if we don't have pkg-config
     libopenmpt_cxxflags=""
-    libopenmpt_libs="-llibopenmpt"
+    libopenmpt_libs="-lopenmpt"
 fi
 
 ## And make sure these flags are used for the tests below.
@@ -399,7 +400,7 @@ AC_PROG_R
 
 AC_SUBST([PKG_CPPFLAGS],["${CXXFLAGS} ${PKG_CPPFLAGS} ${GLOBAL_CPPFLAGS} ${GLOBAL_CXXFLAGS}"])
 # AC_SUBST([PKG_LIBS],["${PKG_LIBS} ${LIBOPENMPT_REQUIRES_PRIVATE} ${LIBOPENMPT_LIBS_PRIVATE}"])
-AC_SUBST([PKG_LIBS],["${PKG_LIBS} -lz -lmpg123 -logg -lvorbis -lvorbisfile -lportaudiocpp -lportaudio -lopenmpt"])
+AC_SUBST([PKG_LIBS],["${PKG_LIBS} ${ZLIB_LIBS} ${MPG123_LIBS} ${OGG_LIBS} ${VORBIS_LIBS} ${VORBISFILE_LIBS} ${PORTAUDIO_LIBS} ${PORTAUDIOCPP_LIBS} ${libopenmpt_libs}"])
 AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT
 
