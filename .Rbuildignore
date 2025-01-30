@@ -1,7 +1,5 @@
 ^.*\.Rproj$
 ^libopenmpt$
-^Makefile\.in$
-^Makefile\.am$
 ^\.Rproj\.user$
 ^src/Makevars$
 ^LICENSE\.md$
