@@ -7,9 +7,14 @@
 ^\.github$
 ^CODE_OF_CONDUCT\.md$
 ^\.clang-format$
+^aclocal\.m4$
 ^common$
+^Doxyfile$
 ^examples$
 ^libopenmpt/\.deps$
+^Makefile$
+^Makefile\.am$
+^Makefile\.in$
 ^openmpt123$
 ^sounddsp$
 ^soundlib$

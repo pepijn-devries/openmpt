@@ -3,9 +3,9 @@ AC_PREREQ([2.69])
 # we do want 2.70, but distributions are not ready yet
 #AC_PREREQ([2.70])
 
-AC_CONFIG_MACRO_DIR([m4])
-AC_CONFIG_AUX_DIR([build-aux])
-AC_CONFIG_FILES([Makefile libopenmpt/libopenmpt.pc Doxyfile])
+AC_CONFIG_MACRO_DIR([tools/m4])
+AC_CONFIG_AUX_DIR([tools/build-aux])
+AC_CONFIG_FILES([Makefile tools/libopenmpt/libopenmpt.pc Doxyfile])
 
 AM_INIT_AUTOMAKE([1.11 -Wall -Werror foreign subdir-objects])
 
