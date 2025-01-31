@@ -14,8 +14,6 @@
 ^tools/examples$
 ^tools/libopenmpt/\.deps$
 ^tools/Makefile$
-^tools/Makefile\.am$
-^tools/Makefile\.in$
 ^tools/openmpt123$
 ^tools/sounddsp$
 ^tools/soundlib$

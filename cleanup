@@ -1,6 +1,7 @@
 #!/bin/sh
 
 rm -f config.* src/Makedeps src/Makevars \
+    tools/Doxyfile tools/Makefile \
     src/*.o src/*.d src/*.a src/*.dll src/*.so src/*.rc */*~ *~
 
 rm -rf -- tools/common tools/examples tools/openmpt123 tools/sounddsp libtool \
