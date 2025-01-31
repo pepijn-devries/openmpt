@@ -5,7 +5,7 @@ AC_PREREQ([2.69])
 
 AC_CONFIG_MACRO_DIRS([tools/m4])
 AC_CONFIG_AUX_DIR([tools/build-aux])
-AC_CONFIG_FILES([Makefile tools/libopenmpt/libopenmpt.pc Doxyfile])
+AC_CONFIG_FILES([tools/Makefile tools/libopenmpt/libopenmpt.pc tools/Doxyfile])
 
 AM_INIT_AUTOMAKE([1.11 -Wall -Werror foreign subdir-objects])
 
@@ -393,7 +393,7 @@ DX_XML_FEATURE(OFF)
 DX_PDF_FEATURE(OFF)
 DX_PS_FEATURE(OFF)
 
-DX_INIT_DOXYGEN([libopenmpt], [Doxyfile], [doxygen-doc])
+DX_INIT_DOXYGEN([tools/libopenmpt], [tools/Doxyfile], [doxygen-doc])
 
 AC_DEFUN([AC_PROG_R], [AC_CHECK_PROG(R,R,yes)])
 AC_PROG_R

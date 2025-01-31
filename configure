@@ -3098,7 +3098,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-ac_config_files="$ac_config_files Makefile tools/libopenmpt/libopenmpt.pc Doxyfile"
+ac_config_files="$ac_config_files tools/Makefile tools/libopenmpt/libopenmpt.pc tools/Doxyfile"
 
 
 am__api_version='1.16'
@@ -23191,9 +23191,9 @@ fi
 
 
 # Files:
-DX_PROJECT=libopenmpt
+DX_PROJECT=tools/libopenmpt
 
-DX_CONFIG='Doxyfile'
+DX_CONFIG='tools/Doxyfile'
 
 DX_DOCDIR='doxygen-doc'
 
@@ -26477,9 +26477,9 @@ cat >>$CONFIG_STATUS <<\_ACEOF || ac_write_fail=1
 for ac_config_target in $ac_config_targets
 do
   case $ac_config_target in
-    "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+    "tools/Makefile") CONFIG_FILES="$CONFIG_FILES tools/Makefile" ;;
     "tools/libopenmpt/libopenmpt.pc") CONFIG_FILES="$CONFIG_FILES tools/libopenmpt/libopenmpt.pc" ;;
-    "Doxyfile") CONFIG_FILES="$CONFIG_FILES Doxyfile" ;;
+    "tools/Doxyfile") CONFIG_FILES="$CONFIG_FILES tools/Doxyfile" ;;
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
     "src/Makevars") CONFIG_FILES="$CONFIG_FILES src/Makevars" ;;
