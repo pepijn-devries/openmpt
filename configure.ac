@@ -402,6 +402,25 @@ AC_SUBST([PKG_CPPFLAGS],["${CXXFLAGS} ${PKG_CPPFLAGS} ${GLOBAL_CPPFLAGS} ${GLOBA
 # AC_SUBST([PKG_LIBS],["${PKG_LIBS} ${LIBOPENMPT_REQUIRES_PRIVATE} ${LIBOPENMPT_LIBS_PRIVATE}"])
 AC_SUBST([PKG_LIBS],["${PKG_LIBS} ${ZLIB_LIBS} ${MPG123_LIBS} ${OGG_LIBS} ${VORBIS_LIBS} ${VORBISFILE_LIBS} ${PORTAUDIO_LIBS} ${PORTAUDIOCPP_LIBS} ${libopenmpt_libs}"])
 AC_CONFIG_FILES([src/Makevars])
+
+LIBS="$LIBS ${PKG_LIBS}"
+LDFLAGS="$(PKG_CPPFLAGS)"
+
+AC_MSG_CHECKING([whether openmpt programs can be compiled])
+AC_LANG([C++])
+AC_LINK_IFELSE([AC_LANG_SOURCE([
+#include <fstream>
+#include <iostream>
+#include <libopenmpt/libopenmpt.hpp>
+int main() {
+    std::ifstream file( "inst/cyberrid/cyberrid.mod", std::ios::binary );
+    openmpt::module mod( file );
+    mod.ctl_get_integer("dither");
+    return 0;
+}
+])],[AC_MSG_RESULT(yes)],
+[AC_MSG_ERROR([Cannot compile a simple openmpt program. See config.log for details.])])
+
 AC_OUTPUT
 
 echo "

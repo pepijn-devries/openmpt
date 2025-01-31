@@ -25329,6 +25329,42 @@ PKG_LIBS="${PKG_LIBS} ${ZLIB_LIBS} ${MPG123_LIBS} ${OGG_LIBS} ${VORBIS_LIBS} ${V
 
 ac_config_files="$ac_config_files src/Makevars"
 
+
+LIBS="$LIBS ${PKG_LIBS}"
+LDFLAGS="$(PKG_CPPFLAGS)"
+
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether openmpt programs can be compiled" >&5
+printf %s "checking whether openmpt programs can be compiled... " >&6; }
+ac_ext=cpp
+ac_cpp='$CXXCPP $CPPFLAGS'
+ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
+
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+#include <fstream>
+#include <iostream>
+#include <libopenmpt/libopenmpt.hpp>
+int main() {
+    std::ifstream file( "inst/cyberrid/cyberrid.mod", std::ios::binary );
+    openmpt::module mod( file );
+    mod.ctl_get_integer("dither");
+    return 0;
+}
+
+_ACEOF
+if ac_fn_cxx_try_link "$LINENO"
+then :
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+else $as_nop
+  as_fn_error $? "Cannot compile a simple openmpt program. See config.log for details." "$LINENO" 5
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.beam \
+    conftest$ac_exeext conftest.$ac_ext
+
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
