@@ -2930,7 +2930,7 @@ main (int argc, char **argv)
 ac_aux_files="config.guess config.sub ltmain.sh ar-lib compile missing install-sh"
 
 # Locations in which to look for auxiliary files.
-ac_aux_dir_candidates="${srcdir}/build-aux"
+ac_aux_dir_candidates="${srcdir}/tools/build-aux"
 
 # Search for a directory containing all of the required auxiliary files,
 # $ac_aux_files, from the $PATH-style list $ac_aux_dir_candidates.
@@ -3098,7 +3098,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-ac_config_files="$ac_config_files Makefile libopenmpt/libopenmpt.pc Doxyfile"
+ac_config_files="$ac_config_files Makefile tools/libopenmpt/libopenmpt.pc Doxyfile"
 
 
 am__api_version='1.16'
@@ -26478,7 +26478,7 @@ for ac_config_target in $ac_config_targets
 do
   case $ac_config_target in
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
-    "libopenmpt/libopenmpt.pc") CONFIG_FILES="$CONFIG_FILES libopenmpt/libopenmpt.pc" ;;
+    "tools/libopenmpt/libopenmpt.pc") CONFIG_FILES="$CONFIG_FILES tools/libopenmpt/libopenmpt.pc" ;;
     "Doxyfile") CONFIG_FILES="$CONFIG_FILES Doxyfile" ;;
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;

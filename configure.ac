@@ -3,7 +3,7 @@ AC_PREREQ([2.69])
 # we do want 2.70, but distributions are not ready yet
 #AC_PREREQ([2.70])
 
-AC_CONFIG_MACRO_DIR([tools/m4])
+AC_CONFIG_MACRO_DIRS([tools/m4])
 AC_CONFIG_AUX_DIR([tools/build-aux])
 AC_CONFIG_FILES([Makefile tools/libopenmpt/libopenmpt.pc Doxyfile])
 
