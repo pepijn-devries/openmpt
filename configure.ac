@@ -63,14 +63,16 @@ if test x"${PKGCONFIG}" = x"yes"; then
     libopenmpt_libs="-lopenmpt"
 fi
 
-if test x"${libopenmpt_configtest}" = x"yes"; then
+if test x"${libopenmpt_configtest}" = x"no"; then
     if [ `uname` = "Darwin" ]; then
         test ! "$CI" && brew --version 2>/dev/null
         if [ $? -eq 0 ]; then
+            AC_MSG_NOTICE([Setting brew directory])
             BREWDIR=`brew --prefix`
             libopenmpt_cxxflags="-I$BREWDIR/include $libopenmpt_cxxflags"
             libopenmpt_libs="-L$BREWDIR/lib $libopenmpt_libs"
         else
+            AC_MSG_NOTICE([Using pre-build brew formula])
             curl -sfL "https://autobrew.github.io/scripts/libopenmpt" > autobrew
             . ./autobrew
         fi
