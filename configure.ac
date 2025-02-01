@@ -57,6 +57,8 @@ if test x"${PKGCONFIG}" = x"yes"; then
         libopenmpt_cxxflags=""
         libopenmpt_libs="-lopenmpt"
     fi
+elif [ `uname` = "Darwin" ]; then
+    AC_MSG_CHECKING([if we can brew somehting for MacOS (TODO)])
 else
     # Add a reasonable default of -lopenmpt if we don't have pkg-config
     libopenmpt_cxxflags=""
@@ -106,11 +108,9 @@ AX_CHECK_COMPILE_FLAG([-fno-ipa-ra], [GLOBAL_CXXFLAGS="$GLOBAL_CXXFLAGS -fno-ipa
 AX_CXXFLAGS_WARN_ALL
 AC_LANG_POP([C++])
 
-
 AC_SUBST([GLOBAL_CPPFLAGS])
 AC_SUBST([GLOBAL_CFLAGS])
 AC_SUBST([GLOBAL_CXXFLAGS])
-
 
 LIBOPENMPT_LTVER_CURRENT=4
 LIBOPENMPT_LTVER_REVISION=4
@@ -124,9 +124,7 @@ AC_DEFINE([MPT_SVNVERSION], ["22826"], [svn version])
 AC_DEFINE([MPT_SVNDATE], ["2025-01-06T13:49:43.586768Z"], [svn date])
 AC_DEFINE([MPT_PACKAGE], [true], [is package])
 
-
 AC_ARG_VAR(CXXSTDLIB_PCLIBSPRIVATE, [C++ standard library (or libraries) required for static linking. This will be put in the pkg-config file libopenmpt.pc Libs.private field and used for nothing else.])
-
 
 AC_CANONICAL_HOST
 
@@ -237,12 +235,10 @@ AS_IF([test "x$with_vorbisfile" != "xno"],
  ]
 )
 
-
 LIBOPENMPT_REQUIRES_PRIVATE="$ZLIB_PKG $MPG123_PKG $OGG_PKG $VORBIS_PKG $VORBISFILE_PKG"
 LIBOPENMPT_LIBS_PRIVATE="$CXXSTDLIB_PCLIBSPRIVATE $LIBOPENMPT_LIBS_PRIVATE_WIN32"
 AC_SUBST([LIBOPENMPT_REQUIRES_PRIVATE])
 AC_SUBST([LIBOPENMPT_LIBS_PRIVATE])
-
 
 # openmpt123
 AC_ARG_ENABLE([openmpt123], AS_HELP_STRING([--disable-openmpt123], [Disable the openmpt123 command line player.]))
@@ -253,57 +249,9 @@ AM_CONDITIONAL([ENABLE_OPENMPT123], [test "x$enable_openmpt123" != "xno"])
 AC_ARG_ENABLE([examples], AS_HELP_STRING([--disable-examples], [Disable the example programs.]))
 AM_CONDITIONAL([ENABLE_EXAMPLES], [test "x$enable_examples" != "xno"])
 
-
 # tests
 AC_ARG_ENABLE([tests], AS_HELP_STRING([--disable-tests], [Disable the test suite.]))
 AM_CONDITIONAL([ENABLE_TESTS], [test "x$enable_tests" != "xno"])
-
-
-# Optional openmpt123 dependency
-# AC_ARG_WITH([pulseaudio], AS_HELP_STRING([--with-pulseaudio], [Enable use of libpulse and libpulse-simple (enabled by default on Linux).]))
-# AS_IF([test "x$enable_openmpt123" != "xno"],[
-# AS_CASE([$host_os],
-#  [linux*],[
-# AS_IF([test "x$with_pulseaudio" != "xno"],
-#  [
-#   PKG_CHECK_MODULES([PULSEAUDIO], [libpulse libpulse-simple],
-#    [
-#     have_pulseaudio=1
-#     PULSEAUDIO_CFLAGS="-DMPT_WITH_PULSEAUDIO $PULSEAUDIO_CFLAGS"
-#    ],
-#    [
-#     have_pulseaudio=0
-#     AC_MSG_ERROR([Unable to find libpulse and/or libpulse-simple.])
-#    ]
-#   )
-#  ],
-#  [
-#   have_pulseaudio=0
-#  ]
-# )
-#  ;;
-#  *)
-# AS_IF([test "x$with_pulseaudio" = "xyes"],
-#  [
-#   PKG_CHECK_MODULES([PULSEAUDIO], [libpulse libpulse-simple],
-#    [
-#     have_pulseaudio=1
-#     PULSEAUDIO_CFLAGS="-DMPT_WITH_PULSEAUDIO $PULSEAUDIO_CFLAGS"
-#    ],
-#    [
-#     have_pulseaudio=0
-#     AC_MSG_ERROR([Unable to find libpulse and/or libpulse-simple.])
-#    ]
-#   )
-#  ],
-#  [
-#   have_pulseaudio=0
-#  ]
-# )
-#  ],
-#  []
-# )
-# ],[have_pulseaudio=0])
 
 # Optional openmpt123 and examples dependency
 AC_ARG_WITH([portaudio], AS_HELP_STRING([--without-portaudio], [Disable use of libportaudio.]))
@@ -351,36 +299,6 @@ AS_IF([test "x$with_portaudiocpp" != "xno"],
 ],[have_portaudiocpp=0])
 AM_CONDITIONAL([HAVE_PORTAUDIOCPP], [test x$have_portaudiocpp = x1])
 
-# Optional disabled openmpt123 dependency: libsdl2
-# AC_ARG_WITH([sdl2], AS_HELP_STRING([--with-sdl2], [Enable use of libsdl2.]))
-# AS_IF([test "x$enable_openmpt123" != "xno"],[
-# AS_IF([test "x$with_sdl2" = "xyes"],
-#  [
-#   PKG_CHECK_MODULES([SDL2], [sdl2 >= 2.0.4], [SDL2_CFLAGS="-DMPT_WITH_SDL2 $SDL2_CFLAGS"], [AC_MSG_ERROR([Unable to find libsdl2.])])
-#  ]
-# )
-# ])
-
-# Optional openmpt123 dependency: libsndfile
-# AC_ARG_WITH([sndfile], AS_HELP_STRING([--without-sndfile], [Disable use of libsndfile.]))
-# AS_IF([test "x$enable_openmpt123" != "xno"],[
-# AS_IF([test "x$with_sndfile" != "xno"],
-#  [
-#  PKG_CHECK_MODULES([SNDFILE], [sndfile], [SNDFILE_CFLAGS="-DMPT_WITH_SNDFILE $SNDFILE_CFLAGS"], [AC_MSG_ERROR([Unable to find libsndfile.])])
-#  ]
-# )
-# ])
-
-# Optional openmpt123 dependency: libFLAC
-# AC_ARG_WITH([flac], AS_HELP_STRING([--without-flac], [Disable use of libflac.]))
-# AS_IF([test "x$enable_openmpt123" != "xno"],[
-# AS_IF([test "x$with_flac" != "xno"],
-#  [
-#   PKG_CHECK_MODULES([FLAC], [flac >= 1.3.0], [FLAC_CFLAGS="-DMPT_WITH_FLAC $FLAC_CFLAGS"], [AC_MSG_ERROR([Unable to find libflac >= 1.3.0.])])
-#  ]
-# )
-# ])
-
 DX_DOXYGEN_FEATURE(OFF)
 DX_DOT_FEATURE(OFF)
 DX_HTML_FEATURE(OFF)
@@ -399,12 +317,11 @@ AC_DEFUN([AC_PROG_R], [AC_CHECK_PROG(R,R,yes)])
 AC_PROG_R
 
 AC_SUBST([PKG_CPPFLAGS],["${CXXFLAGS} ${PKG_CPPFLAGS} ${GLOBAL_CPPFLAGS} ${GLOBAL_CXXFLAGS}"])
-# AC_SUBST([PKG_LIBS],["${PKG_LIBS} ${LIBOPENMPT_REQUIRES_PRIVATE} ${LIBOPENMPT_LIBS_PRIVATE}"])
 AC_SUBST([PKG_LIBS],["${PKG_LIBS} ${ZLIB_LIBS} ${MPG123_LIBS} ${OGG_LIBS} ${VORBIS_LIBS} ${VORBISFILE_LIBS} ${PORTAUDIO_LIBS} ${PORTAUDIOCPP_LIBS} ${libopenmpt_libs}"])
 AC_CONFIG_FILES([src/Makevars])
 
 LIBS="$LIBS ${PKG_LIBS}"
-LDFLAGS="$(PKG_CPPFLAGS)"
+LDFLAGS="${PKG_CPPFLAGS}"
 
 AC_MSG_CHECKING([whether openmpt programs can be compiled])
 AC_LANG([C++])

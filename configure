@@ -20582,6 +20582,9 @@ if test x"${PKGCONFIG}" = x"yes"; then
         libopenmpt_cxxflags=""
         libopenmpt_libs="-lopenmpt"
     fi
+elif  `uname` = "Darwin" ; then
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking if we can brew somehting for MacOS (TODO)" >&5
+printf %s "checking if we can brew somehting for MacOS (TODO)... " >&6; }
 else
     # Add a reasonable default of -lopenmpt if we don't have pkg-config
     libopenmpt_cxxflags=""
@@ -22284,8 +22287,6 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-
-
 LIBOPENMPT_LTVER_CURRENT=4
 LIBOPENMPT_LTVER_REVISION=4
 LIBOPENMPT_LTVER_AGE=4
@@ -22304,8 +22305,6 @@ printf "%s\n" "#define MPT_SVNDATE \"2025-01-06T13:49:43.586768Z\"" >>confdefs.h
 
 
 printf "%s\n" "#define MPT_PACKAGE true" >>confdefs.h
-
-
 
 
 
@@ -22810,10 +22809,8 @@ fi
 
 fi
 
-
 LIBOPENMPT_REQUIRES_PRIVATE="$ZLIB_PKG $MPG123_PKG $OGG_PKG $VORBIS_PKG $VORBISFILE_PKG"
 LIBOPENMPT_LIBS_PRIVATE="$CXXSTDLIB_PCLIBSPRIVATE $LIBOPENMPT_LIBS_PRIVATE_WIN32"
-
 
 
 
@@ -22850,7 +22847,6 @@ else
 fi
 
 
-
 # tests
 # Check whether --enable-tests was given.
 if test ${enable_tests+y}
@@ -22866,53 +22862,6 @@ else
   ENABLE_TESTS_FALSE=
 fi
 
-
-
-# Optional openmpt123 dependency
-# AC_ARG_WITH([pulseaudio], AS_HELP_STRING([--with-pulseaudio], [Enable use of libpulse and libpulse-simple (enabled by default on Linux).]))
-# AS_IF([test "x$enable_openmpt123" != "xno"],[
-# AS_CASE([$host_os],
-#  [linux*],[
-# AS_IF([test "x$with_pulseaudio" != "xno"],
-#  [
-#   PKG_CHECK_MODULES([PULSEAUDIO], [libpulse libpulse-simple],
-#    [
-#     have_pulseaudio=1
-#     PULSEAUDIO_CFLAGS="-DMPT_WITH_PULSEAUDIO $PULSEAUDIO_CFLAGS"
-#    ],
-#    [
-#     have_pulseaudio=0
-#     AC_MSG_ERROR([Unable to find libpulse and/or libpulse-simple.])
-#    ]
-#   )
-#  ],
-#  [
-#   have_pulseaudio=0
-#  ]
-# )
-#  ;;
-#  *)
-# AS_IF([test "x$with_pulseaudio" = "xyes"],
-#  [
-#   PKG_CHECK_MODULES([PULSEAUDIO], [libpulse libpulse-simple],
-#    [
-#     have_pulseaudio=1
-#     PULSEAUDIO_CFLAGS="-DMPT_WITH_PULSEAUDIO $PULSEAUDIO_CFLAGS"
-#    ],
-#    [
-#     have_pulseaudio=0
-#     AC_MSG_ERROR([Unable to find libpulse and/or libpulse-simple.])
-#    ]
-#   )
-#  ],
-#  [
-#   have_pulseaudio=0
-#  ]
-# )
-#  ],
-#  []
-# )
-# ],[have_pulseaudio=0])
 
 # Optional openmpt123 and examples dependency
 
@@ -23145,36 +23094,6 @@ else
   HAVE_PORTAUDIOCPP_FALSE=
 fi
 
-
-# Optional disabled openmpt123 dependency: libsdl2
-# AC_ARG_WITH([sdl2], AS_HELP_STRING([--with-sdl2], [Enable use of libsdl2.]))
-# AS_IF([test "x$enable_openmpt123" != "xno"],[
-# AS_IF([test "x$with_sdl2" = "xyes"],
-#  [
-#   PKG_CHECK_MODULES([SDL2], [sdl2 >= 2.0.4], [SDL2_CFLAGS="-DMPT_WITH_SDL2 $SDL2_CFLAGS"], [AC_MSG_ERROR([Unable to find libsdl2.])])
-#  ]
-# )
-# ])
-
-# Optional openmpt123 dependency: libsndfile
-# AC_ARG_WITH([sndfile], AS_HELP_STRING([--without-sndfile], [Disable use of libsndfile.]))
-# AS_IF([test "x$enable_openmpt123" != "xno"],[
-# AS_IF([test "x$with_sndfile" != "xno"],
-#  [
-#  PKG_CHECK_MODULES([SNDFILE], [sndfile], [SNDFILE_CFLAGS="-DMPT_WITH_SNDFILE $SNDFILE_CFLAGS"], [AC_MSG_ERROR([Unable to find libsndfile.])])
-#  ]
-# )
-# ])
-
-# Optional openmpt123 dependency: libFLAC
-# AC_ARG_WITH([flac], AS_HELP_STRING([--without-flac], [Disable use of libflac.]))
-# AS_IF([test "x$enable_openmpt123" != "xno"],[
-# AS_IF([test "x$with_flac" != "xno"],
-#  [
-#   PKG_CHECK_MODULES([FLAC], [flac >= 1.3.0], [FLAC_CFLAGS="-DMPT_WITH_FLAC $FLAC_CFLAGS"], [AC_MSG_ERROR([Unable to find libflac >= 1.3.0.])])
-#  ]
-# )
-# ])
 
 
 
@@ -25324,14 +25243,13 @@ fi
 
 PKG_CPPFLAGS="${CXXFLAGS} ${PKG_CPPFLAGS} ${GLOBAL_CPPFLAGS} ${GLOBAL_CXXFLAGS}"
 
-# AC_SUBST([PKG_LIBS],["${PKG_LIBS} ${LIBOPENMPT_REQUIRES_PRIVATE} ${LIBOPENMPT_LIBS_PRIVATE}"])
 PKG_LIBS="${PKG_LIBS} ${ZLIB_LIBS} ${MPG123_LIBS} ${OGG_LIBS} ${VORBIS_LIBS} ${VORBISFILE_LIBS} ${PORTAUDIO_LIBS} ${PORTAUDIOCPP_LIBS} ${libopenmpt_libs}"
 
 ac_config_files="$ac_config_files src/Makevars"
 
 
 LIBS="$LIBS ${PKG_LIBS}"
-LDFLAGS="$(PKG_CPPFLAGS)"
+LDFLAGS="${PKG_CPPFLAGS}"
 
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether openmpt programs can be compiled" >&5
 printf %s "checking whether openmpt programs can be compiled... " >&6; }
