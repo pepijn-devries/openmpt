@@ -20588,30 +20588,23 @@ if test x"${PKGCONFIG}" = x"yes"; then
     libopenmpt_libs="-lopenmpt"
 fi
 
-if test x"${host_os}" = xdarwin*; then
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: TODO host is Darwin" >&5
-printf "%s\n" "$as_me: TODO host is Darwin" >&6;}
-else
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: TODO host is something else" >&5
-printf "%s\n" "$as_me: TODO host is something else" >&6;}
-fi
-
 if test x"${libopenmpt_configtest}" = x"no"; then
-    if test x"${host_os}" = xdarwin*; then
-        test ! "$CI" && brew --version 2>/dev/null
-        if  $? -eq 0 ; then
-            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: Setting brew directory" >&5
+    case x"${host_os}" in
+        x"darwin"*)
+            test ! "$CI" && brew --version 2>/dev/null
+            if  $? -eq 0 ; then
+                { printf "%s\n" "$as_me:${as_lineno-$LINENO}: Setting brew directory" >&5
 printf "%s\n" "$as_me: Setting brew directory" >&6;}
-            BREWDIR=`brew --prefix`
-            libopenmpt_cxxflags="-I$BREWDIR/include $libopenmpt_cxxflags"
-            libopenmpt_libs="-L$BREWDIR/lib $libopenmpt_libs"
-        else
-            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: Using pre-build brew formula" >&5
+                BREWDIR=`brew --prefix`
+                libopenmpt_cxxflags="-I$BREWDIR/include $libopenmpt_cxxflags"
+                libopenmpt_libs="-L$BREWDIR/lib $libopenmpt_libs"
+            else
+                { printf "%s\n" "$as_me:${as_lineno-$LINENO}: Using pre-build brew formula" >&5
 printf "%s\n" "$as_me: Using pre-build brew formula" >&6;}
-            curl -sfL "https://autobrew.github.io/scripts/libopenmpt" > autobrew
-            . ./autobrew
-        fi
-    fi
+                curl -sfL "https://autobrew.github.io/scripts/libopenmpt" > autobrew
+                . ./autobrew
+            fi;;
+    esac
 fi
 
 ## And make sure these flags are used for the tests below.
