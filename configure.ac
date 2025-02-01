@@ -63,11 +63,10 @@ if test x"${PKGCONFIG}" = x"yes"; then
     libopenmpt_libs="-lopenmpt"
 fi
 
-AC_MSG_NOTICE([TODO we are on $host_os])
-if [$host_os = darwin*]; then
+if test x"${host_os}" = xdarwin*; then
     AC_MSG_NOTICE([TODO host is Darwin])
 else
-  AC_MSG_NOTICE([TODO host is something else])
+    AC_MSG_NOTICE([TODO host is something else])
 fi
 
 if test x"${libopenmpt_configtest}" = x"no"; then
