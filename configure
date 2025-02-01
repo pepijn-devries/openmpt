@@ -20588,6 +20588,9 @@ if test x"${PKGCONFIG}" = x"yes"; then
     libopenmpt_libs="-lopenmpt"
 fi
 
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: TODO we are on $host_os" >&5
+printf "%s\n" "$as_me: TODO we are on $host_os" >&6;}
+
 if test x"${libopenmpt_configtest}" = x"no"; then
     if test x"${host_os}" = xdarwin*; then
         test ! "$CI" && brew --version 2>/dev/null
