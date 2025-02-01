@@ -64,7 +64,7 @@ if test x"${PKGCONFIG}" = x"yes"; then
 fi
 
 if test x"${libopenmpt_configtest}" = x"no"; then
-    if [ `uname` = "Darwin" ]; then
+    if test x"${host_os}" = xdarwin*; then
         test ! "$CI" && brew --version 2>/dev/null
         if [ $? -eq 0 ]; then
             AC_MSG_NOTICE([Setting brew directory])
