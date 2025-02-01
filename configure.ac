@@ -72,7 +72,8 @@ if test x"${libopenmpt_configtest}" = x"no"; then
             curl -sfL "https://autobrew.github.io/scripts/libopenmpt" > autobrew
             . ./autobrew
             libopenmpt_cxxflags="${PKG_CFLAGS}"
-            libopenmpt_libs="${PKG_LIBS}";;
+            libopenmpt_libs="${PKG_LIBS}"
+            AC_MSG_NOTICE([TODO got these $PKG_LIBS + $PKG_CFLAGS]);;
     esac
 fi
 
@@ -80,9 +81,7 @@ fi
 GLOBAL_CPPFLAGS="${libopenmpt_cxxflags} ${CPPFLAGS}"
 GLOBAL_CXXFLAGS="${libopenmpt_cxxflags} ${CXXFLAGS}"
 
-# GLOBAL_CPPFLAGS=
 GLOBAL_CFLAGS=
-# GLOBAL_CXXFLAGS=
 
 AC_LANG_PUSH([C])
 AX_CHECK_COMPILE_FLAG([-fvisibility=hidden], [GLOBAL_CFLAGS="$GLOBAL_CFLAGS -fvisibility=hidden"])

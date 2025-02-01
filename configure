@@ -20599,7 +20599,9 @@ printf "%s\n" "$as_me: Using pre-build brew formula" >&6;}
             curl -sfL "https://autobrew.github.io/scripts/libopenmpt" > autobrew
             . ./autobrew
             libopenmpt_cxxflags="${PKG_CFLAGS}"
-            libopenmpt_libs="${PKG_LIBS}";;
+            libopenmpt_libs="${PKG_LIBS}"
+            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: TODO got these $PKG_LIBS + $PKG_CFLAGS" >&5
+printf "%s\n" "$as_me: TODO got these $PKG_LIBS + $PKG_CFLAGS" >&6;};;
     esac
 fi
 
@@ -20607,9 +20609,7 @@ fi
 GLOBAL_CPPFLAGS="${libopenmpt_cxxflags} ${CPPFLAGS}"
 GLOBAL_CXXFLAGS="${libopenmpt_cxxflags} ${CXXFLAGS}"
 
-# GLOBAL_CPPFLAGS=
 GLOBAL_CFLAGS=
-# GLOBAL_CXXFLAGS=
 
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
