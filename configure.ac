@@ -1,7 +1,5 @@
 AC_INIT([libopenmpt], [0.7.13+release.autotools], [https://bugs.openmpt.org/], [libopenmpt], [https://lib.openmpt.org/])
 AC_PREREQ([2.69])
-# we do want 2.70, but distributions are not ready yet
-#AC_PREREQ([2.70])
 
 AC_CONFIG_MACRO_DIRS([tools/m4])
 AC_CONFIG_AUX_DIR([tools/build-aux])
@@ -18,7 +16,6 @@ LT_INIT
 AC_SYS_LARGEFILE
 
 PKG_PROG_PKG_CONFIG([0.24])
-
 
 # Ensure C++ is set up as R expects
 : ${R_HOME=`R RHOME`}
@@ -45,24 +42,39 @@ AS_IF([test "x$HAVE_CXX20" != "x1"],
 )
 
 AC_DEFUN([AC_PROG_PKGCONFIG], [AC_CHECK_PROG(PKGCONFIG,pkg-config,yes)])
+
 AC_PROG_PKGCONFIG
 
 ## use pkg-config for libopenmpt settings
 ##
 if test x"${PKGCONFIG}" = x"yes"; then
     if pkg-config --exists libopenmpt; then
+        libopenmpt_configtest="yes"
         libopenmpt_cxxflags=`pkg-config --cflags libopenmpt`
         libopenmpt_libs=`pkg-config --libs libopenmpt`
     else
+        libopenmpt_configtest="no"
         libopenmpt_cxxflags=""
         libopenmpt_libs="-lopenmpt"
     fi
-elif [ `uname` = "Darwin" ]; then
-    AC_MSG_CHECKING([if we can brew somehting for MacOS (TODO)])
-else
+    libopenmpt_configtest="no"
     # Add a reasonable default of -lopenmpt if we don't have pkg-config
     libopenmpt_cxxflags=""
     libopenmpt_libs="-lopenmpt"
+fi
+
+if test x"${libopenmpt_configtest}" = x"yes"; then
+    if [ `uname` = "Darwin" ]; then
+        test ! "$CI" && brew --version 2>/dev/null
+        if [ $? -eq 0 ]; then
+            BREWDIR=`brew --prefix`
+            libopenmpt_cxxflags="-I$BREWDIR/include $libopenmpt_cxxflags"
+            libopenmpt_libs="-L$BREWDIR/lib $libopenmpt_libs"
+        else
+            curl -sfL "https://autobrew.github.io/scripts/libopenmpt" > autobrew
+            . ./autobrew
+        fi
+    fi
 fi
 
 ## And make sure these flags are used for the tests below.

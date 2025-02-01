@@ -3093,8 +3093,6 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-# we do want 2.70, but distributions are not ready yet
-#AC_PREREQ([2.70])
 
 
 
@@ -13818,7 +13816,6 @@ printf "%s\n" "no" >&6; }
 	fi
 fi
 
-
 # Ensure C++ is set up as R expects
 : ${R_HOME=`R RHOME`}
 if test -z "${R_HOME}"; then
@@ -20529,6 +20526,7 @@ printf "%s\n" "#define HAVE_CXX17 1" >>confdefs.h
 fi
 
 
+
 # Extract the first word of "pkg-config", so it can be a program name with args.
 set dummy pkg-config; ac_word=$2
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -20576,19 +20574,32 @@ fi
 ##
 if test x"${PKGCONFIG}" = x"yes"; then
     if pkg-config --exists libopenmpt; then
+        libopenmpt_configtest="yes"
         libopenmpt_cxxflags=`pkg-config --cflags libopenmpt`
         libopenmpt_libs=`pkg-config --libs libopenmpt`
     else
+        libopenmpt_configtest="no"
         libopenmpt_cxxflags=""
         libopenmpt_libs="-lopenmpt"
     fi
-elif  `uname` = "Darwin" ; then
-    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking if we can brew somehting for MacOS (TODO)" >&5
-printf %s "checking if we can brew somehting for MacOS (TODO)... " >&6; }
-else
+    libopenmpt_configtest="no"
     # Add a reasonable default of -lopenmpt if we don't have pkg-config
     libopenmpt_cxxflags=""
     libopenmpt_libs="-lopenmpt"
+fi
+
+if test x"${libopenmpt_configtest}" = x"yes"; then
+    if  `uname` = "Darwin" ; then
+        test ! "$CI" && brew --version 2>/dev/null
+        if  $? -eq 0 ; then
+            BREWDIR=`brew --prefix`
+            libopenmpt_cxxflags="-I$BREWDIR/include $libopenmpt_cxxflags"
+            libopenmpt_libs="-L$BREWDIR/lib $libopenmpt_libs"
+        else
+            curl -sfL "https://autobrew.github.io/scripts/libopenmpt" > autobrew
+            . ./autobrew
+        fi
+    fi
 fi
 
 ## And make sure these flags are used for the tests below.
