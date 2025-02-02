@@ -188,6 +188,19 @@ AC_SUBST([WIN32_CONSOLE_CFLAGS])
 LIBOPENMPT_REQUIRES_PRIVATE=
 LIBOPENMPT_LIBS_PRIVATE=
 
+# openmpt123
+AC_ARG_ENABLE([openmpt123], AS_HELP_STRING([--disable-openmpt123], [Disable the openmpt123 command line player.]))
+AM_CONDITIONAL([ENABLE_OPENMPT123], [test "x$enable_openmpt123" != "xno"])
+
+
+# examples
+AC_ARG_ENABLE([examples], AS_HELP_STRING([--disable-examples], [Disable the example programs.]))
+AM_CONDITIONAL([ENABLE_EXAMPLES], [test "x$enable_examples" != "xno"])
+
+# tests
+AC_ARG_ENABLE([tests], AS_HELP_STRING([--disable-tests], [Disable the test suite.]))
+AM_CONDITIONAL([ENABLE_TESTS], [test "x$enable_tests" != "xno"])
+
 if test x"${use_autobrew}" = x"no"; then
 
   # Required libopenmpt dependency: zlib
@@ -259,19 +272,6 @@ if test x"${use_autobrew}" = x"no"; then
   LIBOPENMPT_LIBS_PRIVATE="$CXXSTDLIB_PCLIBSPRIVATE $LIBOPENMPT_LIBS_PRIVATE_WIN32"
   AC_SUBST([LIBOPENMPT_REQUIRES_PRIVATE])
   AC_SUBST([LIBOPENMPT_LIBS_PRIVATE])
-  
-  # openmpt123
-  AC_ARG_ENABLE([openmpt123], AS_HELP_STRING([--disable-openmpt123], [Disable the openmpt123 command line player.]))
-  AM_CONDITIONAL([ENABLE_OPENMPT123], [test "x$enable_openmpt123" != "xno"])
-  
-  
-  # examples
-  AC_ARG_ENABLE([examples], AS_HELP_STRING([--disable-examples], [Disable the example programs.]))
-  AM_CONDITIONAL([ENABLE_EXAMPLES], [test "x$enable_examples" != "xno"])
-  
-  # tests
-  AC_ARG_ENABLE([tests], AS_HELP_STRING([--disable-tests], [Disable the test suite.]))
-  AM_CONDITIONAL([ENABLE_TESTS], [test "x$enable_tests" != "xno"])
   
   # Optional openmpt123 and examples dependency
   AC_ARG_WITH([portaudio], AS_HELP_STRING([--without-portaudio], [Disable use of libportaudio.]))
@@ -358,8 +358,6 @@ int main() {
 }
 ])],[AC_MSG_RESULT(yes)],
 [AC_MSG_ERROR([Cannot compile a simple openmpt program. See config.log for details.])])
-
-AC_MSG_NOTICE([TODO dit is een waarde $ENABLE_OPENMPT123 en $ENABLE_EXAMPLES en $ENABLE_TESTS en $HAVE_PORTAUDIO en $HAVE_PORTAUDIOCPP])
 
 AC_OUTPUT
 

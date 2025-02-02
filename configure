@@ -711,12 +711,6 @@ HAVE_PORTAUDIO_FALSE
 HAVE_PORTAUDIO_TRUE
 PORTAUDIO_LIBS
 PORTAUDIO_CFLAGS
-ENABLE_TESTS_FALSE
-ENABLE_TESTS_TRUE
-ENABLE_EXAMPLES_FALSE
-ENABLE_EXAMPLES_TRUE
-ENABLE_OPENMPT123_FALSE
-ENABLE_OPENMPT123_TRUE
 LIBOPENMPT_LIBS_PRIVATE
 LIBOPENMPT_REQUIRES_PRIVATE
 VORBISFILE_LIBS
@@ -729,6 +723,12 @@ MPG123_LIBS
 MPG123_CFLAGS
 ZLIB_LIBS
 ZLIB_CFLAGS
+ENABLE_TESTS_FALSE
+ENABLE_TESTS_TRUE
+ENABLE_EXAMPLES_FALSE
+ENABLE_EXAMPLES_TRUE
+ENABLE_OPENMPT123_FALSE
+ENABLE_OPENMPT123_TRUE
 WIN32_CONSOLE_CFLAGS
 WIN32_CONSOLE_CXXFLAGS
 WIN32_CFLAGS
@@ -902,14 +902,14 @@ with_gnu_ld
 with_sysroot
 enable_libtool_lock
 enable_largefile
+enable_openmpt123
+enable_examples
+enable_tests
 with_zlib
 with_mpg123
 with_ogg
 with_vorbis
 with_vorbisfile
-enable_openmpt123
-enable_examples
-enable_tests
 with_portaudio
 with_portaudiocpp
 enable_doxygen_doc
@@ -22383,6 +22383,55 @@ esac
 LIBOPENMPT_REQUIRES_PRIVATE=
 LIBOPENMPT_LIBS_PRIVATE=
 
+# openmpt123
+# Check whether --enable-openmpt123 was given.
+if test ${enable_openmpt123+y}
+then :
+  enableval=$enable_openmpt123;
+fi
+
+ if test "x$enable_openmpt123" != "xno"; then
+  ENABLE_OPENMPT123_TRUE=
+  ENABLE_OPENMPT123_FALSE='#'
+else
+  ENABLE_OPENMPT123_TRUE='#'
+  ENABLE_OPENMPT123_FALSE=
+fi
+
+
+
+# examples
+# Check whether --enable-examples was given.
+if test ${enable_examples+y}
+then :
+  enableval=$enable_examples;
+fi
+
+ if test "x$enable_examples" != "xno"; then
+  ENABLE_EXAMPLES_TRUE=
+  ENABLE_EXAMPLES_FALSE='#'
+else
+  ENABLE_EXAMPLES_TRUE='#'
+  ENABLE_EXAMPLES_FALSE=
+fi
+
+
+# tests
+# Check whether --enable-tests was given.
+if test ${enable_tests+y}
+then :
+  enableval=$enable_tests;
+fi
+
+ if test "x$enable_tests" != "xno"; then
+  ENABLE_TESTS_TRUE=
+  ENABLE_TESTS_FALSE='#'
+else
+  ENABLE_TESTS_TRUE='#'
+  ENABLE_TESTS_FALSE=
+fi
+
+
 if test x"${use_autobrew}" = x"no"; then
 
   # Required libopenmpt dependency: zlib
@@ -22838,55 +22887,6 @@ fi
   LIBOPENMPT_REQUIRES_PRIVATE="$ZLIB_PKG $MPG123_PKG $OGG_PKG $VORBIS_PKG $VORBISFILE_PKG"
   LIBOPENMPT_LIBS_PRIVATE="$CXXSTDLIB_PCLIBSPRIVATE $LIBOPENMPT_LIBS_PRIVATE_WIN32"
 
-
-
-  # openmpt123
-  # Check whether --enable-openmpt123 was given.
-if test ${enable_openmpt123+y}
-then :
-  enableval=$enable_openmpt123;
-fi
-
-   if test "x$enable_openmpt123" != "xno"; then
-  ENABLE_OPENMPT123_TRUE=
-  ENABLE_OPENMPT123_FALSE='#'
-else
-  ENABLE_OPENMPT123_TRUE='#'
-  ENABLE_OPENMPT123_FALSE=
-fi
-
-
-
-  # examples
-  # Check whether --enable-examples was given.
-if test ${enable_examples+y}
-then :
-  enableval=$enable_examples;
-fi
-
-   if test "x$enable_examples" != "xno"; then
-  ENABLE_EXAMPLES_TRUE=
-  ENABLE_EXAMPLES_FALSE='#'
-else
-  ENABLE_EXAMPLES_TRUE='#'
-  ENABLE_EXAMPLES_FALSE=
-fi
-
-
-  # tests
-  # Check whether --enable-tests was given.
-if test ${enable_tests+y}
-then :
-  enableval=$enable_tests;
-fi
-
-   if test "x$enable_tests" != "xno"; then
-  ENABLE_TESTS_TRUE=
-  ENABLE_TESTS_FALSE='#'
-else
-  ENABLE_TESTS_TRUE='#'
-  ENABLE_TESTS_FALSE=
-fi
 
 
   # Optional openmpt123 and examples dependency
@@ -25309,9 +25309,6 @@ else $as_nop
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.beam \
     conftest$ac_exeext conftest.$ac_ext
-
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: TODO dit is een waarde $ENABLE_OPENMPT123 en $ENABLE_EXAMPLES en $ENABLE_TESTS en $HAVE_PORTAUDIO en $HAVE_PORTAUDIOCPP" >&5
-printf "%s\n" "$as_me: TODO dit is een waarde $ENABLE_OPENMPT123 en $ENABLE_EXAMPLES en $ENABLE_TESTS en $HAVE_PORTAUDIO en $HAVE_PORTAUDIOCPP" >&6;}
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
