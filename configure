@@ -731,7 +731,6 @@ MPG123_CFLAGS
 MPG123_NAME
 ZLIB_LIBS
 ZLIB_CFLAGS
-ZLIB_NAME
 WIN32_CONSOLE_CFLAGS
 WIN32_CONSOLE_CXXFLAGS
 WIN32_CFLAGS
@@ -22390,25 +22389,20 @@ if test "x$with_zlib" != "xno"
 then :
 
 
-  ZLIB_NAME="zlib"
-  if test "x${LIB_PREFIX}" = "xbrew"; then
-    ZLIB_NAME="z"
-  fi
-
 pkg_failed=no
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for \"${LIB_PREFIX}${ZLIB_NAME}\"" >&5
-printf %s "checking for \"${LIB_PREFIX}${ZLIB_NAME}\"... " >&6; }
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for zlib" >&5
+printf %s "checking for zlib... " >&6; }
 
 if test -n "$ZLIB_CFLAGS"; then
     pkg_cv_ZLIB_CFLAGS="$ZLIB_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}\${ZLIB_NAME}\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}${ZLIB_NAME}"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"zlib\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "zlib") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_ZLIB_CFLAGS=`$PKG_CONFIG --cflags ""${LIB_PREFIX}${ZLIB_NAME}"" 2>/dev/null`
+  pkg_cv_ZLIB_CFLAGS=`$PKG_CONFIG --cflags "zlib" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22420,12 +22414,12 @@ if test -n "$ZLIB_LIBS"; then
     pkg_cv_ZLIB_LIBS="$ZLIB_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}\${ZLIB_NAME}\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}${ZLIB_NAME}"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"zlib\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "zlib") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_ZLIB_LIBS=`$PKG_CONFIG --libs ""${LIB_PREFIX}${ZLIB_NAME}"" 2>/dev/null`
+  pkg_cv_ZLIB_LIBS=`$PKG_CONFIG --libs "zlib" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22446,9 +22440,9 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-                ZLIB_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs ""${LIB_PREFIX}${ZLIB_NAME}"" 2>&1`
+                ZLIB_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "zlib" 2>&1`
         else
-                ZLIB_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs ""${LIB_PREFIX}${ZLIB_NAME}"" 2>&1`
+                ZLIB_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "zlib" 2>&1`
         fi
         # Put the nasty error message in config.log where it belongs
         echo "$ZLIB_PKG_ERRORS" >&5
@@ -22464,7 +22458,7 @@ else
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 
-    ZLIB_PKG="${LIB_PREFIX}zlib"
+    ZLIB_PKG=zlib
     ZLIB_CFLAGS="-DMPT_WITH_ZLIB $ZLIB_CFLAGS"
 
 fi

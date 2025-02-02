@@ -187,14 +187,9 @@ ZLIB_PKG=
 AC_ARG_WITH([zlib], AS_HELP_STRING([--without-zlib], [Disable use of zlib.]))
 AS_IF([test "x$with_zlib" != "xno"],
  [
-  AC_SUBST(ZLIB_NAME)
-  ZLIB_NAME="zlib"
-  if test "x${LIB_PREFIX}" = "xbrew"; then
-    ZLIB_NAME="z"
-  fi
-  PKG_CHECK_MODULES([ZLIB], ["${LIB_PREFIX}${ZLIB_NAME}"],
+  PKG_CHECK_MODULES([ZLIB], [zlib],
    [
-    ZLIB_PKG="${LIB_PREFIX}zlib"
+    ZLIB_PKG=zlib
     ZLIB_CFLAGS="-DMPT_WITH_ZLIB $ZLIB_CFLAGS"
    ], [AC_MSG_ERROR([Unable to find zlib.])])
  ]
