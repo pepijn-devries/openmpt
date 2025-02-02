@@ -69,6 +69,11 @@ use_autobrew=no
 if test x"${libopenmpt_configtest}" = x"no"; then
     case x"${host_os}" in
         x"darwin"*)
+            AC_SUBST(ENABLE_OPENMPT123)
+            AC_SUBST(ENABLE_EXAMPLES)
+            AC_SUBST(ENABLE_TESTS)
+            AC_SUBST(HAVE_PORTAUDIO)
+            AC_SUBST(HAVE_PORTAUDIOCPP)
             use_autobrew=yes
             AC_MSG_NOTICE([Using pre-build brew formula])
             curl -sfL "https://autobrew.github.io/scripts/libopenmpt" > autobrew
@@ -353,6 +358,8 @@ int main() {
 }
 ])],[AC_MSG_RESULT(yes)],
 [AC_MSG_ERROR([Cannot compile a simple openmpt program. See config.log for details.])])
+
+AC_MSG_NOTICE([TODO dit is een waarde $ENABLE_OPENMPT123 en $ENABLE_EXAMPLES en $ENABLE_TESTS en $HAVE_PORTAUDIO en $HAVE_PORTAUDIOCPP])
 
 AC_OUTPUT
 

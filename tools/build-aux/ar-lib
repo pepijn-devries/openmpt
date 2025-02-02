@@ -169,8 +169,8 @@ do
     s*) index=yes   ;;
     S*)             ;; # the index is always updated implicitly
     c*) create=yes  ;;
-    u*)             ;; # TODO: don't ignore the update modifier
-    v*)             ;; # TODO: don't ignore the verbose modifier
+    u*)             ;; # NOTE: don't ignore the update modifier
+    v*)             ;; # NOTE: don't ignore the verbose modifier
     *)
       func_error "unknown action specified"
       ;;

@@ -749,6 +749,11 @@ PTHREAD_LIBS
 PTHREAD_CXX
 PTHREAD_CC
 ax_pthread_config
+HAVE_PORTAUDIOCPP
+HAVE_PORTAUDIO
+ENABLE_TESTS
+ENABLE_EXAMPLES
+ENABLE_OPENMPT123
 PKG_LIBS
 PKG_CFLAGS
 PKGCONFIG
@@ -20595,6 +20600,11 @@ use_autobrew=no
 if test x"${libopenmpt_configtest}" = x"no"; then
     case x"${host_os}" in
         x"darwin"*)
+
+
+
+
+
             use_autobrew=yes
             { printf "%s\n" "$as_me:${as_lineno-$LINENO}: Using pre-build brew formula" >&5
 printf "%s\n" "$as_me: Using pre-build brew formula" >&6;}
@@ -25299,6 +25309,9 @@ else $as_nop
 fi
 rm -f core conftest.err conftest.$ac_objext conftest.beam \
     conftest$ac_exeext conftest.$ac_ext
+
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: TODO dit is een waarde $ENABLE_OPENMPT123 en $ENABLE_EXAMPLES en $ENABLE_TESTS en $HAVE_PORTAUDIO en $HAVE_PORTAUDIOCPP" >&5
+printf "%s\n" "$as_me: TODO dit is een waarde $ENABLE_OPENMPT123 en $ENABLE_EXAMPLES en $ENABLE_TESTS en $HAVE_PORTAUDIO en $HAVE_PORTAUDIOCPP" >&6;}
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
