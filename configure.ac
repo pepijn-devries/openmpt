@@ -63,19 +63,18 @@ if test x"${PKGCONFIG}" = x"yes"; then
     libopenmpt_libs="-lopenmpt"
 fi
 
-AC_SUBST(LIB_PREFIX)
 AC_SUBST(PKG_CFLAGS)
 AC_SUBST(PKG_LIBS)
+use_autobrew=no
 if test x"${libopenmpt_configtest}" = x"no"; then
     case x"${host_os}" in
         x"darwin"*)
+            use_autobrew=yes
             AC_MSG_NOTICE([Using pre-build brew formula])
-            LIB_PREFIX="${LIB_PREFIX}brew"
             curl -sfL "https://autobrew.github.io/scripts/libopenmpt" > autobrew
             . ./autobrew
             libopenmpt_cxxflags="${PKG_CFLAGS}"
-            libopenmpt_libs="${PKG_LIBS}"
-            AC_MSG_NOTICE([TODO got these $PKG_LIBS + $PKG_CFLAGS]);;
+            libopenmpt_libs="${PKG_LIBS}";;
     esac
 fi
 
@@ -83,7 +82,9 @@ fi
 GLOBAL_CPPFLAGS="${libopenmpt_cxxflags} ${CPPFLAGS}"
 GLOBAL_CXXFLAGS="${libopenmpt_cxxflags} ${CXXFLAGS}"
 
+# GLOBAL_CPPFLAGS=
 GLOBAL_CFLAGS=
+# GLOBAL_CXXFLAGS=
 
 AC_LANG_PUSH([C])
 AX_CHECK_COMPILE_FLAG([-fvisibility=hidden], [GLOBAL_CFLAGS="$GLOBAL_CFLAGS -fvisibility=hidden"])
@@ -182,145 +183,137 @@ AC_SUBST([WIN32_CONSOLE_CFLAGS])
 LIBOPENMPT_REQUIRES_PRIVATE=
 LIBOPENMPT_LIBS_PRIVATE=
 
-# Required libopenmpt dependency: zlib
-ZLIB_PKG=
-AC_ARG_WITH([zlib], AS_HELP_STRING([--without-zlib], [Disable use of zlib.]))
-AS_IF([test "x$with_zlib" != "xno"],
- [
-  PKG_CHECK_MODULES([ZLIB], [zlib],
+if test x"${use_autobrew}" = x"no"; then
+
+  # Required libopenmpt dependency: zlib
+  ZLIB_PKG=
+  AC_ARG_WITH([zlib], AS_HELP_STRING([--without-zlib], [Disable use of zlib.]))
+  AS_IF([test "x$with_zlib" != "xno"],
    [
-    ZLIB_PKG=zlib
-    ZLIB_CFLAGS="-DMPT_WITH_ZLIB $ZLIB_CFLAGS"
-   ], [AC_MSG_ERROR([Unable to find zlib.])])
- ]
-)
-
-# Required libopenmpt dependency: mpg123
-MPG123_PKG=
-AC_ARG_WITH([mpg123], AS_HELP_STRING([--without-mpg123], [Disable use of libmpg123.]))
-AS_IF([test "x$with_mpg123" != "xno"],
- [
-  AC_SUBST(MPG123_NAME)
-  MPG123_NAME="libmpg123"
-  if test "x${LIB_PREFIX}" = "xbrew"; then
-    MPG123_NAME="mpg123"
-  fi
-  PKG_CHECK_MODULES([MPG123], ["${LIB_PREFIX}${MPG123_NAME}" >= 1.14.0],
+    PKG_CHECK_MODULES([ZLIB], [zlib],
+     [
+      ZLIB_PKG=zlib
+      ZLIB_CFLAGS="-DMPT_WITH_ZLIB $ZLIB_CFLAGS"
+     ], [AC_MSG_ERROR([Unable to find zlib.])])
+   ]
+  )
+  
+  # Required libopenmpt dependency: mpg123
+  MPG123_PKG=
+  AC_ARG_WITH([mpg123], AS_HELP_STRING([--without-mpg123], [Disable use of libmpg123.]))
+  AS_IF([test "x$with_mpg123" != "xno"],
    [
-    MPG123_PKG="${LIB_PREFIX}${MPG123_NAME}"
-    MPG123_CFLAGS="-DMPT_WITH_MPG123 $MPG123_CFLAGS"
-   ], [AC_MSG_ERROR([Unable to find libmpg123.])])
- ]
-)
-
-# Required libopenmpt dependency: ogg
-OGG_PKG=
-AC_ARG_WITH([ogg], AS_HELP_STRING([--without-ogg], [Disable use of libogg.]))
-AS_IF([test "x$with_ogg" != "xno"],
- [
-  PKG_CHECK_MODULES([OGG], ["${LIB_PREFIX}ogg"],
+    PKG_CHECK_MODULES([MPG123], [libmpg123 >= 1.14.0],
+     [
+      MPG123_PKG=libmpg123
+      MPG123_CFLAGS="-DMPT_WITH_MPG123 $MPG123_CFLAGS"
+     ], [AC_MSG_ERROR([Unable to find libmpg123.])])
+   ]
+  )
+  
+  # Required libopenmpt dependency: ogg
+  OGG_PKG=
+  AC_ARG_WITH([ogg], AS_HELP_STRING([--without-ogg], [Disable use of libogg.]))
+  AS_IF([test "x$with_ogg" != "xno"],
    [
-    OGG_PKG="${LIB_PREFIX}ogg"
-    OGG_CFLAGS="-DMPT_WITH_OGG $OGG_CFLAGS"
-   ], [AC_MSG_ERROR([Unable to find libogg.])])
- ]
-)
-
-# Required libopenmpt dependency: vorbis
-VORBIS_PKG=
-AC_ARG_WITH([vorbis], AS_HELP_STRING([--without-vorbis], [Disable use of libvorbis.]))
-AS_IF([test "x$with_vorbis" != "xno"],
- [
-  PKG_CHECK_MODULES([VORBIS], ["${LIB_PREFIX}vorbis"],
+    PKG_CHECK_MODULES([OGG], [ogg],
+     [
+      OGG_PKG=ogg
+      OGG_CFLAGS="-DMPT_WITH_OGG $OGG_CFLAGS"
+     ], [AC_MSG_ERROR([Unable to find libogg.])])
+   ]
+  )
+  
+  # Required libopenmpt dependency: vorbis
+  VORBIS_PKG=
+  AC_ARG_WITH([vorbis], AS_HELP_STRING([--without-vorbis], [Disable use of libvorbis.]))
+  AS_IF([test "x$with_vorbis" != "xno"],
    [
-    VORBIS_PKG="${LIB_PREFIX}vorbis"
-    VORBIS_CFLAGS="-DMPT_WITH_VORBIS $VORBIS_CFLAGS"
-   ], [AC_MSG_ERROR([Unable to find libvorbis.])])
- ]
-)
-
-# Required libopenmpt dependency: vorbisfile
-VORBISFILE_PKG=
-AC_ARG_WITH([vorbisfile], AS_HELP_STRING([--without-vorbisfile], [Disable use of libvorbisfile.]))
-AS_IF([test "x$with_vorbisfile" != "xno"],
- [
-  PKG_CHECK_MODULES([VORBISFILE], ["${LIB_PREFIX}vorbisfile"],
+    PKG_CHECK_MODULES([VORBIS], [vorbis],
+     [
+      VORBIS_PKG=vorbis
+      VORBIS_CFLAGS="-DMPT_WITH_VORBIS $VORBIS_CFLAGS"
+     ], [AC_MSG_ERROR([Unable to find libvorbis.])])
+   ]
+  )
+  
+  # Required libopenmpt dependency: vorbisfile
+  VORBISFILE_PKG=
+  AC_ARG_WITH([vorbisfile], AS_HELP_STRING([--without-vorbisfile], [Disable use of libvorbisfile.]))
+  AS_IF([test "x$with_vorbisfile" != "xno"],
    [
-    VORBISFILE_PKG="${LIB_PREFIX}vorbisfile"
-    VORBISFILE_CFLAGS="-DMPT_WITH_VORBISFILE $VORBISFILE_CFLAGS"
-   ], [AC_MSG_ERROR([Unable to find libvorbisfile.])])
- ]
-)
-
-LIBOPENMPT_REQUIRES_PRIVATE="$ZLIB_PKG $MPG123_PKG $OGG_PKG $VORBIS_PKG $VORBISFILE_PKG"
-LIBOPENMPT_LIBS_PRIVATE="$CXXSTDLIB_PCLIBSPRIVATE $LIBOPENMPT_LIBS_PRIVATE_WIN32"
-AC_SUBST([LIBOPENMPT_REQUIRES_PRIVATE])
-AC_SUBST([LIBOPENMPT_LIBS_PRIVATE])
-
-# openmpt123
-AC_ARG_ENABLE([openmpt123], AS_HELP_STRING([--disable-openmpt123], [Disable the openmpt123 command line player.]))
-AM_CONDITIONAL([ENABLE_OPENMPT123], [test "x$enable_openmpt123" != "xno"])
-
-
-# examples
-AC_ARG_ENABLE([examples], AS_HELP_STRING([--disable-examples], [Disable the example programs.]))
-AM_CONDITIONAL([ENABLE_EXAMPLES], [test "x$enable_examples" != "xno"])
-
-# tests
-AC_ARG_ENABLE([tests], AS_HELP_STRING([--disable-tests], [Disable the test suite.]))
-AM_CONDITIONAL([ENABLE_TESTS], [test "x$enable_tests" != "xno"])
-
-# Optional openmpt123 and examples dependency
-AC_ARG_WITH([portaudio], AS_HELP_STRING([--without-portaudio], [Disable use of libportaudio.]))
-AS_IF([test "x$enable_openmpt123$enable_examples" != "xnono"],[
-AS_IF([test "x$with_portaudio" != "xno"],
- [
-  AC_SUBST(PORTAUDIO_NAME)
-  PORTAUDIO_NAME="portaudio-2.0"
-  if test "x${LIB_PREFIX}" = "xbrew"; then
-    PORTAUDIO_NAME="portaudio"
-  fi
-
-  PKG_CHECK_MODULES([PORTAUDIO], ["${LIB_PREFIX}${PORTAUDIO_NAME}"],
+    PKG_CHECK_MODULES([VORBISFILE], [vorbisfile],
+     [
+      VORBISFILE_PKG=vorbisfile
+      VORBISFILE_CFLAGS="-DMPT_WITH_VORBISFILE $VORBISFILE_CFLAGS"
+     ], [AC_MSG_ERROR([Unable to find libvorbisfile.])])
+   ]
+  )
+  
+  LIBOPENMPT_REQUIRES_PRIVATE="$ZLIB_PKG $MPG123_PKG $OGG_PKG $VORBIS_PKG $VORBISFILE_PKG"
+  LIBOPENMPT_LIBS_PRIVATE="$CXXSTDLIB_PCLIBSPRIVATE $LIBOPENMPT_LIBS_PRIVATE_WIN32"
+  AC_SUBST([LIBOPENMPT_REQUIRES_PRIVATE])
+  AC_SUBST([LIBOPENMPT_LIBS_PRIVATE])
+  
+  # openmpt123
+  AC_ARG_ENABLE([openmpt123], AS_HELP_STRING([--disable-openmpt123], [Disable the openmpt123 command line player.]))
+  AM_CONDITIONAL([ENABLE_OPENMPT123], [test "x$enable_openmpt123" != "xno"])
+  
+  
+  # examples
+  AC_ARG_ENABLE([examples], AS_HELP_STRING([--disable-examples], [Disable the example programs.]))
+  AM_CONDITIONAL([ENABLE_EXAMPLES], [test "x$enable_examples" != "xno"])
+  
+  # tests
+  AC_ARG_ENABLE([tests], AS_HELP_STRING([--disable-tests], [Disable the test suite.]))
+  AM_CONDITIONAL([ENABLE_TESTS], [test "x$enable_tests" != "xno"])
+  
+  # Optional openmpt123 and examples dependency
+  AC_ARG_WITH([portaudio], AS_HELP_STRING([--without-portaudio], [Disable use of libportaudio.]))
+  AS_IF([test "x$enable_openmpt123$enable_examples" != "xnono"],[
+  AS_IF([test "x$with_portaudio" != "xno"],
    [
-    have_portaudio=1
-    PORTAUDIO_CFLAGS="-DMPT_WITH_PORTAUDIO $PORTAUDIO_CFLAGS"
+    PKG_CHECK_MODULES([PORTAUDIO], [portaudio-2.0],
+     [
+      have_portaudio=1
+      PORTAUDIO_CFLAGS="-DMPT_WITH_PORTAUDIO $PORTAUDIO_CFLAGS"
+     ],
+     [
+      have_portaudio=0
+      AC_MSG_ERROR([Unable to find libportaudio.])
+     ]
+    )
    ],
    [
     have_portaudio=0
-    AC_MSG_ERROR([Unable to find libportaudio.])
    ]
   )
- ],
- [
-  have_portaudio=0
- ]
-)
-],[have_portaudio=0])
-AM_CONDITIONAL([HAVE_PORTAUDIO], [test x$have_portaudio = x1])
-
-# Optional examples dependency: PortAudio C++
-AC_ARG_WITH([portaudiocpp], AS_HELP_STRING([--without-portaudiocpp], [Disable use of libportaudiocpp.]))
-AS_IF([test "x$enable_examples" != "xno"],[
-AS_IF([test "x$with_portaudiocpp" != "xno"],
- [
-  PKG_CHECK_MODULES([PORTAUDIOCPP], ["${LIB_PREFIX}portaudiocpp"],
+  ],[have_portaudio=0])
+  AM_CONDITIONAL([HAVE_PORTAUDIO], [test x$have_portaudio = x1])
+  
+  # Optional examples dependency: PortAudio C++
+  AC_ARG_WITH([portaudiocpp], AS_HELP_STRING([--without-portaudiocpp], [Disable use of libportaudiocpp.]))
+  AS_IF([test "x$enable_examples" != "xno"],[
+  AS_IF([test "x$with_portaudiocpp" != "xno"],
    [
-    have_portaudiocpp=1
-    PORTAUDIOCPP_CFLAGS="-DMPT_WITH_PORTAUDIOCPP $PORTAUDIOCPP_CFLAGS"
+    PKG_CHECK_MODULES([PORTAUDIOCPP], [portaudiocpp],
+     [
+      have_portaudiocpp=1
+      PORTAUDIOCPP_CFLAGS="-DMPT_WITH_PORTAUDIOCPP $PORTAUDIOCPP_CFLAGS"
+     ],
+     [
+      have_portaudiocpp=0
+      AC_MSG_ERROR([Unable to find libportaudiocpp.])
+     ]
+    )
    ],
    [
     have_portaudiocpp=0
-    AC_MSG_ERROR([Unable to find libportaudiocpp.])
    ]
   )
- ],
- [
-  have_portaudiocpp=0
- ]
-)
-],[have_portaudiocpp=0])
-AM_CONDITIONAL([HAVE_PORTAUDIOCPP], [test x$have_portaudiocpp = x1])
+  ],[have_portaudiocpp=0])
+  AM_CONDITIONAL([HAVE_PORTAUDIOCPP], [test x$have_portaudiocpp = x1])
+fi
 
 DX_DOXYGEN_FEATURE(OFF)
 DX_DOT_FEATURE(OFF)

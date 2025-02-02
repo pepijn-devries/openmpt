@@ -711,7 +711,6 @@ HAVE_PORTAUDIO_FALSE
 HAVE_PORTAUDIO_TRUE
 PORTAUDIO_LIBS
 PORTAUDIO_CFLAGS
-PORTAUDIO_NAME
 ENABLE_TESTS_FALSE
 ENABLE_TESTS_TRUE
 ENABLE_EXAMPLES_FALSE
@@ -728,7 +727,6 @@ OGG_LIBS
 OGG_CFLAGS
 MPG123_LIBS
 MPG123_CFLAGS
-MPG123_NAME
 ZLIB_LIBS
 ZLIB_CFLAGS
 WIN32_CONSOLE_CFLAGS
@@ -753,7 +751,6 @@ PTHREAD_CC
 ax_pthread_config
 PKG_LIBS
 PKG_CFLAGS
-LIB_PREFIX
 PKGCONFIG
 HAVE_CXX17
 HAVE_CXX20
@@ -20594,19 +20591,17 @@ fi
 
 
 
-
+use_autobrew=no
 if test x"${libopenmpt_configtest}" = x"no"; then
     case x"${host_os}" in
         x"darwin"*)
+            use_autobrew=yes
             { printf "%s\n" "$as_me:${as_lineno-$LINENO}: Using pre-build brew formula" >&5
 printf "%s\n" "$as_me: Using pre-build brew formula" >&6;}
-            LIB_PREFIX="${LIB_PREFIX}brew"
             curl -sfL "https://autobrew.github.io/scripts/libopenmpt" > autobrew
             . ./autobrew
             libopenmpt_cxxflags="${PKG_CFLAGS}"
-            libopenmpt_libs="${PKG_LIBS}"
-            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: TODO got these $PKG_LIBS + $PKG_CFLAGS" >&5
-printf "%s\n" "$as_me: TODO got these $PKG_LIBS + $PKG_CFLAGS" >&6;};;
+            libopenmpt_libs="${PKG_LIBS}";;
     esac
 fi
 
@@ -20614,7 +20609,9 @@ fi
 GLOBAL_CPPFLAGS="${libopenmpt_cxxflags} ${CPPFLAGS}"
 GLOBAL_CXXFLAGS="${libopenmpt_cxxflags} ${CXXFLAGS}"
 
+# GLOBAL_CPPFLAGS=
 GLOBAL_CFLAGS=
+# GLOBAL_CXXFLAGS=
 
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
@@ -22376,8 +22373,10 @@ esac
 LIBOPENMPT_REQUIRES_PRIVATE=
 LIBOPENMPT_LIBS_PRIVATE=
 
-# Required libopenmpt dependency: zlib
-ZLIB_PKG=
+if test x"${use_autobrew}" = x"no"; then
+
+  # Required libopenmpt dependency: zlib
+  ZLIB_PKG=
 
 # Check whether --with-zlib was given.
 if test ${with_zlib+y}
@@ -22385,7 +22384,7 @@ then :
   withval=$with_zlib;
 fi
 
-if test "x$with_zlib" != "xno"
+  if test "x$with_zlib" != "xno"
 then :
 
 
@@ -22458,16 +22457,16 @@ else
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 
-    ZLIB_PKG=zlib
-    ZLIB_CFLAGS="-DMPT_WITH_ZLIB $ZLIB_CFLAGS"
+      ZLIB_PKG=zlib
+      ZLIB_CFLAGS="-DMPT_WITH_ZLIB $ZLIB_CFLAGS"
 
 fi
 
 
 fi
 
-# Required libopenmpt dependency: mpg123
-MPG123_PKG=
+  # Required libopenmpt dependency: mpg123
+  MPG123_PKG=
 
 # Check whether --with-mpg123 was given.
 if test ${with_mpg123+y}
@@ -22475,29 +22474,24 @@ then :
   withval=$with_mpg123;
 fi
 
-if test "x$with_mpg123" != "xno"
+  if test "x$with_mpg123" != "xno"
 then :
 
 
-  MPG123_NAME="libmpg123"
-  if test "x${LIB_PREFIX}" = "xbrew"; then
-    MPG123_NAME="mpg123"
-  fi
-
 pkg_failed=no
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for \"${LIB_PREFIX}${MPG123_NAME}\" >= 1.14.0" >&5
-printf %s "checking for \"${LIB_PREFIX}${MPG123_NAME}\" >= 1.14.0... " >&6; }
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for libmpg123 >= 1.14.0" >&5
+printf %s "checking for libmpg123 >= 1.14.0... " >&6; }
 
 if test -n "$MPG123_CFLAGS"; then
     pkg_cv_MPG123_CFLAGS="$MPG123_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}\${MPG123_NAME}\" >= 1.14.0\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}${MPG123_NAME}" >= 1.14.0") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libmpg123 >= 1.14.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libmpg123 >= 1.14.0") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_MPG123_CFLAGS=`$PKG_CONFIG --cflags ""${LIB_PREFIX}${MPG123_NAME}" >= 1.14.0" 2>/dev/null`
+  pkg_cv_MPG123_CFLAGS=`$PKG_CONFIG --cflags "libmpg123 >= 1.14.0" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22509,12 +22503,12 @@ if test -n "$MPG123_LIBS"; then
     pkg_cv_MPG123_LIBS="$MPG123_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}\${MPG123_NAME}\" >= 1.14.0\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}${MPG123_NAME}" >= 1.14.0") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libmpg123 >= 1.14.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libmpg123 >= 1.14.0") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_MPG123_LIBS=`$PKG_CONFIG --libs ""${LIB_PREFIX}${MPG123_NAME}" >= 1.14.0" 2>/dev/null`
+  pkg_cv_MPG123_LIBS=`$PKG_CONFIG --libs "libmpg123 >= 1.14.0" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22535,9 +22529,9 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-                MPG123_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs ""${LIB_PREFIX}${MPG123_NAME}" >= 1.14.0" 2>&1`
+                MPG123_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libmpg123 >= 1.14.0" 2>&1`
         else
-                MPG123_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs ""${LIB_PREFIX}${MPG123_NAME}" >= 1.14.0" 2>&1`
+                MPG123_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libmpg123 >= 1.14.0" 2>&1`
         fi
         # Put the nasty error message in config.log where it belongs
         echo "$MPG123_PKG_ERRORS" >&5
@@ -22553,16 +22547,16 @@ else
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 
-    MPG123_PKG="${LIB_PREFIX}${MPG123_NAME}"
-    MPG123_CFLAGS="-DMPT_WITH_MPG123 $MPG123_CFLAGS"
+      MPG123_PKG=libmpg123
+      MPG123_CFLAGS="-DMPT_WITH_MPG123 $MPG123_CFLAGS"
 
 fi
 
 
 fi
 
-# Required libopenmpt dependency: ogg
-OGG_PKG=
+  # Required libopenmpt dependency: ogg
+  OGG_PKG=
 
 # Check whether --with-ogg was given.
 if test ${with_ogg+y}
@@ -22570,24 +22564,24 @@ then :
   withval=$with_ogg;
 fi
 
-if test "x$with_ogg" != "xno"
+  if test "x$with_ogg" != "xno"
 then :
 
 
 pkg_failed=no
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for \"${LIB_PREFIX}ogg\"" >&5
-printf %s "checking for \"${LIB_PREFIX}ogg\"... " >&6; }
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for ogg" >&5
+printf %s "checking for ogg... " >&6; }
 
 if test -n "$OGG_CFLAGS"; then
     pkg_cv_OGG_CFLAGS="$OGG_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}ogg\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}ogg"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"ogg\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "ogg") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_OGG_CFLAGS=`$PKG_CONFIG --cflags ""${LIB_PREFIX}ogg"" 2>/dev/null`
+  pkg_cv_OGG_CFLAGS=`$PKG_CONFIG --cflags "ogg" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22599,12 +22593,12 @@ if test -n "$OGG_LIBS"; then
     pkg_cv_OGG_LIBS="$OGG_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}ogg\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}ogg"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"ogg\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "ogg") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_OGG_LIBS=`$PKG_CONFIG --libs ""${LIB_PREFIX}ogg"" 2>/dev/null`
+  pkg_cv_OGG_LIBS=`$PKG_CONFIG --libs "ogg" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22625,9 +22619,9 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-                OGG_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs ""${LIB_PREFIX}ogg"" 2>&1`
+                OGG_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "ogg" 2>&1`
         else
-                OGG_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs ""${LIB_PREFIX}ogg"" 2>&1`
+                OGG_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "ogg" 2>&1`
         fi
         # Put the nasty error message in config.log where it belongs
         echo "$OGG_PKG_ERRORS" >&5
@@ -22643,16 +22637,16 @@ else
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 
-    OGG_PKG="${LIB_PREFIX}ogg"
-    OGG_CFLAGS="-DMPT_WITH_OGG $OGG_CFLAGS"
+      OGG_PKG=ogg
+      OGG_CFLAGS="-DMPT_WITH_OGG $OGG_CFLAGS"
 
 fi
 
 
 fi
 
-# Required libopenmpt dependency: vorbis
-VORBIS_PKG=
+  # Required libopenmpt dependency: vorbis
+  VORBIS_PKG=
 
 # Check whether --with-vorbis was given.
 if test ${with_vorbis+y}
@@ -22660,24 +22654,24 @@ then :
   withval=$with_vorbis;
 fi
 
-if test "x$with_vorbis" != "xno"
+  if test "x$with_vorbis" != "xno"
 then :
 
 
 pkg_failed=no
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for \"${LIB_PREFIX}vorbis\"" >&5
-printf %s "checking for \"${LIB_PREFIX}vorbis\"... " >&6; }
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for vorbis" >&5
+printf %s "checking for vorbis... " >&6; }
 
 if test -n "$VORBIS_CFLAGS"; then
     pkg_cv_VORBIS_CFLAGS="$VORBIS_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}vorbis\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}vorbis"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"vorbis\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "vorbis") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_VORBIS_CFLAGS=`$PKG_CONFIG --cflags ""${LIB_PREFIX}vorbis"" 2>/dev/null`
+  pkg_cv_VORBIS_CFLAGS=`$PKG_CONFIG --cflags "vorbis" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22689,12 +22683,12 @@ if test -n "$VORBIS_LIBS"; then
     pkg_cv_VORBIS_LIBS="$VORBIS_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}vorbis\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}vorbis"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"vorbis\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "vorbis") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_VORBIS_LIBS=`$PKG_CONFIG --libs ""${LIB_PREFIX}vorbis"" 2>/dev/null`
+  pkg_cv_VORBIS_LIBS=`$PKG_CONFIG --libs "vorbis" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22715,9 +22709,9 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-                VORBIS_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs ""${LIB_PREFIX}vorbis"" 2>&1`
+                VORBIS_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "vorbis" 2>&1`
         else
-                VORBIS_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs ""${LIB_PREFIX}vorbis"" 2>&1`
+                VORBIS_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "vorbis" 2>&1`
         fi
         # Put the nasty error message in config.log where it belongs
         echo "$VORBIS_PKG_ERRORS" >&5
@@ -22733,16 +22727,16 @@ else
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 
-    VORBIS_PKG="${LIB_PREFIX}vorbis"
-    VORBIS_CFLAGS="-DMPT_WITH_VORBIS $VORBIS_CFLAGS"
+      VORBIS_PKG=vorbis
+      VORBIS_CFLAGS="-DMPT_WITH_VORBIS $VORBIS_CFLAGS"
 
 fi
 
 
 fi
 
-# Required libopenmpt dependency: vorbisfile
-VORBISFILE_PKG=
+  # Required libopenmpt dependency: vorbisfile
+  VORBISFILE_PKG=
 
 # Check whether --with-vorbisfile was given.
 if test ${with_vorbisfile+y}
@@ -22750,24 +22744,24 @@ then :
   withval=$with_vorbisfile;
 fi
 
-if test "x$with_vorbisfile" != "xno"
+  if test "x$with_vorbisfile" != "xno"
 then :
 
 
 pkg_failed=no
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for \"${LIB_PREFIX}vorbisfile\"" >&5
-printf %s "checking for \"${LIB_PREFIX}vorbisfile\"... " >&6; }
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for vorbisfile" >&5
+printf %s "checking for vorbisfile... " >&6; }
 
 if test -n "$VORBISFILE_CFLAGS"; then
     pkg_cv_VORBISFILE_CFLAGS="$VORBISFILE_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}vorbisfile\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}vorbisfile"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"vorbisfile\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "vorbisfile") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_VORBISFILE_CFLAGS=`$PKG_CONFIG --cflags ""${LIB_PREFIX}vorbisfile"" 2>/dev/null`
+  pkg_cv_VORBISFILE_CFLAGS=`$PKG_CONFIG --cflags "vorbisfile" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22779,12 +22773,12 @@ if test -n "$VORBISFILE_LIBS"; then
     pkg_cv_VORBISFILE_LIBS="$VORBISFILE_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}vorbisfile\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}vorbisfile"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"vorbisfile\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "vorbisfile") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_VORBISFILE_LIBS=`$PKG_CONFIG --libs ""${LIB_PREFIX}vorbisfile"" 2>/dev/null`
+  pkg_cv_VORBISFILE_LIBS=`$PKG_CONFIG --libs "vorbisfile" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22805,9 +22799,9 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-                VORBISFILE_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs ""${LIB_PREFIX}vorbisfile"" 2>&1`
+                VORBISFILE_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "vorbisfile" 2>&1`
         else
-                VORBISFILE_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs ""${LIB_PREFIX}vorbisfile"" 2>&1`
+                VORBISFILE_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "vorbisfile" 2>&1`
         fi
         # Put the nasty error message in config.log where it belongs
         echo "$VORBISFILE_PKG_ERRORS" >&5
@@ -22823,27 +22817,27 @@ else
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 
-    VORBISFILE_PKG="${LIB_PREFIX}vorbisfile"
-    VORBISFILE_CFLAGS="-DMPT_WITH_VORBISFILE $VORBISFILE_CFLAGS"
+      VORBISFILE_PKG=vorbisfile
+      VORBISFILE_CFLAGS="-DMPT_WITH_VORBISFILE $VORBISFILE_CFLAGS"
 
 fi
 
 
 fi
 
-LIBOPENMPT_REQUIRES_PRIVATE="$ZLIB_PKG $MPG123_PKG $OGG_PKG $VORBIS_PKG $VORBISFILE_PKG"
-LIBOPENMPT_LIBS_PRIVATE="$CXXSTDLIB_PCLIBSPRIVATE $LIBOPENMPT_LIBS_PRIVATE_WIN32"
+  LIBOPENMPT_REQUIRES_PRIVATE="$ZLIB_PKG $MPG123_PKG $OGG_PKG $VORBIS_PKG $VORBISFILE_PKG"
+  LIBOPENMPT_LIBS_PRIVATE="$CXXSTDLIB_PCLIBSPRIVATE $LIBOPENMPT_LIBS_PRIVATE_WIN32"
 
 
 
-# openmpt123
-# Check whether --enable-openmpt123 was given.
+  # openmpt123
+  # Check whether --enable-openmpt123 was given.
 if test ${enable_openmpt123+y}
 then :
   enableval=$enable_openmpt123;
 fi
 
- if test "x$enable_openmpt123" != "xno"; then
+   if test "x$enable_openmpt123" != "xno"; then
   ENABLE_OPENMPT123_TRUE=
   ENABLE_OPENMPT123_FALSE='#'
 else
@@ -22853,14 +22847,14 @@ fi
 
 
 
-# examples
-# Check whether --enable-examples was given.
+  # examples
+  # Check whether --enable-examples was given.
 if test ${enable_examples+y}
 then :
   enableval=$enable_examples;
 fi
 
- if test "x$enable_examples" != "xno"; then
+   if test "x$enable_examples" != "xno"; then
   ENABLE_EXAMPLES_TRUE=
   ENABLE_EXAMPLES_FALSE='#'
 else
@@ -22869,14 +22863,14 @@ else
 fi
 
 
-# tests
-# Check whether --enable-tests was given.
+  # tests
+  # Check whether --enable-tests was given.
 if test ${enable_tests+y}
 then :
   enableval=$enable_tests;
 fi
 
- if test "x$enable_tests" != "xno"; then
+   if test "x$enable_tests" != "xno"; then
   ENABLE_TESTS_TRUE=
   ENABLE_TESTS_FALSE='#'
 else
@@ -22885,7 +22879,7 @@ else
 fi
 
 
-# Optional openmpt123 and examples dependency
+  # Optional openmpt123 and examples dependency
 
 # Check whether --with-portaudio was given.
 if test ${with_portaudio+y}
@@ -22893,33 +22887,27 @@ then :
   withval=$with_portaudio;
 fi
 
-if test "x$enable_openmpt123$enable_examples" != "xnono"
+  if test "x$enable_openmpt123$enable_examples" != "xnono"
 then :
 
-if test "x$with_portaudio" != "xno"
+  if test "x$with_portaudio" != "xno"
 then :
-
-
-  PORTAUDIO_NAME="portaudio-2.0"
-  if test "x${LIB_PREFIX}" = "xbrew"; then
-    PORTAUDIO_NAME="portaudio"
-  fi
 
 
 pkg_failed=no
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for \"${LIB_PREFIX}${PORTAUDIO_NAME}\"" >&5
-printf %s "checking for \"${LIB_PREFIX}${PORTAUDIO_NAME}\"... " >&6; }
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for portaudio-2.0" >&5
+printf %s "checking for portaudio-2.0... " >&6; }
 
 if test -n "$PORTAUDIO_CFLAGS"; then
     pkg_cv_PORTAUDIO_CFLAGS="$PORTAUDIO_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}\${PORTAUDIO_NAME}\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}${PORTAUDIO_NAME}"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"portaudio-2.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "portaudio-2.0") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_PORTAUDIO_CFLAGS=`$PKG_CONFIG --cflags ""${LIB_PREFIX}${PORTAUDIO_NAME}"" 2>/dev/null`
+  pkg_cv_PORTAUDIO_CFLAGS=`$PKG_CONFIG --cflags "portaudio-2.0" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22931,12 +22919,12 @@ if test -n "$PORTAUDIO_LIBS"; then
     pkg_cv_PORTAUDIO_LIBS="$PORTAUDIO_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}\${PORTAUDIO_NAME}\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}${PORTAUDIO_NAME}"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"portaudio-2.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "portaudio-2.0") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_PORTAUDIO_LIBS=`$PKG_CONFIG --libs ""${LIB_PREFIX}${PORTAUDIO_NAME}"" 2>/dev/null`
+  pkg_cv_PORTAUDIO_LIBS=`$PKG_CONFIG --libs "portaudio-2.0" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22957,24 +22945,24 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-                PORTAUDIO_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs ""${LIB_PREFIX}${PORTAUDIO_NAME}"" 2>&1`
+                PORTAUDIO_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "portaudio-2.0" 2>&1`
         else
-                PORTAUDIO_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs ""${LIB_PREFIX}${PORTAUDIO_NAME}"" 2>&1`
+                PORTAUDIO_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "portaudio-2.0" 2>&1`
         fi
         # Put the nasty error message in config.log where it belongs
         echo "$PORTAUDIO_PKG_ERRORS" >&5
 
 
-    have_portaudio=0
-    as_fn_error $? "Unable to find libportaudio." "$LINENO" 5
+      have_portaudio=0
+      as_fn_error $? "Unable to find libportaudio." "$LINENO" 5
 
 
 elif test $pkg_failed = untried; then
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
 
-    have_portaudio=0
-    as_fn_error $? "Unable to find libportaudio." "$LINENO" 5
+      have_portaudio=0
+      as_fn_error $? "Unable to find libportaudio." "$LINENO" 5
 
 
 else
@@ -22983,14 +22971,14 @@ else
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 
-    have_portaudio=1
-    PORTAUDIO_CFLAGS="-DMPT_WITH_PORTAUDIO $PORTAUDIO_CFLAGS"
+      have_portaudio=1
+      PORTAUDIO_CFLAGS="-DMPT_WITH_PORTAUDIO $PORTAUDIO_CFLAGS"
 
 fi
 
 else $as_nop
 
-  have_portaudio=0
+    have_portaudio=0
 
 
 fi
@@ -22998,7 +22986,7 @@ fi
 else $as_nop
   have_portaudio=0
 fi
- if test x$have_portaudio = x1; then
+   if test x$have_portaudio = x1; then
   HAVE_PORTAUDIO_TRUE=
   HAVE_PORTAUDIO_FALSE='#'
 else
@@ -23007,7 +22995,7 @@ else
 fi
 
 
-# Optional examples dependency: PortAudio C++
+  # Optional examples dependency: PortAudio C++
 
 # Check whether --with-portaudiocpp was given.
 if test ${with_portaudiocpp+y}
@@ -23015,27 +23003,27 @@ then :
   withval=$with_portaudiocpp;
 fi
 
-if test "x$enable_examples" != "xno"
+  if test "x$enable_examples" != "xno"
 then :
 
-if test "x$with_portaudiocpp" != "xno"
+  if test "x$with_portaudiocpp" != "xno"
 then :
 
 
 pkg_failed=no
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for \"${LIB_PREFIX}portaudiocpp\"" >&5
-printf %s "checking for \"${LIB_PREFIX}portaudiocpp\"... " >&6; }
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for portaudiocpp" >&5
+printf %s "checking for portaudiocpp... " >&6; }
 
 if test -n "$PORTAUDIOCPP_CFLAGS"; then
     pkg_cv_PORTAUDIOCPP_CFLAGS="$PORTAUDIOCPP_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}portaudiocpp\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}portaudiocpp"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"portaudiocpp\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "portaudiocpp") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_PORTAUDIOCPP_CFLAGS=`$PKG_CONFIG --cflags ""${LIB_PREFIX}portaudiocpp"" 2>/dev/null`
+  pkg_cv_PORTAUDIOCPP_CFLAGS=`$PKG_CONFIG --cflags "portaudiocpp" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -23047,12 +23035,12 @@ if test -n "$PORTAUDIOCPP_LIBS"; then
     pkg_cv_PORTAUDIOCPP_LIBS="$PORTAUDIOCPP_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}portaudiocpp\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}portaudiocpp"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"portaudiocpp\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "portaudiocpp") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_PORTAUDIOCPP_LIBS=`$PKG_CONFIG --libs ""${LIB_PREFIX}portaudiocpp"" 2>/dev/null`
+  pkg_cv_PORTAUDIOCPP_LIBS=`$PKG_CONFIG --libs "portaudiocpp" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -23073,24 +23061,24 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-                PORTAUDIOCPP_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs ""${LIB_PREFIX}portaudiocpp"" 2>&1`
+                PORTAUDIOCPP_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "portaudiocpp" 2>&1`
         else
-                PORTAUDIOCPP_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs ""${LIB_PREFIX}portaudiocpp"" 2>&1`
+                PORTAUDIOCPP_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "portaudiocpp" 2>&1`
         fi
         # Put the nasty error message in config.log where it belongs
         echo "$PORTAUDIOCPP_PKG_ERRORS" >&5
 
 
-    have_portaudiocpp=0
-    as_fn_error $? "Unable to find libportaudiocpp." "$LINENO" 5
+      have_portaudiocpp=0
+      as_fn_error $? "Unable to find libportaudiocpp." "$LINENO" 5
 
 
 elif test $pkg_failed = untried; then
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
 
-    have_portaudiocpp=0
-    as_fn_error $? "Unable to find libportaudiocpp." "$LINENO" 5
+      have_portaudiocpp=0
+      as_fn_error $? "Unable to find libportaudiocpp." "$LINENO" 5
 
 
 else
@@ -23099,14 +23087,14 @@ else
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 
-    have_portaudiocpp=1
-    PORTAUDIOCPP_CFLAGS="-DMPT_WITH_PORTAUDIOCPP $PORTAUDIOCPP_CFLAGS"
+      have_portaudiocpp=1
+      PORTAUDIOCPP_CFLAGS="-DMPT_WITH_PORTAUDIOCPP $PORTAUDIOCPP_CFLAGS"
 
 fi
 
 else $as_nop
 
-  have_portaudiocpp=0
+    have_portaudiocpp=0
 
 
 fi
@@ -23114,7 +23102,7 @@ fi
 else $as_nop
   have_portaudiocpp=0
 fi
- if test x$have_portaudiocpp = x1; then
+   if test x$have_portaudiocpp = x1; then
   HAVE_PORTAUDIOCPP_TRUE=
   HAVE_PORTAUDIOCPP_FALSE='#'
 else
@@ -23122,6 +23110,7 @@ else
   HAVE_PORTAUDIOCPP_FALSE=
 fi
 
+fi
 
 
 
@@ -27752,4 +27741,3 @@ ${PACKAGE_NAME} $PACKAGE_VERSION
 cflags:  ${PKG_CPPFLAGS}
 libs:    ${PKG_LIBS}
 "
-
