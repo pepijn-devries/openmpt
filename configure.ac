@@ -187,7 +187,12 @@ ZLIB_PKG=
 AC_ARG_WITH([zlib], AS_HELP_STRING([--without-zlib], [Disable use of zlib.]))
 AS_IF([test "x$with_zlib" != "xno"],
  [
-  PKG_CHECK_MODULES([ZLIB], ["${LIB_PREFIX}zlib"],
+  AC_SUBST(ZLIB_NAME)
+  ZLIB_NAME="zlib"
+  if test "x${LIB_PREFIX}" = "xbrew"; then
+    ZLIB_NAME="z"
+  fi
+  PKG_CHECK_MODULES([ZLIB], ["${LIB_PREFIX}${ZLIB_NAME}"],
    [
     ZLIB_PKG="${LIB_PREFIX}zlib"
     ZLIB_CFLAGS="-DMPT_WITH_ZLIB $ZLIB_CFLAGS"
@@ -200,9 +205,14 @@ MPG123_PKG=
 AC_ARG_WITH([mpg123], AS_HELP_STRING([--without-mpg123], [Disable use of libmpg123.]))
 AS_IF([test "x$with_mpg123" != "xno"],
  [
-  PKG_CHECK_MODULES([MPG123], ["${LIB_PREFIX}libmpg123 >= 1.14.0"],
+  AC_SUBST(MPG123_NAME)
+  MPG123_NAME="libmpg123"
+  if test "x${LIB_PREFIX}" = "xbrew"; then
+    MPG123_NAME="mpg123"
+  fi
+  PKG_CHECK_MODULES([MPG123], ["${LIB_PREFIX}${MPG123_NAME}" >= 1.14.0],
    [
-    MPG123_PKG="${LIB_PREFIX}libmpg123"
+    MPG123_PKG="${LIB_PREFIX}${MPG123_NAME}"
     MPG123_CFLAGS="-DMPT_WITH_MPG123 $MPG123_CFLAGS"
    ], [AC_MSG_ERROR([Unable to find libmpg123.])])
  ]
@@ -270,7 +280,13 @@ AC_ARG_WITH([portaudio], AS_HELP_STRING([--without-portaudio], [Disable use of l
 AS_IF([test "x$enable_openmpt123$enable_examples" != "xnono"],[
 AS_IF([test "x$with_portaudio" != "xno"],
  [
-  PKG_CHECK_MODULES([PORTAUDIO], ["${LIB_PREFIX}portaudio-2.0"],
+  AC_SUBST(PORTAUDIO_NAME)
+  PORTAUDIO_NAME="portaudio-2.0"
+  if test "x${LIB_PREFIX}" = "xbrew"; then
+    PORTAUDIO_NAME="portaudio"
+  fi
+
+  PKG_CHECK_MODULES([PORTAUDIO], ["${LIB_PREFIX}${PORTAUDIO_NAME}"],
    [
     have_portaudio=1
     PORTAUDIO_CFLAGS="-DMPT_WITH_PORTAUDIO $PORTAUDIO_CFLAGS"

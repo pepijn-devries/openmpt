@@ -711,6 +711,7 @@ HAVE_PORTAUDIO_FALSE
 HAVE_PORTAUDIO_TRUE
 PORTAUDIO_LIBS
 PORTAUDIO_CFLAGS
+PORTAUDIO_NAME
 ENABLE_TESTS_FALSE
 ENABLE_TESTS_TRUE
 ENABLE_EXAMPLES_FALSE
@@ -727,8 +728,10 @@ OGG_LIBS
 OGG_CFLAGS
 MPG123_LIBS
 MPG123_CFLAGS
+MPG123_NAME
 ZLIB_LIBS
 ZLIB_CFLAGS
+ZLIB_NAME
 WIN32_CONSOLE_CFLAGS
 WIN32_CONSOLE_CXXFLAGS
 WIN32_CFLAGS
@@ -22387,20 +22390,25 @@ if test "x$with_zlib" != "xno"
 then :
 
 
+  ZLIB_NAME="zlib"
+  if test "x${LIB_PREFIX}" = "xbrew"; then
+    ZLIB_NAME="z"
+  fi
+
 pkg_failed=no
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for \"${LIB_PREFIX}zlib\"" >&5
-printf %s "checking for \"${LIB_PREFIX}zlib\"... " >&6; }
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for \"${LIB_PREFIX}${ZLIB_NAME}\"" >&5
+printf %s "checking for \"${LIB_PREFIX}${ZLIB_NAME}\"... " >&6; }
 
 if test -n "$ZLIB_CFLAGS"; then
     pkg_cv_ZLIB_CFLAGS="$ZLIB_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}zlib\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}zlib"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}\${ZLIB_NAME}\"\""; } >&5
+  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}${ZLIB_NAME}"") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_ZLIB_CFLAGS=`$PKG_CONFIG --cflags ""${LIB_PREFIX}zlib"" 2>/dev/null`
+  pkg_cv_ZLIB_CFLAGS=`$PKG_CONFIG --cflags ""${LIB_PREFIX}${ZLIB_NAME}"" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22412,12 +22420,12 @@ if test -n "$ZLIB_LIBS"; then
     pkg_cv_ZLIB_LIBS="$ZLIB_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}zlib\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}zlib"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}\${ZLIB_NAME}\"\""; } >&5
+  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}${ZLIB_NAME}"") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_ZLIB_LIBS=`$PKG_CONFIG --libs ""${LIB_PREFIX}zlib"" 2>/dev/null`
+  pkg_cv_ZLIB_LIBS=`$PKG_CONFIG --libs ""${LIB_PREFIX}${ZLIB_NAME}"" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22438,9 +22446,9 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-                ZLIB_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs ""${LIB_PREFIX}zlib"" 2>&1`
+                ZLIB_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs ""${LIB_PREFIX}${ZLIB_NAME}"" 2>&1`
         else
-                ZLIB_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs ""${LIB_PREFIX}zlib"" 2>&1`
+                ZLIB_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs ""${LIB_PREFIX}${ZLIB_NAME}"" 2>&1`
         fi
         # Put the nasty error message in config.log where it belongs
         echo "$ZLIB_PKG_ERRORS" >&5
@@ -22477,20 +22485,25 @@ if test "x$with_mpg123" != "xno"
 then :
 
 
+  MPG123_NAME="libmpg123"
+  if test "x${LIB_PREFIX}" = "xbrew"; then
+    MPG123_NAME="mpg123"
+  fi
+
 pkg_failed=no
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for \"${LIB_PREFIX}libmpg123 >= 1.14.0\"" >&5
-printf %s "checking for \"${LIB_PREFIX}libmpg123 >= 1.14.0\"... " >&6; }
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for \"${LIB_PREFIX}${MPG123_NAME}\" >= 1.14.0" >&5
+printf %s "checking for \"${LIB_PREFIX}${MPG123_NAME}\" >= 1.14.0... " >&6; }
 
 if test -n "$MPG123_CFLAGS"; then
     pkg_cv_MPG123_CFLAGS="$MPG123_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}libmpg123 >= 1.14.0\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}libmpg123 >= 1.14.0"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}\${MPG123_NAME}\" >= 1.14.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}${MPG123_NAME}" >= 1.14.0") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_MPG123_CFLAGS=`$PKG_CONFIG --cflags ""${LIB_PREFIX}libmpg123 >= 1.14.0"" 2>/dev/null`
+  pkg_cv_MPG123_CFLAGS=`$PKG_CONFIG --cflags ""${LIB_PREFIX}${MPG123_NAME}" >= 1.14.0" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22502,12 +22515,12 @@ if test -n "$MPG123_LIBS"; then
     pkg_cv_MPG123_LIBS="$MPG123_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}libmpg123 >= 1.14.0\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}libmpg123 >= 1.14.0"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}\${MPG123_NAME}\" >= 1.14.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}${MPG123_NAME}" >= 1.14.0") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_MPG123_LIBS=`$PKG_CONFIG --libs ""${LIB_PREFIX}libmpg123 >= 1.14.0"" 2>/dev/null`
+  pkg_cv_MPG123_LIBS=`$PKG_CONFIG --libs ""${LIB_PREFIX}${MPG123_NAME}" >= 1.14.0" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22528,9 +22541,9 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-                MPG123_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs ""${LIB_PREFIX}libmpg123 >= 1.14.0"" 2>&1`
+                MPG123_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs ""${LIB_PREFIX}${MPG123_NAME}" >= 1.14.0" 2>&1`
         else
-                MPG123_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs ""${LIB_PREFIX}libmpg123 >= 1.14.0"" 2>&1`
+                MPG123_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs ""${LIB_PREFIX}${MPG123_NAME}" >= 1.14.0" 2>&1`
         fi
         # Put the nasty error message in config.log where it belongs
         echo "$MPG123_PKG_ERRORS" >&5
@@ -22546,7 +22559,7 @@ else
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 
-    MPG123_PKG="${LIB_PREFIX}libmpg123"
+    MPG123_PKG="${LIB_PREFIX}${MPG123_NAME}"
     MPG123_CFLAGS="-DMPT_WITH_MPG123 $MPG123_CFLAGS"
 
 fi
@@ -22893,20 +22906,26 @@ if test "x$with_portaudio" != "xno"
 then :
 
 
+  PORTAUDIO_NAME="portaudio-2.0"
+  if test "x${LIB_PREFIX}" = "xbrew"; then
+    PORTAUDIO_NAME="portaudio"
+  fi
+
+
 pkg_failed=no
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for \"${LIB_PREFIX}portaudio-2.0\"" >&5
-printf %s "checking for \"${LIB_PREFIX}portaudio-2.0\"... " >&6; }
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for \"${LIB_PREFIX}${PORTAUDIO_NAME}\"" >&5
+printf %s "checking for \"${LIB_PREFIX}${PORTAUDIO_NAME}\"... " >&6; }
 
 if test -n "$PORTAUDIO_CFLAGS"; then
     pkg_cv_PORTAUDIO_CFLAGS="$PORTAUDIO_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}portaudio-2.0\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}portaudio-2.0"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}\${PORTAUDIO_NAME}\"\""; } >&5
+  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}${PORTAUDIO_NAME}"") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_PORTAUDIO_CFLAGS=`$PKG_CONFIG --cflags ""${LIB_PREFIX}portaudio-2.0"" 2>/dev/null`
+  pkg_cv_PORTAUDIO_CFLAGS=`$PKG_CONFIG --cflags ""${LIB_PREFIX}${PORTAUDIO_NAME}"" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22918,12 +22937,12 @@ if test -n "$PORTAUDIO_LIBS"; then
     pkg_cv_PORTAUDIO_LIBS="$PORTAUDIO_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
-    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}portaudio-2.0\"\""; } >&5
-  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}portaudio-2.0"") 2>&5
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"\"\${LIB_PREFIX}\${PORTAUDIO_NAME}\"\""; } >&5
+  ($PKG_CONFIG --exists --print-errors ""${LIB_PREFIX}${PORTAUDIO_NAME}"") 2>&5
   ac_status=$?
   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_PORTAUDIO_LIBS=`$PKG_CONFIG --libs ""${LIB_PREFIX}portaudio-2.0"" 2>/dev/null`
+  pkg_cv_PORTAUDIO_LIBS=`$PKG_CONFIG --libs ""${LIB_PREFIX}${PORTAUDIO_NAME}"" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -22944,9 +22963,9 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-                PORTAUDIO_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs ""${LIB_PREFIX}portaudio-2.0"" 2>&1`
+                PORTAUDIO_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs ""${LIB_PREFIX}${PORTAUDIO_NAME}"" 2>&1`
         else
-                PORTAUDIO_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs ""${LIB_PREFIX}portaudio-2.0"" 2>&1`
+                PORTAUDIO_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs ""${LIB_PREFIX}${PORTAUDIO_NAME}"" 2>&1`
         fi
         # Put the nasty error message in config.log where it belongs
         echo "$PORTAUDIO_PKG_ERRORS" >&5
