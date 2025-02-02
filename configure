@@ -703,10 +703,20 @@ DX_ENV
 DX_DOCDIR
 DX_CONFIG
 DX_PROJECT
+HAVE_PORTAUDIOCPP_FALSE
+HAVE_PORTAUDIOCPP_TRUE
 PORTAUDIOCPP_LIBS
 PORTAUDIOCPP_CFLAGS
+HAVE_PORTAUDIO_FALSE
+HAVE_PORTAUDIO_TRUE
 PORTAUDIO_LIBS
 PORTAUDIO_CFLAGS
+ENABLE_TESTS_FALSE
+ENABLE_TESTS_TRUE
+ENABLE_EXAMPLES_FALSE
+ENABLE_EXAMPLES_TRUE
+ENABLE_OPENMPT123_FALSE
+ENABLE_OPENMPT123_TRUE
 LIBOPENMPT_LIBS_PRIVATE
 LIBOPENMPT_REQUIRES_PRIVATE
 VORBISFILE_LIBS
@@ -719,12 +729,6 @@ MPG123_LIBS
 MPG123_CFLAGS
 ZLIB_LIBS
 ZLIB_CFLAGS
-ENABLE_TESTS_FALSE
-ENABLE_TESTS_TRUE
-ENABLE_EXAMPLES_FALSE
-ENABLE_EXAMPLES_TRUE
-ENABLE_OPENMPT123_FALSE
-ENABLE_OPENMPT123_TRUE
 WIN32_CONSOLE_CFLAGS
 WIN32_CONSOLE_CXXFLAGS
 WIN32_CFLAGS
@@ -745,10 +749,6 @@ PTHREAD_LIBS
 PTHREAD_CXX
 PTHREAD_CC
 ax_pthread_config
-HAVE_PORTAUDIOCPP_FALSE
-HAVE_PORTAUDIOCPP_TRUE
-HAVE_PORTAUDIO_FALSE
-HAVE_PORTAUDIO_TRUE
 PKG_LIBS
 PKG_CFLAGS
 PKGCONFIG
@@ -897,14 +897,14 @@ with_gnu_ld
 with_sysroot
 enable_libtool_lock
 enable_largefile
-enable_openmpt123
-enable_examples
-enable_tests
 with_zlib
 with_mpg123
 with_ogg
 with_vorbis
 with_vorbisfile
+enable_openmpt123
+enable_examples
+enable_tests
 with_portaudio
 with_portaudiocpp
 enable_doxygen_doc
@@ -20591,27 +20591,9 @@ fi
 
 
 
-use_autobrew=no
 if test x"${libopenmpt_configtest}" = x"no"; then
     case x"${host_os}" in
         x"darwin"*)
-             if test 1; then
-  HAVE_PORTAUDIO_TRUE=
-  HAVE_PORTAUDIO_FALSE='#'
-else
-  HAVE_PORTAUDIO_TRUE='#'
-  HAVE_PORTAUDIO_FALSE=
-fi
-
-             if test 1; then
-  HAVE_PORTAUDIOCPP_TRUE=
-  HAVE_PORTAUDIOCPP_FALSE='#'
-else
-  HAVE_PORTAUDIOCPP_TRUE='#'
-  HAVE_PORTAUDIOCPP_FALSE=
-fi
-
-            use_autobrew=yes
             { printf "%s\n" "$as_me:${as_lineno-$LINENO}: Using pre-build brew formula" >&5
 printf "%s\n" "$as_me: Using pre-build brew formula" >&6;}
             curl -sfL "https://autobrew.github.io/scripts/libopenmpt" > autobrew
@@ -22389,59 +22371,8 @@ esac
 LIBOPENMPT_REQUIRES_PRIVATE=
 LIBOPENMPT_LIBS_PRIVATE=
 
-# openmpt123
-# Check whether --enable-openmpt123 was given.
-if test ${enable_openmpt123+y}
-then :
-  enableval=$enable_openmpt123;
-fi
-
- if test "x$enable_openmpt123" != "xno"; then
-  ENABLE_OPENMPT123_TRUE=
-  ENABLE_OPENMPT123_FALSE='#'
-else
-  ENABLE_OPENMPT123_TRUE='#'
-  ENABLE_OPENMPT123_FALSE=
-fi
-
-
-
-# examples
-# Check whether --enable-examples was given.
-if test ${enable_examples+y}
-then :
-  enableval=$enable_examples;
-fi
-
- if test "x$enable_examples" != "xno"; then
-  ENABLE_EXAMPLES_TRUE=
-  ENABLE_EXAMPLES_FALSE='#'
-else
-  ENABLE_EXAMPLES_TRUE='#'
-  ENABLE_EXAMPLES_FALSE=
-fi
-
-
-# tests
-# Check whether --enable-tests was given.
-if test ${enable_tests+y}
-then :
-  enableval=$enable_tests;
-fi
-
- if test "x$enable_tests" != "xno"; then
-  ENABLE_TESTS_TRUE=
-  ENABLE_TESTS_FALSE='#'
-else
-  ENABLE_TESTS_TRUE='#'
-  ENABLE_TESTS_FALSE=
-fi
-
-
-if test x"${use_autobrew}" = x"no"; then
-
-  # Required libopenmpt dependency: zlib
-  ZLIB_PKG=
+# Required libopenmpt dependency: zlib
+ZLIB_PKG=
 
 # Check whether --with-zlib was given.
 if test ${with_zlib+y}
@@ -22449,7 +22380,7 @@ then :
   withval=$with_zlib;
 fi
 
-  if test "x$with_zlib" != "xno"
+if test "x$with_zlib" != "xno"
 then :
 
 
@@ -22522,16 +22453,16 @@ else
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 
-      ZLIB_PKG=zlib
-      ZLIB_CFLAGS="-DMPT_WITH_ZLIB $ZLIB_CFLAGS"
+    ZLIB_PKG=zlib
+    ZLIB_CFLAGS="-DMPT_WITH_ZLIB $ZLIB_CFLAGS"
 
 fi
 
 
 fi
 
-  # Required libopenmpt dependency: mpg123
-  MPG123_PKG=
+# Required libopenmpt dependency: mpg123
+MPG123_PKG=
 
 # Check whether --with-mpg123 was given.
 if test ${with_mpg123+y}
@@ -22539,7 +22470,161 @@ then :
   withval=$with_mpg123;
 fi
 
-  if test "x$with_mpg123" != "xno"
+
+
+pkg_failed=no
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for libmpg123 >= 1.14.0" >&5
+printf %s "checking for libmpg123 >= 1.14.0... " >&6; }
+
+if test -n "$MPG123_CFLAGS"; then
+    pkg_cv_MPG123_CFLAGS="$MPG123_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libmpg123 >= 1.14.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libmpg123 >= 1.14.0") 2>&5
+  ac_status=$?
+  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_MPG123_CFLAGS=`$PKG_CONFIG --cflags "libmpg123 >= 1.14.0" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$MPG123_LIBS"; then
+    pkg_cv_MPG123_LIBS="$MPG123_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libmpg123 >= 1.14.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libmpg123 >= 1.14.0") 2>&5
+  ac_status=$?
+  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_MPG123_LIBS=`$PKG_CONFIG --libs "libmpg123 >= 1.14.0" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+                MPG123_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libmpg123 >= 1.14.0" 2>&1`
+        else
+                MPG123_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libmpg123 >= 1.14.0" 2>&1`
+        fi
+        # Put the nasty error message in config.log where it belongs
+        echo "$MPG123_PKG_ERRORS" >&5
+
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: TODO did not find mpg123" >&5
+printf "%s\n" "$as_me: TODO did not find mpg123" >&6;}
+elif test $pkg_failed = untried; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: TODO did not find mpg123" >&5
+printf "%s\n" "$as_me: TODO did not find mpg123" >&6;}
+else
+        MPG123_CFLAGS=$pkg_cv_MPG123_CFLAGS
+        MPG123_LIBS=$pkg_cv_MPG123_LIBS
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+
+   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: TODO found mpg123" >&5
+printf "%s\n" "$as_me: TODO found mpg123" >&6;}
+
+fi
+
+pkg_failed=no
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for brewmpg123" >&5
+printf %s "checking for brewmpg123... " >&6; }
+
+if test -n "$MPG123_CFLAGS"; then
+    pkg_cv_MPG123_CFLAGS="$MPG123_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"brewmpg123\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "brewmpg123") 2>&5
+  ac_status=$?
+  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_MPG123_CFLAGS=`$PKG_CONFIG --cflags "brewmpg123" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$MPG123_LIBS"; then
+    pkg_cv_MPG123_LIBS="$MPG123_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"brewmpg123\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "brewmpg123") 2>&5
+  ac_status=$?
+  printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_MPG123_LIBS=`$PKG_CONFIG --libs "brewmpg123" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+                MPG123_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "brewmpg123" 2>&1`
+        else
+                MPG123_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "brewmpg123" 2>&1`
+        fi
+        # Put the nasty error message in config.log where it belongs
+        echo "$MPG123_PKG_ERRORS" >&5
+
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: TODO did not find brewmpg123" >&5
+printf "%s\n" "$as_me: TODO did not find brewmpg123" >&6;}
+elif test $pkg_failed = untried; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: TODO did not find brewmpg123" >&5
+printf "%s\n" "$as_me: TODO did not find brewmpg123" >&6;}
+else
+        MPG123_CFLAGS=$pkg_cv_MPG123_CFLAGS
+        MPG123_LIBS=$pkg_cv_MPG123_LIBS
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+printf "%s\n" "yes" >&6; }
+
+   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: TODO found brewmpg123" >&5
+printf "%s\n" "$as_me: TODO found brewmpg123" >&6;}
+
+fi
+
+if test "x$with_mpg123" != "xno"
 then :
 
 
@@ -22612,16 +22697,16 @@ else
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 
-      MPG123_PKG=libmpg123
-      MPG123_CFLAGS="-DMPT_WITH_MPG123 $MPG123_CFLAGS"
+    MPG123_PKG=libmpg123
+    MPG123_CFLAGS="-DMPT_WITH_MPG123 $MPG123_CFLAGS"
 
 fi
 
 
 fi
 
-  # Required libopenmpt dependency: ogg
-  OGG_PKG=
+# Required libopenmpt dependency: ogg
+OGG_PKG=
 
 # Check whether --with-ogg was given.
 if test ${with_ogg+y}
@@ -22629,7 +22714,7 @@ then :
   withval=$with_ogg;
 fi
 
-  if test "x$with_ogg" != "xno"
+if test "x$with_ogg" != "xno"
 then :
 
 
@@ -22702,16 +22787,16 @@ else
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 
-      OGG_PKG=ogg
-      OGG_CFLAGS="-DMPT_WITH_OGG $OGG_CFLAGS"
+    OGG_PKG=ogg
+    OGG_CFLAGS="-DMPT_WITH_OGG $OGG_CFLAGS"
 
 fi
 
 
 fi
 
-  # Required libopenmpt dependency: vorbis
-  VORBIS_PKG=
+# Required libopenmpt dependency: vorbis
+VORBIS_PKG=
 
 # Check whether --with-vorbis was given.
 if test ${with_vorbis+y}
@@ -22719,7 +22804,7 @@ then :
   withval=$with_vorbis;
 fi
 
-  if test "x$with_vorbis" != "xno"
+if test "x$with_vorbis" != "xno"
 then :
 
 
@@ -22792,16 +22877,16 @@ else
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 
-      VORBIS_PKG=vorbis
-      VORBIS_CFLAGS="-DMPT_WITH_VORBIS $VORBIS_CFLAGS"
+    VORBIS_PKG=vorbis
+    VORBIS_CFLAGS="-DMPT_WITH_VORBIS $VORBIS_CFLAGS"
 
 fi
 
 
 fi
 
-  # Required libopenmpt dependency: vorbisfile
-  VORBISFILE_PKG=
+# Required libopenmpt dependency: vorbisfile
+VORBISFILE_PKG=
 
 # Check whether --with-vorbisfile was given.
 if test ${with_vorbisfile+y}
@@ -22809,7 +22894,7 @@ then :
   withval=$with_vorbisfile;
 fi
 
-  if test "x$with_vorbisfile" != "xno"
+if test "x$with_vorbisfile" != "xno"
 then :
 
 
@@ -22882,20 +22967,69 @@ else
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 
-      VORBISFILE_PKG=vorbisfile
-      VORBISFILE_CFLAGS="-DMPT_WITH_VORBISFILE $VORBISFILE_CFLAGS"
+    VORBISFILE_PKG=vorbisfile
+    VORBISFILE_CFLAGS="-DMPT_WITH_VORBISFILE $VORBISFILE_CFLAGS"
 
 fi
 
 
 fi
 
-  LIBOPENMPT_REQUIRES_PRIVATE="$ZLIB_PKG $MPG123_PKG $OGG_PKG $VORBIS_PKG $VORBISFILE_PKG"
-  LIBOPENMPT_LIBS_PRIVATE="$CXXSTDLIB_PCLIBSPRIVATE $LIBOPENMPT_LIBS_PRIVATE_WIN32"
+LIBOPENMPT_REQUIRES_PRIVATE="$ZLIB_PKG $MPG123_PKG $OGG_PKG $VORBIS_PKG $VORBISFILE_PKG"
+LIBOPENMPT_LIBS_PRIVATE="$CXXSTDLIB_PCLIBSPRIVATE $LIBOPENMPT_LIBS_PRIVATE_WIN32"
 
 
 
-  # Optional openmpt123 and examples dependency
+# openmpt123
+# Check whether --enable-openmpt123 was given.
+if test ${enable_openmpt123+y}
+then :
+  enableval=$enable_openmpt123;
+fi
+
+ if test "x$enable_openmpt123" != "xno"; then
+  ENABLE_OPENMPT123_TRUE=
+  ENABLE_OPENMPT123_FALSE='#'
+else
+  ENABLE_OPENMPT123_TRUE='#'
+  ENABLE_OPENMPT123_FALSE=
+fi
+
+
+
+# examples
+# Check whether --enable-examples was given.
+if test ${enable_examples+y}
+then :
+  enableval=$enable_examples;
+fi
+
+ if test "x$enable_examples" != "xno"; then
+  ENABLE_EXAMPLES_TRUE=
+  ENABLE_EXAMPLES_FALSE='#'
+else
+  ENABLE_EXAMPLES_TRUE='#'
+  ENABLE_EXAMPLES_FALSE=
+fi
+
+
+# tests
+# Check whether --enable-tests was given.
+if test ${enable_tests+y}
+then :
+  enableval=$enable_tests;
+fi
+
+ if test "x$enable_tests" != "xno"; then
+  ENABLE_TESTS_TRUE=
+  ENABLE_TESTS_FALSE='#'
+else
+  ENABLE_TESTS_TRUE='#'
+  ENABLE_TESTS_FALSE=
+fi
+
+
+# Optional openmpt123 and examples dependency
 
 # Check whether --with-portaudio was given.
 if test ${with_portaudio+y}
@@ -22903,10 +23037,10 @@ then :
   withval=$with_portaudio;
 fi
 
-  if test "x$enable_openmpt123$enable_examples" != "xnono"
+if test "x$enable_openmpt123$enable_examples" != "xnono"
 then :
 
-  if test "x$with_portaudio" != "xno"
+if test "x$with_portaudio" != "xno"
 then :
 
 
@@ -22969,16 +23103,16 @@ fi
         echo "$PORTAUDIO_PKG_ERRORS" >&5
 
 
-      have_portaudio=0
-      as_fn_error $? "Unable to find libportaudio." "$LINENO" 5
+    have_portaudio=0
+    as_fn_error $? "Unable to find libportaudio." "$LINENO" 5
 
 
 elif test $pkg_failed = untried; then
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
 
-      have_portaudio=0
-      as_fn_error $? "Unable to find libportaudio." "$LINENO" 5
+    have_portaudio=0
+    as_fn_error $? "Unable to find libportaudio." "$LINENO" 5
 
 
 else
@@ -22987,14 +23121,14 @@ else
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 
-      have_portaudio=1
-      PORTAUDIO_CFLAGS="-DMPT_WITH_PORTAUDIO $PORTAUDIO_CFLAGS"
+    have_portaudio=1
+    PORTAUDIO_CFLAGS="-DMPT_WITH_PORTAUDIO $PORTAUDIO_CFLAGS"
 
 fi
 
 else $as_nop
 
-    have_portaudio=0
+  have_portaudio=0
 
 
 fi
@@ -23002,7 +23136,7 @@ fi
 else $as_nop
   have_portaudio=0
 fi
-   if test x$have_portaudio = x1; then
+ if test x$have_portaudio = x1; then
   HAVE_PORTAUDIO_TRUE=
   HAVE_PORTAUDIO_FALSE='#'
 else
@@ -23011,7 +23145,7 @@ else
 fi
 
 
-  # Optional examples dependency: PortAudio C++
+# Optional examples dependency: PortAudio C++
 
 # Check whether --with-portaudiocpp was given.
 if test ${with_portaudiocpp+y}
@@ -23019,10 +23153,10 @@ then :
   withval=$with_portaudiocpp;
 fi
 
-  if test "x$enable_examples" != "xno"
+if test "x$enable_examples" != "xno"
 then :
 
-  if test "x$with_portaudiocpp" != "xno"
+if test "x$with_portaudiocpp" != "xno"
 then :
 
 
@@ -23085,16 +23219,16 @@ fi
         echo "$PORTAUDIOCPP_PKG_ERRORS" >&5
 
 
-      have_portaudiocpp=0
-      as_fn_error $? "Unable to find libportaudiocpp." "$LINENO" 5
+    have_portaudiocpp=0
+    as_fn_error $? "Unable to find libportaudiocpp." "$LINENO" 5
 
 
 elif test $pkg_failed = untried; then
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
 printf "%s\n" "no" >&6; }
 
-      have_portaudiocpp=0
-      as_fn_error $? "Unable to find libportaudiocpp." "$LINENO" 5
+    have_portaudiocpp=0
+    as_fn_error $? "Unable to find libportaudiocpp." "$LINENO" 5
 
 
 else
@@ -23103,14 +23237,14 @@ else
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 printf "%s\n" "yes" >&6; }
 
-      have_portaudiocpp=1
-      PORTAUDIOCPP_CFLAGS="-DMPT_WITH_PORTAUDIOCPP $PORTAUDIOCPP_CFLAGS"
+    have_portaudiocpp=1
+    PORTAUDIOCPP_CFLAGS="-DMPT_WITH_PORTAUDIOCPP $PORTAUDIOCPP_CFLAGS"
 
 fi
 
 else $as_nop
 
-    have_portaudiocpp=0
+  have_portaudiocpp=0
 
 
 fi
@@ -23118,7 +23252,7 @@ fi
 else $as_nop
   have_portaudiocpp=0
 fi
-   if test x$have_portaudiocpp = x1; then
+ if test x$have_portaudiocpp = x1; then
   HAVE_PORTAUDIOCPP_TRUE=
   HAVE_PORTAUDIOCPP_FALSE='#'
 else
@@ -23126,7 +23260,6 @@ else
   HAVE_PORTAUDIOCPP_FALSE=
 fi
 
-fi
 
 
 
@@ -25491,14 +25624,6 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${am__fastdepCXX_TRUE}" && test -z "${am__fastdepCXX_FALSE}"; then
   as_fn_error $? "conditional \"am__fastdepCXX\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${HAVE_PORTAUDIO_TRUE}" && test -z "${HAVE_PORTAUDIO_FALSE}"; then
-  as_fn_error $? "conditional \"HAVE_PORTAUDIO\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${HAVE_PORTAUDIOCPP_TRUE}" && test -z "${HAVE_PORTAUDIOCPP_FALSE}"; then
-  as_fn_error $? "conditional \"HAVE_PORTAUDIOCPP\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${ENABLE_OPENMPT123_TRUE}" && test -z "${ENABLE_OPENMPT123_FALSE}"; then
