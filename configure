@@ -703,12 +703,8 @@ DX_ENV
 DX_DOCDIR
 DX_CONFIG
 DX_PROJECT
-HAVE_PORTAUDIOCPP_FALSE
-HAVE_PORTAUDIOCPP_TRUE
 PORTAUDIOCPP_LIBS
 PORTAUDIOCPP_CFLAGS
-HAVE_PORTAUDIO_FALSE
-HAVE_PORTAUDIO_TRUE
 PORTAUDIO_LIBS
 PORTAUDIO_CFLAGS
 LIBOPENMPT_LIBS_PRIVATE
@@ -749,11 +745,10 @@ PTHREAD_LIBS
 PTHREAD_CXX
 PTHREAD_CC
 ax_pthread_config
-HAVE_PORTAUDIOCPP
-HAVE_PORTAUDIO
-ENABLE_TESTS
-ENABLE_EXAMPLES
-ENABLE_OPENMPT123
+HAVE_PORTAUDIOCPP_FALSE
+HAVE_PORTAUDIOCPP_TRUE
+HAVE_PORTAUDIO_FALSE
+HAVE_PORTAUDIO_TRUE
 PKG_LIBS
 PKG_CFLAGS
 PKGCONFIG
@@ -20600,10 +20595,21 @@ use_autobrew=no
 if test x"${libopenmpt_configtest}" = x"no"; then
     case x"${host_os}" in
         x"darwin"*)
+             if test 1; then
+  HAVE_PORTAUDIO_TRUE=
+  HAVE_PORTAUDIO_FALSE='#'
+else
+  HAVE_PORTAUDIO_TRUE='#'
+  HAVE_PORTAUDIO_FALSE=
+fi
 
-
-
-
+             if test 1; then
+  HAVE_PORTAUDIOCPP_TRUE=
+  HAVE_PORTAUDIOCPP_FALSE='#'
+else
+  HAVE_PORTAUDIOCPP_TRUE='#'
+  HAVE_PORTAUDIOCPP_FALSE=
+fi
 
             use_autobrew=yes
             { printf "%s\n" "$as_me:${as_lineno-$LINENO}: Using pre-build brew formula" >&5
@@ -25485,6 +25491,14 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${am__fastdepCXX_TRUE}" && test -z "${am__fastdepCXX_FALSE}"; then
   as_fn_error $? "conditional \"am__fastdepCXX\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${HAVE_PORTAUDIO_TRUE}" && test -z "${HAVE_PORTAUDIO_FALSE}"; then
+  as_fn_error $? "conditional \"HAVE_PORTAUDIO\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${HAVE_PORTAUDIOCPP_TRUE}" && test -z "${HAVE_PORTAUDIOCPP_FALSE}"; then
+  as_fn_error $? "conditional \"HAVE_PORTAUDIOCPP\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${ENABLE_OPENMPT123_TRUE}" && test -z "${ENABLE_OPENMPT123_FALSE}"; then
