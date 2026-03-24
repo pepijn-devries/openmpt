@@ -19,3 +19,18 @@ if(!file.exists("../windows/libopenmpt/include/libopenmpt.h")){
   file.rename(list.files(), 'libopenmpt')
   setwd(oldwd)
 }
+if (getRversion() >= "4.5") {
+  # If current R >= 4.5 ignore, included libs,
+  # instead use RTools CRAN safe libs
+  lib_pattern <- "sndfile|vorbisfile|vorbis|ogg|opus|zlib"
+  remove_rtools_libs <-
+    c(
+      list.files("../windows/libopenmpt/include",
+                 lib_pattern, full.names = TRUE),
+      list.files("../windows/libopenmpt/lib/pkgconfig",
+                 lib_pattern, full.names = TRUE),
+      list.files("../windows/libopenmpt/lib",
+                 lib_pattern, full.names = TRUE)
+    )
+  unlink(remove_rtools_libs, recursive = TRUE, force = TRUE)
+}

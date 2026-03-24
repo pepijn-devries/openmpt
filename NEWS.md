@@ -1,4 +1,4 @@
-openmpt v0.1.8.0002
+openmpt v0.1.8.0003
 -------------
 
   * Minor fixes

@@ -1,7 +1,14 @@
 RWINLIB = ../windows/libopenmpt
-PKG_CPPFLAGS = -I$(RWINLIB)/include -DLIBOPENMPT_NOT_A_DLL
-PKG_LIBS = -L$(RWINLIB)/lib -lopenmpt -lsndfile -lvorbisfile -lvorbis -logg -lopus \
-  -lmpg123 -lshlwapi -lportaudiocpp -lportaudio -lz -lwinmm -lole32 -lsetupapi
+
+# 1. Use pkg-config for libraries that ARE in Rtools (vorbis, opus, sndfile, zlib)
+# These versions are "CRAN-safe" and won't trigger abort/exit warnings.
+PKG_CPPFLAGS = -I$(RWINLIB)/include -DLIBOPENMPT_NOT_A_DLL \
+  $(shell pkg-config --cflags vorbisfile vorbis opus sndfile zlib)
+
+PKG_LIBS = -L$(RWINLIB)/lib -lopenmpt \
+  $(shell pkg-config --libs sndfile vorbisfile vorbis ogg opus zlib) \
+  -lmpg123 -lportaudiocpp -lportaudio -lshlwapi -lsetupapi -lwinmm -lole32 \
+  -Wl,--exclude-libs,ALL
 
 all: winlibs
 
