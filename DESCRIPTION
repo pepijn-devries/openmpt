@@ -1,6 +1,6 @@
 Package: openmpt
 Title: Open 'ModPlug' Tracker Port
-Version: 0.1.8.0001
+Version: 0.1.8.0003
 Authors@R: c(
     person("Pepijn", "de Vries", role = c("aut", "cre"),
       email = "pepijn.devries@outlook.com",
@@ -14,7 +14,7 @@ Authors@R: c(
       comment = "Copyright holder of cyberrid.mod"),
     person("OpenMPT Project Developers and Contributors", role = "cph")
     )
-Description:  Tracker music uses audio samples and
+Description: Tracker music uses audio samples and
     pattern tables to organise musical compositions.
     Such music is stored in module files. This package
     reads, renders and plays module files using
@@ -22,7 +22,7 @@ Description:  Tracker music uses audio samples and
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Depends:
     R (>= 4.1.0)
 Imports:

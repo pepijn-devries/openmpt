@@ -127,6 +127,7 @@ SEXP play_(SEXP mod, int samplerate, std::string progress, double duration) {
       if (!ISNA(duration) && playtime >= duration) break;
     }
     stream.stop();
+    portaudio_initializer.terminate();
   } catch ( const std::bad_alloc & ) {
     cpp11::stop("Out of memory");
   } catch ( const std::exception & e ) {

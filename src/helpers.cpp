@@ -11,7 +11,7 @@ bool has_audio_device_(void) {
     result = Pa_GetDeviceCount();
     Pa_Terminate();
   } catch(...) {
-    
+    Pa_Terminate();
   }
   return result > 0;
 }
