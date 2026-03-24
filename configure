@@ -8,7 +8,7 @@
 PKG_CONFIG_NAME="libopenmpt portaudio-2.0 portaudiocpp"
 PKG_DEB_NAME="libopenmpt-dev portaudio19-dev"
 PKG_RPM_NAME="libopenmpt-devel portaudio-devel"
-PKG_BREW_NAME="libopenmpt"
+PKG_BREW_NAME="libopenmpt portaudio-2.0"
 PKG_LIBS="-llibportaudio -llibportaudiocpp -llibopenmpt"
 PKG_TEST_HEADER="<libopenmpt/libopenmpt.hpp>"
 
@@ -34,6 +34,8 @@ elif [ `uname` = "Darwin" ]; then
     BREWDIR=`brew --prefix`
     PKG_CFLAGS="-I$BREWDIR/include $PKG_CFLAGS"
     PKG_LIBS="-L$BREWDIR/lib $PKG_LIBS"
+    PKG_LIBS=$(echo $PKG_LIBS | sed 's/-l/-Wl,-hidden-l/g')
+    PKG_LIBS="$PKG_LIBS -Wl,-dead_strip"
   else
     curl -sfL "https://autobrew.github.io/scripts/libopenmpt" > autobrew
     . ./autobrew
